@@ -478,7 +478,7 @@
           children:
             - name: "Overview"
               path: "pipelines/configure/dynamic-pipelines"
-            - name: "Using `if_changed`"
+            - name: "Using if_changed"
               path: "pipelines/configure/if-changed"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
