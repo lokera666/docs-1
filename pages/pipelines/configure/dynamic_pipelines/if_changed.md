@@ -1,6 +1,6 @@
 # Using `if_changed`
 
-THe `if_changed` feature can be uses as an agent-applied attribute on command, group, and trigger steps, as well as via CLI.
+The `if_changed` feature can be uses as an agent-applied attribute on command, group, and trigger steps, as well as via CLI.
 
 When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
