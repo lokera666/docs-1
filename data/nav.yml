@@ -479,7 +479,7 @@
             - name: "Overview"
               path: "pipelines/configure/dynamic-pipelines"
             - name: "Using if_changed"
-              path: "pipelines/configure/if-changed"
+              path: "pipelines/configure/dynamic-pipelines/if-changed"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
               pill: "preview"
