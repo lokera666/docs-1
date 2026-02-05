@@ -162,6 +162,7 @@ exceptions:
   - ID
   - IdP # TODO: unabbreviate this in headings
   - IDs
+  - if_changed
   - Infrastructure as Code
   - iOS
   - IronWorker
