@@ -8,10 +8,10 @@ When used as an agent-applied attribute, it will only be applied by the Buildkit
 
 From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
 
-Minimum Buildkite Agent versions:</em> 3.99 (with <code>--apply-if-changed</code> flag), 3.103.0 (enabled by default), 3.109.0 (expanded syntax).
+Minimum Buildkite Agent versions: 3.99 (with `--apply-if-changed` flag), 3.103.0 (enabled by default), 3.109.0 (expanded syntax).
 
 > 🚧
-> Agent-applied attributes are not accepted in pipelines set using the Buildkite interface.
+> The `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface.
 
 When enabled, steps containing an `if_changed` key are evaluated against the git diff. If the `if_changed` glob pattern match no files changed in the build, the step is skipped. Minimum Buildkite Agent version: v3.99 (with --apply-if-changed flag), v3.103.0 (enabled by default) [$BUILDKITE_AGENT_APPLY_IF_CHANGED, $BUILDKITE_AGENT_APPLY_SKIP_IF_UNCHANGED]. Environment variable `$BUILDKITE_AGENT_APPLY_IF_CHANGED`.
 
