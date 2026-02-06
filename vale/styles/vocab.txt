@@ -403,6 +403,7 @@ submenu
 subnet
 subnets
 subnet's
+subpatterns
 substrings
 sudo
 svg

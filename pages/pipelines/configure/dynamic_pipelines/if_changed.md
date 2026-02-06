@@ -14,55 +14,92 @@ When enabled, steps containing an `if_changed` key are evaluated against the Git
 
 ## Usage examples
 
-Example pipeline, demonstrating various forms of `if_changed`:
+These are some examples that demonstrate various forms of `if_changed`.
+
+### Single glob pattern
+
+The simplest form of `if_changed` uses a single glob pattern to match files. This step only runs if any `.go` file anywhere in the repository changes:
 
 ```yaml
 steps:
-  # if_changed can specify a single glob pattern.
-  # Note that YAML requires some strings to be quoted.
   - label: "Only run if a .go file anywhere in the repo is changed"
     if_changed: "**.go"
+```
 
-  # Braces {,} let you combine patterns and subpatterns.
-  # Note that this syntax is whitespace-sensitive: a space within a
-  # pattern is treated as part of the file path to be matched.
+> 📘
+> YAML requires some strings containing special characters to be quoted.
+
+### Brace expansion for multiple patterns
+
+Braces `{,}` let you combine patterns and subpatterns within a single string. This step only runs if `go.mod` or `go.sum` changes:
+
+```yaml
+steps:
   - label: "Only run if go.mod or go.sum are changed"
     if_changed: go.{mod,sum}
-    # Wrong: go.{mod, sum}
+```
 
-  # Combining the two previous examples:
+> 🚧
+> This syntax is whitespace-sensitive. A space within a pattern is treated as part of the file path to be matched. For example, `go.{mod, sum}` would not work as expected.
+
+You can combine recursive patterns with brace expansion. This step runs if any Go-related file changes:
+
+```yaml
+steps:
   - label: "Run if any Go-related file is changed"
     if_changed: "{**.go,go.{mod,sum}}"
+```
 
-  # A less Go-centric example:
+This step runs for any changes within the `app/` or `spec/` directories:
+
+```yaml
+steps:
   - label: "Run for any changes within app/ or spec/"
     if_changed: "{app/**,spec/**}"
+```
 
-  # From version 3.109 of the Buildkite Agent, lists of patterns
-  # are supported. If any changed file matches any of the patterns,
-  # the step is run. This can be a more ergonomic alternative to
-  # using braces.
+### Pattern lists
+
+Starting from version 3.109 of the Buildkite Agent, lists of patterns are supported. If any changed file matches any of the patterns, the step runs. This provides a more readable alternative to brace expansion.
+
+This step runs if any Go-related file changes:
+
+```yaml
+steps:
   - label: "Run if any Go-related file is changed"
     if_changed:
       - "**.go"
       - go.{mod,sum}
+```
 
+This step runs for any changes in the `app/` or `spec/` directories:
+
+```yaml
+steps:
   - label: "Run for any changes in app/ or spec/"
     if_changed:
       - app/**
       - spec/**
+```
 
-  # From version 3.109 of the Buildkite Agent, `include` and
-  # `exclude` are supported attributes. As for `if_changed`, these
-  # attributes may contain single patterns or lists of patterns.
-  # `exclude` eliminates changed files from causing a step to run.
-  # If the `exclude` attribute is present, then the `include` attribute,
-  # along with its pattern or list of patterns, is required too.
+### Include and exclude attributes
+
+Starting from version 3.109 of the Buildkite Agent, `include` and `exclude` attributes are supported. The `exclude` attribute eliminates matching files from causing a step to run. When using `exclude`, the `include` attribute is required.
+
+This step runs for changes in `spec/`, but not for changes in `spec/integration/`:
+
+```yaml
+steps:
   - label: "Run for changes in spec/, but not in spec/integration/"
     if_changed:
       include: spec/**
       exclude: spec/integration/**
+```
 
+Both `include` and `exclude` can use pattern lists. This step runs for changes in `api/` or `internal/`, but excludes `api/docs/` and any `.py` files in `internal/`:
+
+```yaml
+steps:
   - label: "Run for api and internal, but not api/docs or internal .py files"
     if_changed:
       include:
