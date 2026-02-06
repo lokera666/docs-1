@@ -12,9 +12,58 @@ The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-patt
 
 When enabled, steps containing an `if_changed` key are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
 
+## How change detection works
+
+The `if_changed` feature compares files against a base reference to determine what has changed:
+
+- **Default behavior**: Compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
+- **Pull request builds**: Automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
+- **Custom comparison base**: Override using environment variables:
+    - `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
+    - `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
+
+**Example with custom base:**
+
+```yaml
+steps:
+  - label: "Run if backend changed"
+    command: "make test-backend"
+    if_changed: "backend/**"
+    env:
+      BUILDKITE_GIT_DIFF_BASE: "origin/develop"
+```
+
+## Monorepo workflows
+
+The `if_changed` feature is particularly useful for monorepo workflows, providing built-in change detection without requiring the monorepo-diff plugin. This can eliminate an extra pipeline generation cycle ("spawn a job to spawn more jobs") and simplify your pipeline configuration.
+
+For example, in a monorepo with multiple services:
+
+```yaml
+steps:
+  - label: "Frontend tests"
+    command: "npm test"
+    if_changed: "frontend/**"
+
+  - label: "Backend tests"
+    command: "go test ./..."
+    if_changed:
+      - "backend/**"
+      - "go.{mod,sum}"
+
+  - label: "Documentation build"
+    command: "make docs"
+    if_changed: "docs/**"
+```
+
+For more details on monorepo strategies, see [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos).
+
 ## Usage examples
 
 These are some examples that demonstrate various forms of `if_changed`.
+
+> 🚧 Common mistake with dynamic pipelines
+> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file being uploaded, NOT in the step that performs the upload since the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
 
 ### Single glob pattern
 
@@ -109,3 +158,47 @@ steps:
         - api/docs/**
         - internal/**.py
 ```
+
+### Conditional pipeline triggers
+
+You can use `if_changed` on trigger steps to conditionally trigger downstream pipelines:
+
+```yaml
+steps:
+  - label: "Trigger deployment pipeline"
+    trigger: "deploy-production"
+    if_changed:
+      - "src/**"
+      - "Dockerfile"
+      - "deployment/**"
+    build:
+      message: "Deploy changes from ${BUILDKITE_BRANCH}"
+      commit: "${BUILDKITE_COMMIT}"
+      branch: "${BUILDKITE_BRANCH}"
+```
+
+## Troubleshooting
+
+### Step still runs when it shouldn't
+
+1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+)
+1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above)
+1. **Test your glob pattern**: The pattern is matched against file paths relative to your repository root
+1. **Check the comparison base**: By default, files are compared against `origin/main`. Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base
+
+### Pattern doesn't match expected files
+
+1. **Use the correct syntax**: The pattern uses non-bash glob or regex syntax
+1. **Mind the whitespace**: In brace expansions like `{mod,sum}`, spaces are treated as part of the pattern
+1. **Quote special characters**: In YAML, patterns starting with `*` or other special characters must be quoted
+1. **Test locally**: You can test patterns using `git diff --name-only origin/main` to see which files changed
+
+### Agent shows "skipped" for all steps
+
+This can happen if:
+
+- The comparison base branch doesn't exist in your repository
+- You're working with a shallow clone that doesn't have the base branch
+- No files actually changed in the build
+
+Consider using `--changed-files-path` for shallow clone scenarios.
