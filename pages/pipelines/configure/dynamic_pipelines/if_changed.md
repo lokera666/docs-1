@@ -1,17 +1,18 @@
 # Using `if_changed`
 
-The `if_changed` feature can be uses as an agent-applied attribute on command, group, and trigger steps, as well as via CLI.
+The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that omits the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows to detect changes in the repository and only build what changed.
 
-When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+> 📘 Notes on agent version requirements
+> The minimum Buildkite Agent version required for using `if_changed` is v3.99 (with `--apply-if-changed` flag). Starting with Buildkite Agent version v3.103.0 and newer, this feature is enabled by default. From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
 
-`if_changed` is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that omits the step from a build if it does not match any files changed in the build. For example:`**.go,go.mod,go.sum,fixtures/**`.
-
-From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
+`if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/v3/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
 
 > 🚧
-> The `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface.
+> The `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
-When enabled, steps containing an `if_changed` key are evaluated against the git diff. If the `if_changed` glob pattern match no files changed in the build, the step is skipped. Minimum Buildkite Agent version: v3.99 (with `--apply-if-changed` flag), v3.103.0 (enabled by default) [$BUILDKITE_AGENT_APPLY_IF_CHANGED, $BUILDKITE_AGENT_APPLY_SKIP_IF_UNCHANGED]. Environment variable `$BUILDKITE_AGENT_APPLY_IF_CHANGED`.
+When enabled, steps containing an `if_changed` key are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
+
+## Usage examples
 
 Example pipeline, demonstrating various forms of `if_changed`:
 
