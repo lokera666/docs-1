@@ -19,8 +19,8 @@ The `if_changed` feature compares files against a base reference to determine wh
 - **Default behavior**: Compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
 - **Pull request builds**: Automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
 - **Custom comparison base**: Override using environment variables:
-    - `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
-    - `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
+    * `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
+    * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
 
 **Example with custom base:**
 
