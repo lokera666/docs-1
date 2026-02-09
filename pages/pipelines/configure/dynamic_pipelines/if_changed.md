@@ -69,7 +69,7 @@ When the `if_changed` pattern doesn't match any changed files, the step is **ski
 
 This is similar to using a `skip` attribute, but the decision is made dynamically based on file changes rather than being pre-determined.
 
-## Glob pattern Reference
+## Glob pattern reference
 
 The `if_changed` feature uses the [zzglob](https://github.com/DrJosh9000/zzglob) pattern syntax, which is similar to standard glob patterns but with some differences. For complete pattern syntax details, see [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax).
 
@@ -205,7 +205,7 @@ steps:
 Starting from Buildkite Agent version 3.109.0, you can provide a custom list of changed files instead of relying on git diff. This is useful when:
 
 - Working with shallow clones where git history is limited
-- Using external monorepo tools (Bazel, Nx, Turborepo) that have their own change detection
+- Using external monorepo tools (for example, [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
 - Integrating with CI systems that already compute changed files upstream
 - Working with non-git repositories
 
