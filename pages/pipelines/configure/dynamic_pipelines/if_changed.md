@@ -41,13 +41,13 @@ For more details on monorepo strategies, see [Working with monorepos](/docs/pipe
 
 The `if_changed` feature compares files against a base reference to determine what has changed:
 
-- **Default behavior**: Compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
-- **Pull request builds**: Automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
-- **Custom comparison base**: Override using environment variables:
+- Default behavior - compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
+- Pull request builds - automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
+- Custom comparison base - override using environment variables:
     * `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
     * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
 
-**Example with custom base:**
+Example with a custom comparison base:
 
 ```yaml
 steps:
@@ -60,14 +60,14 @@ steps:
 
 ## What happens when steps are skipped
 
-When the `if_changed` pattern doesn't match any changed files, the step is **skipped** (not removed). In the Buildkite UI:
+When the `if_changed` pattern doesn't match any changed files, the step is [skipped](/docs/pipelines/configure/dependencies#how-skipped-steps-affect-dependencies) (not removed). In the Buildkite Pipelines interface:
 
-- The step appears in your build with a "skipped" status
+- Such step appears in your build with a "skipped" status
 - The step's dependencies and dependents are handled appropriately
 - Build annotations and metadata are still accessible
 - The overall build continues to the next steps
 
-This is similar to using a `skip` attribute, but the decision is made dynamically based on file changes rather than being pre-determined.
+This is similar to using a `skip` [attribute](/docs/pipelines/configure/step-types/command-step#command-step-attributes), but the decision is made dynamically based on file changes rather than being pre-determined.
 
 ## Glob pattern reference
 
@@ -132,7 +132,7 @@ steps:
 
 ### Pattern lists
 
-Starting from version 3.109 of the Buildkite Agent, lists of patterns are supported. If any changed file matches any of the patterns, the step runs. This provides a more readable alternative to brace expansion.
+Starting with Buildkite Agent version 3.109, lists of patterns are supported. If any changed file matches any of the patterns, the step runs. This provides a more readable alternative to brace expansion.
 
 This step runs if any Go-related file changes:
 
@@ -156,7 +156,7 @@ steps:
 
 ### Include and exclude attributes
 
-Starting from version 3.109 of the Buildkite Agent, `include` and `exclude` attributes are supported. The `exclude` attribute eliminates matching files from causing a step to run. When using `exclude`, the `include` attribute is required.
+Starting with Buildkite Agent version 3.109, `include` and `exclude` attributes are supported. The `exclude` attribute eliminates matching files from causing a step to run. When using `exclude`, the `include` attribute is required.
 
 This step runs for changes in `spec/`, but not for changes in `spec/integration/`:
 
@@ -202,9 +202,9 @@ steps:
 
 ## Advanced use cases for if_changed
 
-Starting from Buildkite Agent version 3.109.0, you can provide a custom list of changed files instead of relying on git diff. This is useful when:
+Starting with Buildkite Agent version 3.109.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
 
-- Working with shallow clones where git history is limited
+- Working with shallow clones where Git history is limited
 - Using external monorepo tools (for example, [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
 - Integrating with CI systems that already compute changed files upstream
 - Working with non-git repositories
@@ -238,28 +238,28 @@ The file format is a newline-separated list of file paths relative to the reposi
 
 ## Troubleshooting
 
-In this section, you can find some of the common issues that you might run into when using the `if_changed` feature and how to solve them.
+In this section, you can find some of the issues that you might run into when using the `if_changed` feature and how to solve them.
 
 ### Step still runs when it shouldn't
 
-1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+)
-1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above)
-1. **Test your glob pattern**: The pattern is matched against file paths relative to your repository root
-1. **Check the comparison base**: By default, files are compared against `origin/main`. Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base
+1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+).
+1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above).
+1. **Test your glob pattern**: The pattern is matched against file paths relative to your repository root.
+1. **Check the comparison base**: By default, files are compared against `origin/main`. Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
 
 ### Pattern doesn't match expected files
 
-1. **Use the correct syntax**: The pattern uses non-bash glob or regex syntax
-1. **Mind the whitespace**: In brace expansions like `{mod,sum}`, spaces are treated as part of the pattern
-1. **Quote special characters**: In YAML, patterns starting with `*` or other special characters must be quoted
-1. **Test locally**: You can test patterns using `git diff --name-only origin/main` to see which files changed
+1. **Use the correct syntax**: The pattern uses non-bash glob or regex syntax.
+1. **Mind the whitespace**: In brace expansions like `{mod,sum}`, spaces are treated as part of the pattern.
+1. **Quote special characters**: In YAML, patterns starting with `*` or other special characters must be quoted.
+1. **Test locally**: You can test patterns using `git diff --name-only origin/main` to see which files changed.
 
 ### Agent shows "skipped" for all steps
 
 This can happen if:
 
-- The comparison base branch doesn't exist in your repository
-- You're working with a shallow clone that doesn't have the base branch
-- No files actually changed in the build
+- The comparison base branch doesn't exist in your repository.
+- You're working with a shallow clone that doesn't have the base branch.
+- No files actually changed in the build.
 
 Consider using `--changed-files-path` for shallow clone scenarios.
