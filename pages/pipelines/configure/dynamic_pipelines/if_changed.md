@@ -12,27 +12,6 @@ The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-patt
 
 When enabled, steps containing an `if_changed` key are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
 
-## How change detection works
-
-The `if_changed` feature compares files against a base reference to determine what has changed:
-
-- **Default behavior**: Compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
-- **Pull request builds**: Automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
-- **Custom comparison base**: Override using environment variables:
-    * `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
-    * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
-
-**Example with custom base:**
-
-```yaml
-steps:
-  - label: "Run if backend changed"
-    command: "make test-backend"
-    if_changed: "backend/**"
-    env:
-      BUILDKITE_GIT_DIFF_BASE: "origin/develop"
-```
-
 ## Monorepo workflows
 
 The `if_changed` feature is particularly useful for monorepo workflows, providing built-in change detection without requiring the monorepo-diff plugin. This can eliminate an extra pipeline generation cycle ("spawn a job to spawn more jobs") and simplify your pipeline configuration.
@@ -58,12 +37,56 @@ steps:
 
 For more details on monorepo strategies, see [Working with monorepos](/docs/pipelines/best-practices/working-with-monorepos).
 
+## How change detection works
+
+The `if_changed` feature compares files against a base reference to determine what has changed:
+
+- **Default behavior**: Compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
+- **Pull request builds**: Automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
+- **Custom comparison base**: Override using environment variables:
+    * `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
+    * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
+
+**Example with custom base:**
+
+```yaml
+steps:
+  - label: "Run if backend changed"
+    command: "make test-backend"
+    if_changed: "backend/**"
+    env:
+      BUILDKITE_GIT_DIFF_BASE: "origin/develop"
+```
+
+## What happens when steps are skipped
+
+When the `if_changed` pattern doesn't match any changed files, the step is **skipped** (not removed). In the Buildkite UI:
+
+- The step appears in your build with a "skipped" status
+- The step's dependencies and dependents are handled appropriately
+- Build annotations and metadata are still accessible
+- The overall build continues to the next steps
+
+This is similar to using a `skip` attribute, but the decision is made dynamically based on file changes rather than being pre-determined.
+
+## Glob pattern Reference
+
+The `if_changed` feature uses the [zzglob](https://github.com/DrJosh9000/zzglob) pattern syntax, which is similar to standard glob patterns but with some differences. For complete pattern syntax details, see [Glob pattern syntax](/docs/pipelines/configure/glob-pattern-syntax).
+
+The key pattern features are:
+
+- `**` matches any number of directories
+- `*` matches any characters within a single path segment
+- `?` matches a single character
+- `{option1,option2}` matches either option (brace expansion)
+- Character classes like `[abc]` or `[0-9]`
+
 ## Usage examples
 
-These are some examples that demonstrate various forms of `if_changed`.
+These are some examples that demonstrate various forms of the `if_changed` feature.
 
 > 🚧 Common mistake with dynamic pipelines
-> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file being uploaded, NOT in the step that performs the upload since the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
+> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file that uploaded during the `buildkite-agent pipeline upload` command, NOT in the step that performs the upload. This is necessary because the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
 
 ### Single glob pattern
 
@@ -177,7 +200,45 @@ steps:
       branch: "${BUILDKITE_BRANCH}"
 ```
 
+## Advanced use cases for if_changed
+
+Starting from Buildkite Agent version 3.109.0, you can provide a custom list of changed files instead of relying on git diff. This is useful when:
+
+- Working with shallow clones where git history is limited
+- Using external monorepo tools (Bazel, Nx, Turborepo) that have their own change detection
+- Integrating with CI systems that already compute changed files upstream
+- Working with non-git repositories
+
+Use the `--changed-files-path` flag or `BUILDKITE_CHANGED_FILES_PATH` environment variable:
+
+```bash
+# Generate changed files list (example with custom tooling)
+echo "src/main.go
+pkg/feature/handler.go
+README.md" > changed-files.txt
+
+# Upload pipeline with custom changed files
+buildkite-agent pipeline upload --changed-files-path changed-files.txt
+```
+
+Or using the environment variable:
+
+```yaml
+steps:
+  - label: ":pipeline: Upload dynamic steps"
+    command: |
+      # Your custom change detection
+      nx affected:apps --plain > changed-files.txt
+      buildkite-agent pipeline upload
+    env:
+      BUILDKITE_CHANGED_FILES_PATH: "changed-files.txt"
+```
+
+The file format is a newline-separated list of file paths relative to the repository root.
+
 ## Troubleshooting
+
+In this section, you can find some of the common issues that you might run into when using the `if_changed` feature and how to solve them.
 
 ### Step still runs when it shouldn't
 
