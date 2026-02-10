@@ -225,7 +225,7 @@ Or using the environment variable:
 
 ```yaml
 steps:
-  - label: ":pipeline: Upload dynamic steps"
+  - label: "\:pipeline\: Upload dynamic steps"
     command: |
       # Your custom change detection
       nx affected:apps --plain > changed-files.txt
