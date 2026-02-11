@@ -79,25 +79,25 @@ A number of CSS classes are accepted in annotations. These include a subset of l
 ### Basscss
 
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
-Annotation in Buildkiet Pipelines accept the following parts of version 8.0 of Basscss within annotations:
+Annotation in Buildkite Pipelines accept the following parts of version 8.0 of Basscss within annotations:
 
-* [Align](http://basscss.com/#basscss-align)
-* [Border](http://basscss.com/#basscss-border)
-* [Button](https://basscss.com/v7/docs/btn/)
-* [Background Colors](https://basscss.com/v7/docs/background-colors/)
-* [Colors](https://basscss.com/v7/docs/colors/)
-* [Flexbox](http://basscss.com/#basscss-flexbox)
-  - All except `sm-flex`, `md-flex` and `lg-flex`
-* [Margin](http://basscss.com/#basscss-margin)
-* [Layout](http://basscss.com/#basscss-layout)
-  - All except Floats (Please use Flexbox instead)
-* [Padding](http://basscss.com/#basscss-padding)
-* [Typography](http://basscss.com/#basscss-typography)
-  - `bold`, `regular`, `italic`, `caps`
-  - `left-align`, `center`, `right-align`, `justify`
-  - `underline`, `truncate`
-  - `list-reset`
-* [Type Scale](http://basscss.com/#basscss-type-scale)
+- [Align](http://basscss.com/#basscss-align)
+- [Border](http://basscss.com/#basscss-border)
+- [Button](https://basscss.com/v7/docs/btn/)
+- [Background Colors](https://basscss.com/v7/docs/background-colors/)
+- [Colors](https://basscss.com/v7/docs/colors/)
+- [Flexbox](http://basscss.com/#basscss-flexbox)
+  * All except `sm-flex`, `md-flex` and `lg-flex`
+- [Margin](http://basscss.com/#basscss-margin)
+- [Layout](http://basscss.com/#basscss-layout)
+  * All except Floats (Please use Flexbox instead)
+- [Padding](http://basscss.com/#basscss-padding)
+- [Typography](http://basscss.com/#basscss-typography)
+  * `bold`, `regular`, `italic`, `caps`
+  * `left-align`, `center`, `right-align`, `justify`
+  * `underline`, `truncate`
+  * `list-reset`
+- [Type Scale](http://basscss.com/#basscss-type-scale)
 
 An exhaustive list of classes that annotations support can be found below:
 
