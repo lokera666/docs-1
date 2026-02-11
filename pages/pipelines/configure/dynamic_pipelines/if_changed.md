@@ -1,6 +1,6 @@
 # Using `if_changed`
 
-The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that omits the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows to detect changes in the repository and only build what changed.
+The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that skips the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows to detect changes in the repository and only build what changed.
 
 > 📘 Notes on agent version requirements
 > The minimum Buildkite Agent version required for using `if_changed` is v3.99 (with `--apply-if-changed` flag). Starting with Buildkite Agent version v3.103.0 and newer, this feature is enabled by default. From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
