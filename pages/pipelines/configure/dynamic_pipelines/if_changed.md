@@ -64,7 +64,6 @@ When the `if_changed` pattern doesn't match any changed files, the step is [skip
 
 - Such step appears in your build with a "skipped" status
 - The step's dependencies and dependents are handled appropriately
-- Build annotations and metadata are still accessible
 - The overall build continues to the next steps
 
 This is similar to using a `skip` [attribute](/docs/pipelines/configure/step-types/command-step#command-step-attributes), but the decision is made dynamically based on file changes rather than being pre-determined.
