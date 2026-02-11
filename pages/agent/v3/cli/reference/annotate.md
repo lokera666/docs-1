@@ -4,11 +4,16 @@ The Buildkite Agent's `annotate` command allows you to add additional informatio
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
+You can create annotations in two ways:
+
+- **From within a build job** using the [`buildkite-agent annotate`](#creating-an-annotation) command. This is the most common approach and runs as part of your pipeline steps.
+- **From outside a build** using the [REST API](#creating-annotations-via-the-rest-api). This is useful for external tools or services that need to add annotations to a build without running inside an agent job.
+
 ## Creating an annotation
 
 The `buildkite-agent annotate` command creates an annotation associated with the current build.
 
-There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each. All annotations can be retrieved using the [GraphQL API](/docs/apis/graphql-api) or the [REST API](/docs/apis/rest-api/annotations).
+There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each. All annotations can be retrieved using the [GraphQL API](/docs/apis/graphql/schemas/object/annotation) or the [REST API](/docs/apis/rest-api/annotations). You can also create annotations programmatically using the [buildAnnotate](/docs/apis/graphql/schemas/mutation/buildannotate) GraphQL mutation.
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
@@ -54,7 +59,7 @@ Job-scoped annotations are particularly useful for:
 - Results from parallel jobs that need to be viewed separately
 - Build matrices where each job produces different output
 
-Job-scoped annotations appear inline with their corresponding job in the modern build UI, while build-scoped annotations appear in the Annotations tab at the build level.
+Job-scoped annotations appear inline with their corresponding job in the modern build UI, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
 
 > 📘 Version requirements
 > Job-scoped annotations require Buildkite Agent v3.112 or newer
@@ -244,28 +249,29 @@ In addition to using the `buildkite-agent annotate` command, you can create, lis
 
 ### Create an annotation
 
-```
-curl -X POST "[https://api.buildkite.com/v2/organizations/\{org.slug\}/pipelines/\{pipeline.slug\}/builds/\{build.number\}/annotations](https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations)" \\
-	-H "Authorization: Bearer \$TOKEN" \\
-	-d '\{
-		"body": "### Example annotationnnThis was created via the REST API",
-		"style": "info",
-		"context": "rest-api-example"
-	\}'
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "body": "### Example annotation\n\nThis was created via the REST API",
+    "style": "info",
+    "context": "rest-api-example"
+  }'
 ```
 
 ### List annotations for a build
 
-```
-curl -X GET "[https://api.buildkite.com/v2/organizations/\{org.slug\}/pipelines/\{pipeline.slug\}/builds/\{build.number\}/annotations](https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations)" \\
-	-H "Authorization: Bearer \$TOKEN"
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
 ```
 
 ### Delete an annotation
 
-```
-curl -X DELETE "[https://api.buildkite.com/v2/organizations/\{org.slug\}/pipelines/\{pipeline.slug\}/builds/\{build.number\}/annotations/\{annotation.id\}](https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations/{annotation.id})" \\
-	-H "Authorization: Bearer \$TOKEN"
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations/{annotation.uuid}"
 ```
 
 For complete API documentation, see the [Annotations REST API reference](/docs/apis/rest-api/annotations).
@@ -274,7 +280,7 @@ For complete API documentation, see the [Annotations REST API reference](/docs/a
 
 Annotations are a great way of rendering test failures that occur in different steps in a pipeline.
 
-We've created a plugin to convert all the junit.xml artifacts in a build into a single annotation: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
+The [junit-annotate plugin](https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin) converts all the junit.xml artifacts in a build into a single annotation:
 
 ```yaml
 steps:
@@ -288,3 +294,5 @@ steps:
           artifacts: tmp/junit-*.xml
 ```
 {: codeblock-file="pipeline.yml"}
+
+If you use Bazel as your build tool, see [Creating dynamic pipelines and build annotations using Bazel](/docs/pipelines/tutorials/dynamic-pipelines-and-annotations-using-bazel) for a tutorial on generating annotations from Bazel build events.
