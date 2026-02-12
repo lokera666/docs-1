@@ -39,15 +39,16 @@ For more details on monorepo strategies, see [Working with monorepos](/docs/pipe
 
 ## How change detection works
 
-The `if_changed` feature compares files against a base reference to determine what has changed:
+The `if_changed` feature compares files against a base reference to determine what has changed (conceptually `git diff --merge-base <base>`).
 
-- Default behavior - compares against `origin/main` (conceptually `git diff --merge-base origin/main`)
-- Pull request builds - automatically uses the `BUILDKITE_PULL_REQUEST_BASE_BRANCH` environment variable
-- Custom comparison base - override using environment variables:
-    * `BUILDKITE_GIT_DIFF_BASE`: Explicitly set the comparison base
-    * `BUILDKITE_PULL_REQUEST_BASE_BRANCH`: Set the PR base branch
+The agent resolves the comparison base by checking the following in order, using the first valid value:
 
-Example with a custom comparison base:
+1. The [`--git-diff-base`](/docs/agent/v3/cli/reference/pipeline#git-diff-base) agent configuration flag or `BUILDKITE_GIT_DIFF_BASE` environment variable
+1. `origin/$BUILDKITE_PULL_REQUEST_BASE_BRANCH` (automatically set on pull request builds)
+1. `origin/$BUILDKITE_PIPELINE_DEFAULT_BRANCH` (the pipeline's configured default branch)
+1. `origin/main`
+
+For example, to explicitly set the comparison base:
 
 ```yaml
 steps:
@@ -241,10 +242,10 @@ In this section, you can find some of the issues that you might run into when us
 
 ### Step still runs when it shouldn't
 
-1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+).
+1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed) at the start of this page).
 1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above).
 1. **Test your glob pattern**: The pattern is matched against file paths relative to your repository root.
-1. **Check the comparison base**: By default, files are compared against `origin/main`. Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
+1. **Check the comparison base**: The agent resolves the comparison base using a [specific order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works). Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
 
 ### Pattern doesn't match expected files
 
