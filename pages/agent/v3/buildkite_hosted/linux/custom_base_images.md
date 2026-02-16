@@ -91,6 +91,7 @@ To embed hooks in your agent image's Dockerfile:
 Once you have [created an agent image](#create-an-agent-image), you can use it by doing either of the following:
 
 - [Setting it as the default image for a queue](#use-an-agent-image-set-a-default-image-for-a-queue) in the Buildkite interface.
+- [Setting a custom image URL](#use-an-agent-image-set-a-custom-image-url) through the Buildkite interface or API.
 - [Specifying the image in your pipeline YAML](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml), which allows different steps to use different images within the same queue.
 
 ### Set a default image for a queue
@@ -104,9 +105,28 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 1. On the **Queues** page, select the Buildkite hosted queue based on Linux architecture.
 1. Select the **Base Image** tab to open its settings.
 1. In the **Agent image** dropdown, select your agent image.
+1. Optionally, in the **Image URL** field, enter a custom image URL. When set, this URL overrides the selection from the **Agent image** dropdown. The image must be publicly available or pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
 1. Select **Save settings** to save this update.
 
 <%= image "hosted-agents-queue-image.png", width: 1760, height: 436, alt: "Buildkite hosted agents queue image setting displayed in the Buildkite interface" %>
+
+### Set a custom image URL
+
+You can set a custom image URL for a Buildkite hosted queue. When set, this URL overrides the agent image selected from the **Agent image** dropdown. The image must be publicly available or pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+
+To set a custom image URL through the Buildkite interface:
+
+1. Select **Agents** in the global navigation to access the **Clusters** page.
+1. Select the cluster with the Buildkite hosted queue.
+1. On the **Queues** page, select the Buildkite hosted queue.
+1. Select the **Base Image** tab to open its settings.
+1. In the **Image URL** field, enter the custom image URL.
+1. Select **Save settings** to save this update.
+
+You can also set a custom image URL through the API:
+
+- **REST API:** Use the `agentImageRef` parameter in the `hostedAgents` object when [creating](/docs/apis/rest-api/clusters/queues#create-a-buildkite-hosted-queue) or [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
+- **GraphQL API:** Use the `agentImageRef` field in the `hostedAgents` input when calling the [`clusterQueueUpdate` mutation](/docs/apis/graphql/cookbooks/hosted-agents#set-a-custom-image-url-for-a-buildkite-hosted-queue).
 
 ### Specify an image in your pipeline YAML
 
