@@ -23,7 +23,7 @@ To define the steps:
 1. Decide the goal of the pipeline.
 1. Look for an [example pipeline](https://buildkite.com/resources/examples/) closest to that goal or a [pipeline template](https://buildkite.com/pipelines/templates) relevant to your technology stack and use case. (You can copy parts of the pipeline definition as a starting point.)
 
-    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/migration/pipeline-converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
+    **Note:** If you have a pipeline or workflow defined in another CI/CD platform, such as GitHub Actions, Jenkins, CircleCI, or Bitbucket Pipelines, you can use the [Pipeline converter](/docs/pipelines/converter) to help you convert your pipeline or workflow syntax into Buildkite pipeline syntax.
 
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
@@ -58,12 +58,11 @@ To create a new pipeline:
 1. Select **Pipelines** to navigate to the [Buildkite dashboard](https://buildkite.com/).
 1. Select **New pipeline**.
 
-    **Note:** On the **New Pipeline** page, if you're prompted to connect your Git repositories from an existing account (for example, GitHub, Bitbucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
-    After connecting your account, you can select its repositories from the dropdown during pipeline creation and enable automatic webhook creation.
+    **Note:** On this page page, you can connect your Git repositories from any remotely accessible Git repository through one of the **Git scope** > **Use remote URL** options (for example, from a Bitbucket, GitLab, or GitHub account, or, if you'd already [signed up with GitHub](/docs/pipelines/getting-started#before-you-start), a different GitHub account). After connecting your account, you can select its repositories from the **Repository** dropdown during pipeline creation.
 
-1. If you connected your account, select the appropriate repository from the list of existing ones in your account. Otherwise, select **Any account** from the dropdown and type the URL of the repository to be built.
-1. Enter your pipeline's details in the respective **Name** and **Description** fields. You can always change these details later from your pipeline's settings.
-1. In the **Steps** editor, ensure there's a step to upload the definition from your repository:
+1. If you connected your account (in the **Git scope** field), select the appropriate **Repository** from the list of existing ones in your account.
+1. Enter your pipeline's details in the respective **Pipeline name** and **Description** fields. You can always change these details later from your pipeline's settings.
+1. In the **YAML Steps editor** field, ensure there's a step to upload the definition from your repository, which you can generate automatically using the **Pipeline upload** option from the **Template** dropdown:
 
     ```yaml
     steps:
@@ -71,8 +70,8 @@ To create a new pipeline:
         command: buildkite-agent pipeline upload
     ```
 
-1. Select **Create Pipeline**.
-1. On the next page showing your pipeline name, select **New Build**. In the modal that opens, create a build using the pre-filled details.
+1. Select **Create pipeline**.
+1. On the next page showing your pipeline name, select **New Build**. In the resulting dialog, create a build using the pre-filled details.
 
    1. In the **Message** field, enter a short description for the build. For example, **My first build**.
    1. Select **Create Build**.
@@ -113,7 +112,7 @@ We recommend you continue by:
 - Learning to [create more complex pipelines](/docs/pipelines/configure/defining-steps) with dynamic definitions, conditionals, and concurrency.
 - Browse the [pipeline templates](https://buildkite.com/pipelines/templates) to see how Buildkite is used across different technology stacks and use cases.
 - If you have configured self-hosted queues with agents, customizing your [agent configuration](/docs/agent/v3/self-hosted/configure).
-- Learning to use [lifecycle hooks](/docs/agent/v3/self-hosted/hooks).
+- Learning to use [lifecycle hooks](/docs/agent/v3/hooks).
 - Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/pipelines/integrations/plugins) and the [API](/docs/apis).
 
 Remember, this is just the start of your journey with Buildkite. Take time to explore, learn, and experiment to make the most out of your pipelines. Happy building!

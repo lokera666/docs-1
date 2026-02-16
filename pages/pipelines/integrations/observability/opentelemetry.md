@@ -29,7 +29,7 @@ Please provide the base URL for your OTLP endpoint. Do not include the `/v1/trac
 
 - We currently only support the [OTLP/HTTP](https://opentelemetry.io/docs/specs/otlp/#otlphttp) binary protobuf encoding.
 - We currently only support sending [trace](https://opentelemetry.io/docs/concepts/signals/traces/) data, but may introduce other OpenTelemetry signals in the future.
-- The endpoint must be accessible over the internet. Contact support@buildkite.com if you would like to send traces to a [AWS PrivateLink endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/what-is-privatelink.html).
+- The endpoint must be accessible over the internet.
 
 ### Trace structure
 
@@ -229,7 +229,7 @@ You can also use an online validation tool available at https://www.otelbin.io/.
 
 ## OpenTelemetry tracing from Buildkite agent
 
-See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/tracing#using-opentelemetry-tracing).
+See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing).
 
 ### Required agent flags / environment variables
 
@@ -297,7 +297,7 @@ Propagating trace spans from the OpenTelemetry Notification service requires Bui
 
 ### Propagating traces from Buildkite Agents to commands
 
-Trace contexts are propagated automatically from a Buildkite Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/tracing#using-opentelemetry-tracing-trace-context-propagation).
+Trace contexts are propagated automatically from a Buildkite Agent to all its child processes. See [Tracing in the Buildkite Agent](/docs/agent/v3/self-hosted/monitoring-and-observability/tracing#using-opentelemetry-tracing-trace-context-propagation).
 
 ### Buildkite hosted agents
 
