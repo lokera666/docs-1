@@ -74,8 +74,12 @@ Annotations do not support GitHub-style syntax highlighting, task lists, user me
 
 CommonMark supports HTML inside Markdown blocks, but will revert to Markdown parsing on newlines. For more information about how HTML is parsed and which tags CommonMark supports please refer to the [CommonMark spec](https://spec.commonmark.org).
 
-> ⚠️ HTML Limitations
-> Inline styles (e.g., `style="margin-top: 0;"`) are stripped from annotations for security reasons. Additionally, some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
+> 🚧 HTML limitations
+> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<h1>`–`<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
+>
+> Attributes are also restricted. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
+>
+> Inline styles (for example, `style="margin-top: 0;"`) are stripped. Some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
 
 ## Supported CSS classes
 
