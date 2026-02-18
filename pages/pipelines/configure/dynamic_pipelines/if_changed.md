@@ -86,7 +86,7 @@ The key pattern features are:
 These are some examples that demonstrate various forms of the `if_changed` feature.
 
 > 🚧 Common mistake with dynamic pipelines
-> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file that uploaded during the `buildkite-agent pipeline upload` command, NOT in the step that performs the upload. This is necessary because the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
+> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file that is uploaded during the `buildkite-agent pipeline upload` command, NOT in the step that performs the upload. This is necessary because the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
 
 ### Single glob pattern
 
