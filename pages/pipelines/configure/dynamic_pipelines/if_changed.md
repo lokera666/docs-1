@@ -48,16 +48,21 @@ The agent resolves the comparison base by checking the following in order, using
 1. `origin/$BUILDKITE_PIPELINE_DEFAULT_BRANCH` (the pipeline's configured default branch)
 1. `origin/main`
 
-For example, to explicitly set the comparison base:
+For example, to explicitly set the comparison base, configure `BUILDKITE_GIT_DIFF_BASE` in the environment of the job that runs `buildkite-agent pipeline upload`. Since `if_changed` is evaluated during the upload, not when steps run, this variable must be available in the upload job's environment rather than in individual step definitions.
+
+You can set this in the pipeline's initial command step (the one that performs the upload):
 
 ```yaml
+env:
+  BUILDKITE_GIT_DIFF_BASE: "origin/develop"
+
 steps:
   - label: "Run if backend changed"
     command: "make test-backend"
     if_changed: "backend/**"
-    env:
-      BUILDKITE_GIT_DIFF_BASE: "origin/develop"
 ```
+
+Alternatively, set it through [agent configuration](/docs/agent/v3/cli/reference/pipeline#git-diff-base) using the `--git-diff-base` flag, or as an environment variable on the agent itself.
 
 ## What happens when steps are skipped
 
@@ -202,7 +207,7 @@ steps:
 
 ## Advanced use cases for if_changed
 
-Starting with Buildkite Agent version 3.109.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
+Starting with Buildkite Agent version 3.115.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
 
 - Working with shallow clones where Git history is limited
 - Using external monorepo tools (for example, [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
