@@ -259,12 +259,12 @@ In this section, you can find some of the issues that you might run into when us
 1. **Quote special characters**: In YAML, patterns starting with `*` or other special characters must be quoted.
 1. **Test locally**: You can test patterns using `git diff --name-only origin/main` to see which files changed.
 
-### Agent shows "skipped" for all steps
+### All steps run despite `if_changed` being set
 
-This can happen if:
-
-- The comparison base branch doesn't exist in your repository.
-- You're working with a shallow clone that doesn't have the base branch.
-- No files actually changed in the build.
+If the agent can't determine the changed files (for example, the comparison base branch doesn't exist in your repository, or you're working with a shallow clone that doesn't have the base branch), the agent disables `if_changed` and runs all steps normally, stripping the `if_changed` attributes. Check the agent logs for errors related to the git diff operation.
 
 Consider using `--changed-files-path` for shallow clone scenarios.
+
+### Agent shows "skipped" for all steps
+
+This can happen if no files actually changed between the current commit and the comparison base. Verify which base the agent is using by checking the [resolution order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works), and run `git diff --name-only --merge-base <base>` locally to confirm the diff is empty. If the base isn't what you expect, set `BUILDKITE_GIT_DIFF_BASE` explicitly.
