@@ -110,9 +110,9 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-* Pipeline settings — for values that are *not secret*.
-* [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
-* An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
+- The YAML Steps editor in your pipeline settings, using a top-level `env` attribute before your steps — for values that are *not secret*.
+- [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
+- An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
@@ -139,7 +139,7 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 * `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
 * `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
 
-Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
+Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Steps editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
 Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
@@ -174,7 +174,7 @@ The job environment is made by merging the following sets of values, where value
 <tbody>
   <tr>
     <th><em>Pipeline</em></th>
-    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
+    <td>Optional variables set by you in the YAML Steps editor using a top-level <code>env</code> attribute</td>
   </tr>
   <tr>
     <th><em>Build</em></th>
