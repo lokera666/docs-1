@@ -1,4 +1,4 @@
-# Using `if_changed`
+# Using if_changed
 
 The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that skips the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows you to detect changes in the repository and only build what changed.
 
@@ -8,7 +8,7 @@ The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-patt
 `if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/v3/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
 
 > 🚧
-> The `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+> `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
 When enabled, steps containing an `if_changed` key are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
 
@@ -57,6 +57,14 @@ env:
   BUILDKITE_GIT_DIFF_BASE: "origin/develop"
 
 steps:
+  - label: "Upload dynamic pipeline"
+    command: "buildkite-agent pipeline upload .buildkite/pipeline.yml"
+```
+
+Where `.buildkite/pipeline.yml` contains steps with `if_changed`:
+
+```yaml
+steps:
   - label: "Run if backend changed"
     command: "make test-backend"
     if_changed: "backend/**"
@@ -68,7 +76,7 @@ Alternatively, set it through [agent configuration](/docs/agent/v3/cli/reference
 
 When the `if_changed` pattern doesn't match any changed files, the step is [skipped](/docs/pipelines/configure/dependencies#how-skipped-steps-affect-dependencies). In the Buildkite Pipelines interface:
 
-- Such step appears in your build with a "skipped" status
+- This step appears in your build with a "skipped" status
 - The step's dependencies and dependents are handled appropriately
 - The overall build continues to the next steps
 
@@ -259,7 +267,7 @@ In this section, you can find some of the issues that you might run into when us
 1. **Quote special characters**: In YAML, patterns starting with `*` or other special characters must be quoted.
 1. **Test locally**: You can test patterns using `git diff --name-only origin/main` to see which files changed.
 
-### All steps run despite `if_changed` being set
+### All steps run despite if_changed being set
 
 If the agent can't determine the changed files (for example, the comparison base branch doesn't exist in your repository, or you're working with a shallow clone that doesn't have the base branch), the agent disables `if_changed` and runs all steps normally, stripping the `if_changed` attributes. Check the agent logs for errors related to the git diff operation.
 
