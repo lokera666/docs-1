@@ -123,21 +123,21 @@ Any environment variables set by Buildkite will be interpolated by the Agent.
 
 If you're using the YAML Steps editor to define your pipeline, only the following subset of the environment variables are available:
 
-* `BUILDKITE_BRANCH`
-* `BUILDKITE_TAG`
-* `BUILDKITE_MESSAGE`
-* `BUILDKITE_COMMIT`
-* `BUILDKITE_PIPELINE_SLUG`
-* `BUILDKITE_PIPELINE_NAME`
-* `BUILDKITE_PIPELINE_ID`
-* `BUILDKITE_ORGANIZATION_SLUG`
-* `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
-* `BUILDKITE_REPO`
-* `BUILDKITE_PULL_REQUEST`
-* `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
-* `BUILDKITE_PULL_REQUEST_REPO`
-* `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
-* `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
+- `BUILDKITE_BRANCH`
+- `BUILDKITE_TAG`
+- `BUILDKITE_MESSAGE`
+- `BUILDKITE_COMMIT`
+- `BUILDKITE_PIPELINE_SLUG`
+- `BUILDKITE_PIPELINE_NAME`
+- `BUILDKITE_PIPELINE_ID`
+- `BUILDKITE_ORGANIZATION_SLUG`
+- `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
+- `BUILDKITE_REPO`
+- `BUILDKITE_PULL_REQUEST`
+- `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+- `BUILDKITE_PULL_REQUEST_REPO`
+- `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
+- `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Steps editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
@@ -234,9 +234,9 @@ Environment variables are not automatically passed through to builds created wit
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-* operating system environment variables
-* any variables you set on your agent when you started it
-* any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
+- operating system environment variables
+- any variables you set on your agent when you started it
+- any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
 For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/v3/cli/reference/start).
 
