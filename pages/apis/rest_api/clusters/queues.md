@@ -240,11 +240,13 @@ Optional [request body properties](/docs/api#request-body-properties):
       <br/>
       Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> hosted agents.
       <br/><br/>
-      <code>agentImageRef</code> (optional, <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-a-custom-image-url">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the agent image selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+      <!--
+      <code>agentImageRef</code> (optional, <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
       <br/>
       <em>Example:</em>
       <br/>
       <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
+      -->
   </td>
   </tr>
 </tbody>
@@ -305,7 +307,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Configures this queue to use <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>, along with its <em>instance shape</em>. This makes the queue a <a href="/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>.
+      Updates the <em>instance shape</em> for an existing <a href="/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manage <a href="/docs/agent/v3/buildkite-hosted">Buildkite hosted agents</a>.
       <br>
       <em>Example:</em>
       <br/>
@@ -318,11 +320,13 @@ curl -H "Authorization: Bearer $TOKEN" \
       It is only possible to change the <em>size</em> of the current instance shape assigned to this queue. It is not possible to change the current instance shape's machine type (from macOS to Linux, or vice versa), or for a Linux machine, its architecture (from AMD64 to ARM64, or vice versa).<br/>
       Learn more about the instance shapes available for <a href="#instance-shape-values-for-linux">Linux</a> and <a href="#instance-shape-values-for-macos">macOS</a> Buildkite hosted agents.
       <br/><br/>
-      <code>agentImageRef</code> (optional, <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-a-custom-image-url">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the agent image selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+      <code>agentImageRef</code> (optional, <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a>): A custom image URL to use for agents in this queue. When set, this overrides the <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-the-default-image-for-a-queue">default agent image</a> selected through the Buildkite interface. The image must be publicly available or pushed to the <a href="/docs/pipelines/hosted-agents/internal-container-registry">internal container registry</a>. Contact <a href="mailto:support@buildkite.com">support@buildkite.com</a> to enable this feature for your organization.
+      <br/>
+      Also be aware that this property must be specified with <code>instanceShape</code>, even if you are not changing its value. In such circumstances, specify this property's current value.
       <br/>
       <em>Example:</em>
       <br/>
-      <code>{ "agentImageRef": "my-custom-image:latest" }</code>
+      <code>{ "instanceShape": "LINUX_AMD64_2X4", "agentImageRef": "my-custom-image:latest" }</code>
   </td>
   </tr>
 </tbody>
