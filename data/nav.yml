@@ -918,6 +918,8 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
+    - name: "Accessibility"
+      path: "platform/accessibility"
     - name: "Limits"
       path: "platform/limits"
 - name: "APIs"
