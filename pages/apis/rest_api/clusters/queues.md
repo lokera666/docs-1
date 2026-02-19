@@ -17,7 +17,7 @@
     <tr><th><code>dispatch_paused_by</code></th><td>User who paused the queue</td></tr>
     <tr><th><code>dispatch_paused_at</code></th><td>When the queue was paused</td></tr>
     <tr><th><code>dispatch_paused_note</code></th><td>The note left when the queue was paused</td></tr>
-    <tr><th><code>hosted_agents.agent_image_ref</code></th><td>The custom image URL configured for the queue's hosted agents. Only present on Buildkite hosted queues. This field is a <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-set-a-custom-image-url">private preview</a> feature.</td></tr>
+    <tr><th><code>hosted_agents.agent_image_ref</code></th><td>The custom image URL configured for the queue's hosted agents. Only present on Buildkite hosted queues. This field is a <a href="/docs/agent/v3/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue">private preview</a> feature.</td></tr>
     <tr><th><code>created_at</code></th><td>When the queue was created</td></tr>
     <tr><th><code>created_by</code></th><td>User who created the queue</td></tr>
   </tbody>
