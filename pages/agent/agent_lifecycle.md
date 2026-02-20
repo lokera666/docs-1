@@ -1,12 +1,12 @@
 # Agent lifecycle
 
-The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, polling for and running jobs, and shutting down. This page covers how the agent handles signals, the exit codes it reports, and how to troubleshoot common lifecycle issues.
+The Buildkite agent goes through several stages during its operation: starting up, registering with Buildkite, polling for and running jobs, and shutting down. This page covers how the agent [handles signals](#signal-handling), the [exit codes](#exit-codes) it reports, and how to [troubleshoot](#troubleshooting) common lifecycle issues.
 
 ## Signal handling
 
 When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit.
 
-If the process does not exit within the 10s grace period it will be forcefully terminated with a `SIGKILL` signal. If you require a longer grace period, it can be customized using the [cancel-grace-period](/docs/agent/self-hosted/configure#configuration-settings) agent configuration option.
+If the process does not exit within the 10s grace period it will be forcefully terminated with a `SIGKILL` signal. If you require a longer grace period, it can be customized on [self-hosted agents](/docs/agent/self-hosted) using the [cancel-grace-period](/docs/agent/self-hosted/configure#configuration-settings) agent configuration option.
 
 The agent also accepts the following two signals directly:
 
@@ -47,7 +47,7 @@ Various factors can cause an agent to fail to send heartbeat updates. Common rea
 
 In such cases, check the agent logs and examine metrics related to networking, CPU, memory, and I/O to help identify the cause of the failed heartbeat updates.
 
-If the agents run on the Elastic CI Stack for AWS with spot instances, the abrupt termination of spot instances can also result in marking agents as lost. To investigate this issue, you can use the [log collector script](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#collect-logs-via-script) to gather all relevant logs and metrics from the Elastic CI Stack for AWS.
+If the agents run on the [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) with spot instances, the abrupt termination of spot instances can also result in marking agents as lost. To investigate this issue, you can use the [log collector script](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#collect-logs-via-script) to gather all relevant logs and metrics from the Elastic CI Stack for AWS.
 
 ### Timeouts
 
