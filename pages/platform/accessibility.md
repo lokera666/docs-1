@@ -17,7 +17,7 @@ The theme selection persists across sessions. When set to **System**, Buildkite 
 
 ### Job log themes
 
-The job log viewer offers an additional theme toggle, allowing you to switch between a default dark theme and a solarized theme for improved readability based on your preference.
+The job log viewer offers an additional theme toggle, allowing you to switch between a default dark theme and a light theme for improved readability based on your preference.
 
 ## Keyboard navigation
 
@@ -37,12 +37,12 @@ Several areas of the application support keyboard shortcuts:
 
 - **Build page** — dedicated keyboard shortcuts for navigating builds, jumping to failures, and searching steps. See [build page keyboard shortcuts](/docs/pipelines/build-page#keyboard-shortcuts) for the full list.
 - **Job log search** — press `s` to focus the search input, and `Escape` to close it
-- **Dialogs** — press `Escape` to close any open dialog, and focus is trapped within the dialog while it is open
+- **Modal dialogs** — press `Escape` to close any open dialog, and focus is trapped within the dialog while it is open
 - **Dropdowns and autocomplete** — arrow keys navigate options, `Enter` selects, and `Escape` closes
 
 ### Interactive components
 
-Custom interactive components such as dropdowns, comboboxes, tree views, and toggle switches all support keyboard operation, including arrow key navigation and enter/escape key handling.
+Custom interactive components such as dropdowns, combo boxes, tree views, and toggle switches all support keyboard operation, including arrow key navigation and enter/escape key handling.
 
 ## Screen reader support
 
@@ -59,9 +59,9 @@ Buildkite uses semantic HTML and ARIA attributes to support screen readers.
 Buildkite's interface components include ARIA attributes to convey their purpose and state to assistive technologies:
 
 - **Build status icons** include `aria-label` attributes describing the current state, for example "Build state: passed"
-- **Dialogs** use `role="dialog"` with appropriate labeling
+- **Modal dialogs** use `role="dialog"` with appropriate labeling
 - **Tree views** in the build sidebar use `role="tree"` and `role="treeitem"` with `aria-expanded` state
-- **Comboboxes** use `role="listbox"` and `role="option"` with `aria-selected` state
+- **Combo boxes** use `role="listbox"` and `role="option"` with `aria-selected` state
 - **Toggle switches** use `role="switch"` with `aria-checked` and `aria-labelledby`
 - **Tab interfaces** use `role="tablist"` for tabbed navigation
 - **Status updates** use `role="status"` and `role="alert"` to announce changes to screen readers
@@ -92,7 +92,7 @@ Keyboard focus indicators use high-visibility colors (lime green and purple) tha
 ## Typography and text scaling
 
 - The base font size is set to 16px, matching the browser default
-- The viewport is configured with `width=device-width, initial-scale=1.0` without restricting user zoom, allowing browser-level text scaling and zoom to work as expected
+- The browser view is configured with `width=device-width, initial-scale=1.0` without restricting user zoom, allowing browser-level text scaling and zoom to work as expected
 - Buildkite uses a defined typography hierarchy for headings and body text
 
 ## Form accessibility
