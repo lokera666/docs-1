@@ -127,6 +127,7 @@ deprovisioning
 deregistration
 deprovision
 dialog's
+dialogs
 discoverability
 distro
 distutils

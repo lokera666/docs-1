@@ -37,7 +37,7 @@ Several areas of the application support keyboard shortcuts:
 
 - **Build page** — dedicated keyboard shortcuts for navigating builds, jumping to failures, and searching steps. See [build page keyboard shortcuts](/docs/pipelines/build-page#keyboard-shortcuts) for the full list.
 - **Job log search** — press `s` to focus the search input, and `Escape` to close it
-- **Modal dialogs** — press `Escape` to close any open dialog, and focus is trapped within the dialog while it is open
+- **Dialogs** — press `Escape` to close any open dialog, and focus is trapped within the dialog while it is open
 - **Dropdowns and autocomplete** — arrow keys navigate options, `Enter` selects, and `Escape` closes
 
 ### Interactive components
@@ -59,7 +59,7 @@ Buildkite uses semantic HTML and ARIA attributes to support screen readers.
 Buildkite's interface components include ARIA attributes to convey their purpose and state to assistive technologies:
 
 - **Build status icons** include `aria-label` attributes describing the current state, for example "Build state: passed"
-- **Modal dialogs** use `role="dialog"` with appropriate labeling
+- **Dialogs** use `role="dialog"` with appropriate labeling
 - **Tree views** in the build sidebar use `role="tree"` and `role="treeitem"` with `aria-expanded` state
 - **Combo boxes** use `role="listbox"` and `role="option"` with `aria-selected` state
 - **Toggle switches** use `role="switch"` with `aria-checked` and `aria-labelledby`
