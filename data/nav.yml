@@ -376,6 +376,8 @@
               path: "agent/queues"
             - name: "Managing"
               path: "agent/queues/managing"
+        - name: "Agent lifecycle"
+          path: "agent/agent-lifecycle"
         - name: "Hooks"
           path: "agent/hooks"
         - name: "Command-line reference"

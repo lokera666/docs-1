@@ -99,7 +99,7 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 - Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
 - Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Configure [graceful termination](/docs/agent#signal-handling) to allow jobs to complete.
+- Configure [graceful termination](/docs/agent/agent-lifecycle#signal-handling) to allow jobs to complete.
 - To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you can have a single Docker image that contains the latest Buildkite Agent binary, a selection of development and deployment tools, and a config that reads information such as queues or tags from environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.
 
 ## Resilience and redundancy
