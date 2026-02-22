@@ -4,11 +4,9 @@
 
 The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on [your own self-hosted](/docs/agent/self-hosted) or [Buildkite's hosted](/docs/agent/buildkite-hosted) infrastructure. The agent's main responsibilities are polling buildkite.com for work, running a build's jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
-This page contains reference information for Buildkite organization administrators that provides an overview on how Buildkite agents work, and how to set up and configuration them to work with your Buildkite organization.
+This page provides Buildkite organization administrators with an overview of the [differences between self-hosted and Buildkite hosted agents](#self-hosted-and-buildkite-hosted-agents-compared), [how the Buildkite agent works](/docs/agent#how-it-works), the [agent's lifecycle](#agent-lifecycle), how to [customize the agent's functionality with hooks](#customizing-with-hooks), and the agent's [command line usage](#command-line-usage).
 
 If you're new to Buildkite Pipelines, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial, which will initially set you up to run [Buildkite hosted agents](/docs/agent/buildkite-hosted). From there, you can decide whether to continue using Buildkite hosted agents, or set yourself up to run [self-hosted agents](/docs/agent/self-hosted).
-
-Learn more about the differences between self-hosted and Buildkite hosted agents in [Self-hosted and Buildkite hosted agents compared](#self-hosted-and-buildkite-hosted-agents-compared).
 
 ## Self-hosted and Buildkite hosted agents compared
 
@@ -120,14 +118,14 @@ By default, a pipeline's jobs run on the first available agent associated with t
 
 Learn more about how Buildkite routes jobs to queues in the [Queues overview](/docs/agent/queues) page.
 
-## Command line usage
+## Agent lifecycle
 
-The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).
+The agent goes through several stages during its operation, from starting up and registering with Buildkite, through to polling for and running jobs, and shutting down. For details on signal handling, exit codes, and troubleshooting common lifecycle issues, see the [Agent lifecycle](/docs/agent/agent-lifecycle) page.
 
 ## Customizing with hooks
 
 The agent's behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline's code repository. Hooks can be used to set up [secrets](/docs/pipelines/security/secrets/managing) as well as overriding default behavior. See the [hooks](/docs/agent/hooks) documentation for full details.
 
-## Agent lifecycle
+## Command line usage
 
-The agent goes through several stages during its operation, from starting up and registering with Buildkite, through to polling for and running jobs, and shutting down. For details on signal handling, exit codes, and troubleshooting common lifecycle issues, see the [Agent lifecycle](/docs/agent/agent-lifecycle) page.
+The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).
