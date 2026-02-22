@@ -12,9 +12,9 @@ If you're new to Buildkite Pipelines, run through the [Getting started with Pipe
 
 The following table lists key feature differences between [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
 
-In a nutshell though:
+In summary though:
 
-- _Self-hosted agents_ are suitable when your organization has any of the following conditions:
+- _Self-hosted agents_ are suitable when your organization has any of the following requirements:
 
     * You need full control over your agent infrastructure.
     * Your agents need a lot of customization.
@@ -120,7 +120,7 @@ Learn more about how Buildkite routes jobs to queues in the [Queues overview](/d
 
 ## Agent lifecycle
 
-The agent goes through several stages during its operation, from starting up and registering with Buildkite, through to polling for and running jobs, and shutting down. For details on signal handling, exit codes, and troubleshooting common lifecycle issues, see the [Agent lifecycle](/docs/agent/agent-lifecycle) page.
+The agent goes through several stages during its operation, from starting up and registering with Buildkite, through to polling for and running jobs, and shutting down. For details on signal handling, exit codes, and troubleshooting common lifecycle issues, see the [Agent lifecycle](/docs/agent/lifecycle) page.
 
 ## Customizing with hooks
 
