@@ -260,6 +260,49 @@ RSpec.describe LLMFullText do
       end
     end
 
+    context "when a top-level section has both a path and children" do
+      let(:nav_data) do
+        [
+          {
+            name: "Pipelines",
+            path: "pipelines",
+            children: [
+              {
+                name: "Getting Started",
+                path: "pipelines/getting-started"
+              }
+            ]
+          }
+        ].map(&:deep_stringify_keys)
+      end
+
+      before do
+        pipelines = Rails.root.join("pages", "pipelines.md")
+        getting_started = Rails.root.join("pages", "pipelines/getting_started.md")
+
+        allow(File).to receive(:exist?).with(pipelines).and_return(true)
+        allow(File).to receive(:exist?).with(getting_started).and_return(true)
+
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).with(pipelines)
+          .and_return(double("Parsed", content: "Pipelines overview content"))
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).with(getting_started)
+          .and_return(double("Parsed", content: "Getting started content"))
+      end
+
+      it "includes the section's own page" do
+        result = llm_full_text.generate
+        expect(result).to include("### Pipelines")
+        expect(result).to include("URL: https://buildkite.com/docs/pipelines")
+        expect(result).to include("Pipelines overview content")
+      end
+
+      it "also includes the section's children" do
+        result = llm_full_text.generate
+        expect(result).to include("### Getting Started")
+        expect(result).to include("Getting started content")
+      end
+    end
+
     context "with nested navigation" do
       before do
         # Set up files for the nested nav_data fixture

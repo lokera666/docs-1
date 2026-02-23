@@ -27,6 +27,7 @@ class LLMFullText
       next unless section["children"]
 
       pages = []
+      pages << section if section["path"] && !should_skip_item?(section)
       collect_pages(section["children"], pages)
 
       next if pages.empty?
