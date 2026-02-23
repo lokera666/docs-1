@@ -28,7 +28,7 @@ For billing purposes, Buildkite measures usage by calculating the number of mana
 ## Test executions
 
 > 🚧 Legacy plans only
-> This section is only applicable to Buildkite Test Engine customers on _legacy plans_. Test executions are no longer used to measure usage for billing purposes on current and new Buildkite plans.
+> This section is only applicable to Buildkite Test Engine customers on _legacy plans_. Test executions are no longer used to measure usage for billing purposes on current and new Buildkite plans. Instead, see [Managed tests](#managed-tests) for details about the current billing approach.
 
 Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (test execution count).
 
