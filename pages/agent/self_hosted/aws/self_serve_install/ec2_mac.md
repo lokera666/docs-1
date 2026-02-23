@@ -1,11 +1,11 @@
 # Installing the Agent on your own AWS EC2 Mac instances
 
-Setting up a macOS AMI that starts a Buildkite Agent on launch is a multi
+Setting up a macOS AMI that starts a Buildkite agent on launch is a multi
 step process. You can start with one of the macOS AMIs from AWS, or with an AMI
 you've already installed Xcode or other software on.
 
 To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
-session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
+session, and launch the Buildkite agent in an `aqua` session as a Launchd Agent:
 
 1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
 Dedicated Host.

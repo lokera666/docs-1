@@ -26,9 +26,9 @@ Note that you must provide values for the required parameters (`project_id`, `bu
 
 | Variable | Type | Default | Description |
 |----------|------|---------|-------------|
-| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite Agent token (for example, `projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest`). Recommended for production. |
+| `buildkite_agent_token_secret` | `string` | `""` | Alternative to `buildkite_agent_token`: GCP Secret Manager secret name containing the Buildkite agent token (for example, `projects/PROJECT_ID/secrets/buildkite-agent-token/versions/latest`). Recommended for production. |
 | `buildkite_queue` | `string` | `"default"` | A Buildkite queue name that agents will listen to. Agents in this stack will only pick up jobs targeting this queue. |
-| `buildkite_agent_tags` | `string` | `""` | Additional tags for Buildkite Agents (comma-separated key=value pairs, for example, 'docker=true,os=linux'). Use these to target specific agents in pipeline steps. |
+| `buildkite_agent_tags` | `string` | `""` | Additional tags for Buildkite agents (comma-separated key=value pairs, for example, 'docker=true,os=linux'). Use these to target specific agents in pipeline steps. |
 | `buildkite_agent_release` | `string` | `"stable"` | Buildkite agent release channel. Allowed values: `stable` (recommended), `beta`, `edge`. |
 | `buildkite_api_endpoint` | `string` | `"https://agent.buildkite.com/v3"` | Buildkite API endpoint URL. Only change this if using a custom endpoint. |
 
@@ -152,7 +152,7 @@ labels = {
 
 ## Using Secret Manager for Agent token
 
-For production deployments, it's recommended to store the Buildkite Agent token in Secret Manager:
+For production deployments, it's recommended to store the Buildkite agent token in Secret Manager:
 
 - Step 1. Create a secret in Secret Manager:
 
@@ -173,7 +173,7 @@ buildkite_agent_token_secret = "projects/your-project-id/secrets/buildkite-agent
 
 For more detailed configuration options at the module level, see:
 
-- [Networking Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
-- [IAM Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
-- [Compute Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute#variables)
-- [Buildkite Agent Metrics Module Variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)
+- [Networking module variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking#variables)
+- [IAM module variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam#variables)
+- [Compute module variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute#variables)
+- [Buildkite agent metrics module variables](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics#variables)

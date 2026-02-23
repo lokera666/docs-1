@@ -32,7 +32,7 @@ There are several methods you can use to upload and download artifacts, summariz
       <td>No</td>
     </tr>
     <tr>
-      <th scope="row">Buildkite Agent</th>
+      <th scope="row">Buildkite agent</th>
       <td>Yes</td>
       <td>Yes</td>
     </tr>

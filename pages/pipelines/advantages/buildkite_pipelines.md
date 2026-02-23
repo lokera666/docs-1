@@ -20,7 +20,7 @@ Your source code, [secrets](/docs/pipelines/security/secrets), and proprietary d
 
 ### Unlimited scaling and concurrency
 
-[Buildkite Agents](/docs/agent) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no artificial [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) limits, no credit constraints, and no bottlenecked controllers.
+[Buildkite agents](/docs/agent) are lightweight software that can run anywhere. Add more agents as build volume grows — there are no artificial [concurrency](/docs/pipelines/configure/workflows/controlling-concurrency) limits, no credit constraints, and no bottlenecked controllers.
 
 - Buildkite Pipelines handles workloads from small teams to enterprise customers running 100,000+ concurrent agents.
 - Lightweight agents don't require complex provisioning or heavyweight compute units.

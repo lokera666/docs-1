@@ -1,4 +1,4 @@
-These attributes are _only_ applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+These attributes are _only_ applied by the Buildkite agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
 <table>
   <tr>
@@ -6,8 +6,8 @@ These attributes are _only_ applied by the Buildkite Agent when uploading a pipe
     <td>
       A <a href="/docs/pipelines/configure/glob-pattern-syntax">glob pattern</a> that omits the step from a build if it does not match any files changed in the build. <br/>
       <em>Example:</em> <code>"{**.go,go.mod,go.sum,fixtures/**}"</code><br/>
-      From version 3.109.0 of the Buildkite Agent, <code>if_changed</code> also supports lists of glob patterns and <code>include</code> and <code>exclude</code> attributes.<br/>
-      <em>Minimum Buildkite Agent versions:</em> 3.99 (with <code>--apply-if-changed</code> flag), 3.103.0 (enabled by default), 3.109.0 (expanded syntax)
+      From version 3.109.0 of the Buildkite agent, <code>if_changed</code> also supports lists of glob patterns and <code>include</code> and <code>exclude</code> attributes.<br/>
+      <em>Minimum Buildkite agent versions:</em> 3.99 (with <code>--apply-if-changed</code> flag), 3.103.0 (enabled by default), 3.109.0 (expanded syntax)
     </td>
   </tr>
 </table>
@@ -39,7 +39,7 @@ steps:
   - label: "Run for any changes within app/ or spec/"
     if_changed: "{app/**,spec/**}"
 
-  # From version 3.109 of the Buildkite Agent, lists of patterns
+  # From version 3.109 of the Buildkite agent, lists of patterns
   # are supported. If any changed file matches any of the patterns,
   # the step is run. This can be a more ergonomic alternative to
   # using braces.
@@ -53,7 +53,7 @@ steps:
       - app/**
       - spec/**
 
-  # From version 3.109 of the Buildkite Agent, `include` and
+  # From version 3.109 of the Buildkite agent, `include` and
   # `exclude` are supported attributes. As for `if_changed`, these
   # attributes may contain single patterns or lists of patterns.
   # `exclude` eliminates changed files from causing a step to run.

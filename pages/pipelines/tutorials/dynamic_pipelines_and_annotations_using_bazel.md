@@ -55,7 +55,7 @@ Your Buildkite macOS hosted agent, as the new default queue, is now ready to use
 
 ### Set up a self-hosted agent
 
-Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite Agent in a self-hosted environment, and then install [Bazel](https://www.bazel.build/) to the same environment.
+Setting up a self-hosted agent for this tutorial requires you to first install a Buildkite agent in a self-hosted environment, and then install [Bazel](https://www.bazel.build/) to the same environment.
 
 To set up a self-hosted agent for this tutorial:
 

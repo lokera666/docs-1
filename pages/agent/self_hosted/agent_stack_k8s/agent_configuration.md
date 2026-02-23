@@ -3,7 +3,7 @@
 > 📘 Minimum version requirement
 > To implement the agent configuration options described on this page, version 0.16.0 or later of the Agent Stack for Kubernetes controller is required.
 
-The `agent-config` block within `values.yaml` can be used to set a subset of the [Buildkite Agent configuration](/docs/agent/self-hosted/configure) options.
+The `agent-config` block within `values.yaml` can be used to set a subset of the [Buildkite agent configuration](/docs/agent/self-hosted/configure) options.
 
 ```yaml
 # values.yaml
@@ -25,7 +25,7 @@ config:
 ```
 
 > 📘
-> If `no-command-eval` or `no-plugins` are set to `true`, the Kubernetes plugin may still be able to override everything, since it is interpreted by the Agent Stack for Kubernetes controller and not the Buildkite Agent itself.
+> If `no-command-eval` or `no-plugins` are set to `true`, the Kubernetes plugin may still be able to override everything, since it is interpreted by the Agent Stack for Kubernetes controller and not the Buildkite agent itself.
 > To avoid being overridden, the `no-command-eval` or `no-plugins` options should be used together with the [`prohibit-kubernetes-plugin`](/docs/agent/self-hosted/agent-stack-k8s/securing-the-stack) option.
 
 ## Pipeline signing
@@ -95,7 +95,7 @@ config:
 
 This option applies to the `config/agent-config/verification-failure-behavior` configuration parameter.
 
-This setting determines the Buildkite Agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs.
+This setting determines the Buildkite agent's response when it receives a job without a proper signature, and also specifies how strictly the agent should enforce signature verification for incoming jobs.
 
 Valid options are:
 

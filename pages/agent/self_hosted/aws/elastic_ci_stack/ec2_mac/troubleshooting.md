@@ -25,7 +25,7 @@ in the GUI.
 
 ## How do I enable use of Xcode and the iOS simulator?
 
-To allow your pipelines to use Xcode and the iOS simulator the Buildkite Agent launchd job configuration requires an `Aqua` session type.
+To allow your pipelines to use Xcode and the iOS simulator the Buildkite agent launchd job configuration requires an `Aqua` session type.
 
 ## What user does the agent run as?
 

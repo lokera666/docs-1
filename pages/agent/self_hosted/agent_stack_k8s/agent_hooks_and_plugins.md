@@ -5,7 +5,7 @@
 
 ## Agent hooks
 
-The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) as part of the `hooksVolume` configuration. If configured, a corresponding volume named `buildkite-hooks` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
+The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`hooks-path`](/docs/agent/self-hosted/configure#hooks-path) as part of the `hooksVolume` configuration. If configured, a corresponding volume named `buildkite-hooks` will be automatically mounted on `checkout` and command containers, with the Buildkite agent configured to use them.
 
 You can specify any volume source for agent hooks, but a common choice is to use a [ConfigMap](https://kubernetes.io/docs/concepts/configuration/configmap/), since hooks generally aren't large and ConfigMaps are made available across the cluster.
 
@@ -41,7 +41,7 @@ The `hooks-path` Buildkite agent config option can be used to change the mount p
 
 ## Agent hooks in earlier versions
 
-If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Buildkite Agent runs.
+If you are running the Buildkite Agent Stack Kubernetes controller 0.15.0 or earlier, your agent hooks must be present on the instances where the Buildkite agent runs.
 
 These hooks need to be accessible to the Kubernetes pod where the `checkout` and command containers will be running. The recommended approach is to create a ConfigMap with the agent hooks and mount the ConfigMap as a volume to the containers.
 
@@ -179,7 +179,7 @@ Running global pre-exit hook        # <-- user-defined container
 
 ## Plugins
 
-The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`plugins-path`](/docs/agent/self-hosted/configure#plugins-path) using the `pluginsVolume` configuration. If configured, a corresponding volume named `buildkite-plugins` will be automatically mounted on `checkout` and command containers, with the Buildkite Agent configured to use them.
+The `agent-config` block within the controller's configuration file (`values.yaml`) accepts a value for [`plugins-path`](/docs/agent/self-hosted/configure#plugins-path) using the `pluginsVolume` configuration. If configured, a corresponding volume named `buildkite-plugins` will be automatically mounted on `checkout` and command containers, with the Buildkite agent configured to use them.
 
 Example of using plugins from a [HostPath](https://kubernetes.io/docs/concepts/storage/volumes/#hostpath)):
 

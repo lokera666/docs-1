@@ -93,7 +93,7 @@ Depending on your build requirements, you may want to include:
 - `curl` or `wget` for downloading artifacts or dependencies
 - Build tools specific to your language or framework
 
-### Using the Buildkite Agent image as a base
+### Using the Buildkite agent image as a base
 
 You can use `buildkite/agent` as a base image for custom images that need agent tooling pre-installed:
 

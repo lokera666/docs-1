@@ -1,6 +1,6 @@
 # buildkite-agent stop
 
-The Buildkite Agent's `stop` command is used to manually stop a running Buildkite Agent.
+The Buildkite agent's `stop` command is used to manually stop a running Buildkite agent.
 
 ## Stopping an agent
 

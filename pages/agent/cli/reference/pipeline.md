@@ -1,13 +1,13 @@
 # buildkite-agent pipeline
 
-The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
+The Buildkite agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
 
 See the [Defining your pipeline steps](/docs/pipelines/configure/defining-steps) guide for a step-by-step example and list of step types.
 
 ## Uploading pipelines
 
 > 🚧 Processing of a single pipeline file
-> In versions of the Buildkite Agent prior to 3.104.0, the `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into a command (including using a wildcard `*` in the filename), only the first pipeline file will be processed, and any additional pipeline files provided as arguments are ignored. Later versions of the Buildkite Agent do support multiple pipeline file uploads. See [Uploading multiple pipelines](#uploading-multiple-pipelines) for more information.
+> In versions of the Buildkite agent prior to 3.104.0, the `buildkite-agent pipeline upload` command only processes a single pipeline file. If multiple files are passed into a command (including using a wildcard `*` in the filename), only the first pipeline file will be processed, and any additional pipeline files provided as arguments are ignored. Later versions of the Buildkite agent do support multiple pipeline file uploads. See [Uploading multiple pipelines](#uploading-multiple-pipelines) for more information.
 
 <%= render 'agent/cli/help/pipeline_upload' %>
 
@@ -122,7 +122,7 @@ If the environment variable has not been set, the range will return a blank stri
 
 ## Uploading multiple pipelines
 
-From version 3.104.0 of the Buildkite Agent, multiple pipelines can be uploaded by passing them as arguments to a single command:
+From version 3.104.0 of the Buildkite agent, multiple pipelines can be uploaded by passing them as arguments to a single command:
 
 ```bash
 buildkite-agent pipeline upload .buildkite/pipeline1.yml .buildkite/pipeline2.yml

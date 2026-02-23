@@ -279,12 +279,12 @@ After the GitHub App has been configured with the settings outlined above, click
 
 #### Generate authentication keys
 
-In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite Agent. To generate a private key:
+In order to create a JWT that can be exchanged for an installation access token, a private key must be generated for the GitHub App. This private key can then be stored in [Buildkite secrets](/docs/pipelines/security/secrets/buildkite-secrets) and securely accessed by a Buildkite agent. To generate a private key:
 
 - In your GitHub App's **General settings**, scroll to **Private keys**
 - Click the **Generate a private key** button
 - This will download a `.pem` file of the newly generated private key
-- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/security/clusters) containing the Buildkite Agents that require access to your private repositories
+- Create a new [Buildkite Secret](/docs/pipelines/security/secrets/buildkite-secrets) in the [Cluster(s)](/docs/pipelines/security/clusters) containing the Buildkite agents that require access to your private repositories
     + Add the contents of the `.pem` file as the secret's _Value_
 
 > 📘 Private key Buildkite Secret
@@ -304,7 +304,7 @@ The GitHub documentation describes the [process](https://docs.github.com/en/ente
 #### Configure agent hook
 
 > 📘 OpenSSL package requirement
-> The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite Agent performing the checkout.
+> The `pre-checkout` hook example below requires the `openssl` package to be installed and available to the Buildkite agent performing the checkout.
 
 In order to have the agent generate a GitHub App installation token, add the following code to your [agent hooks directory](/docs/agent/hooks#hook-locations) as a `pre-checkout` hook, configuring the variables at the beginning of the hook with the GitHub App's Client ID (`client_id`), Installation ID (`installation_id`), and Buildkite Secret name (`private_key_secret_name`):
 

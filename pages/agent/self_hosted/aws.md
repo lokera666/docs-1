@@ -2,13 +2,13 @@
 toc_include_h3: false
 ---
 
-# Buildkite Agents in AWS
+# Buildkite agents in AWS
 
-The Buildkite Agent can be run on AWS using Buildkite's Elastic CI Stack for AWS, using a Kubernetes cluster or by installing the agent on your self-managed EC2 instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite Agent on AWS are covered.
+The Buildkite agent can be run on AWS using Buildkite's Elastic CI Stack for AWS, using a Kubernetes cluster or by installing the agent on your self-managed EC2 instances. On this page, common installation and setup recommendations for different scenarios of using the Buildkite agent on AWS are covered.
 
 ## Using the Elastic CI Stack for AWS
 
-The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) is an autoscaling Buildkite Agent cluster that includes Docker, S3, and CloudWatch integration.
+The [Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack) is an autoscaling Buildkite agent cluster that includes Docker, S3, and CloudWatch integration.
 
 You can use the Elastic CI Stack for AWS to test Linux or Windows projects, parallelize large test suites, run Docker containers or `docker-compose` integration tests, or perform any AWS ops related tasks.
 
@@ -22,7 +22,7 @@ In addition to using CloudFormation, the Elastic CI Stack for AWS can also be de
 
 ## Using the Buildkite Agent Stack for Kubernetes on AWS
 
-The Buildkite Agent's jobs can be run within a Kubernetes cluster on AWS.
+The Buildkite agent's jobs can be run within a Kubernetes cluster on AWS.
 
 Before you start, you will require your own Kubernetes cluster running on AWS. Learn more about this from [Kubernetes on AWS](https://aws.amazon.com/kubernetes/).
 
@@ -30,7 +30,7 @@ Once your Kubernetes cluster is running in AWS, you can then set up the [Buildki
 
 ## Installing the agent on your own AWS instances
 
-To run the Buildkite Agent on your own AWS EC2 instances, use the installer that matches your EC2 instance operating system:
+To run the Buildkite agent on your own AWS EC2 instances, use the installer that matches your EC2 instance operating system:
 
 * For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/self-hosted/install/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](/docs/agent/self-hosted/aws/self-serve-install/ec2-mac)
