@@ -133,8 +133,7 @@ bk build view [<build-number>] [flags]
 | `-b`, `--branch=STRING` | Filter builds to this branch. |
 | `-p`, `--pipeline=STRING` | The pipeline to use. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. |
 | `-u`, `--user=STRING` | Filter builds to this user. You can use name or email. |
-| `-w`, `--web` | Open the build in a web browser. |
-| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `-w`, `--web` | Open the build in a web browser. -o, --output=""          Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
 | `--mine` | Filter builds to only my user. |
 
@@ -208,8 +207,7 @@ bk build list [flags]
 | `--duration=STRING` | Filter by duration (e.g. >5m, <10m, 20m) - supports >, <, >=, <= operators |
 | `--limit=50` | Maximum number of builds to return |
 | `--message=STRING` | Filter by message content --meta-data=KEY=VALUE;...    Filter by build meta-data (key=value format, can be specified multiple times) |
-| `--no-limit` | Fetch all builds (overrides --limit) |
-| `-o`, `--output=""` | Output format. One of: json, yaml, text |
+| `--no-limit` | Fetch all builds (overrides --limit) -o, --output=""                  Output format. One of: json, yaml, text |
 | `--since=STRING` | Filter builds created since this time (e.g. 1h, 30m) |
 | `--state=STATE,...` | Filter by build state |
 | `--until=STRING` | Filter builds created before this time (e.g. 1h, 30m) |
@@ -467,3 +465,4 @@ Set a custom polling interval (in seconds):
 ```bash
 bk build watch --interval 5 --pipeline my-pipeline
 ```
+
