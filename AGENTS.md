@@ -16,6 +16,64 @@ Run the CI steps locally and correct any errors before pushing commits. Review t
 
 ---
 
+# Understanding Buildkite products and documentation
+
+The sections above cover authoring documentation. This section covers understanding and navigating the Buildkite product documentation as a consumer.
+
+## What the docs cover
+
+The Buildkite documentation at https://buildkite.com/docs covers product usage, configuration, API references, and tutorials. Pricing information is at https://buildkite.com/pricing/ and is not part of this repository.
+
+## Product areas
+
+Buildkite has three main products and shared platform capabilities:
+
+### Pipelines (CI/CD)
+
+The primary product. Start here: `/docs/pipelines`
+
+- **Why Buildkite Pipelines:** To understand what differentiates Buildkite from other CI/CD tools, read `/docs/pipelines/advantages/buildkite_pipelines`. For detailed comparisons against specific competitors, see https://github.com/buildkite/conversion-rules
+- **Hybrid operating model:** Buildkite uses a hosted control plane with a choice of self-hosted or Buildkite-hosted execution. Each job in a pipeline runs on an agent machine. Read `/docs/agent` for an overview, `/docs/agent/self_hosted` for running your own agents, and `/docs/agent/buildkite_hosted` for using Buildkite-hosted agents.
+- **Dynamic pipelines:** A key differentiator. Pipelines can be modified at runtime. Read `/docs/pipelines/configure/dynamic_pipelines` for the feature overview, `/docs/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel` for a tutorial, and `/docs/pipelines/best_practices/working_with_monorepos` for monorepo patterns.
+- **Concurrency and parallelism:** Buildkite supports large-scale concurrency and multi-environment builds. Read `/docs/pipelines/best_practices/parallel_builds`
+- **Hooks and plugins:** Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `/docs/agent/hooks` for hooks and `/docs/pipelines/integrations/plugins` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
+- **Developer experience:** Annotations, structured log output, and embedded links and images reduce log digging. Read `/docs/agent/cli/reference/annotate` for annotations, `/docs/pipelines/configure/managing_log_output` for log management, and `/docs/pipelines/configure/links_and_images_in_log_output` for rich log content.
+- **Creating pipelines:** For pipeline configuration and setup, read `/docs/pipelines/configure`
+- **Security:** Read `/docs/pipelines/security` for pipeline security, `/docs/pipelines/best_practices/security_controls` for security best practices, and `/docs/agent/self_hosted/security` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`/docs/pipelines/integrations/secrets/plugins`) or use Buildkite Secrets (`/docs/pipelines/security/secrets`).
+
+### Test Engine
+
+Tracks and analyzes test suite performance. Start here: `/docs/test_engine`
+
+### Packages
+
+Host and manage package registries. Start here: `/docs/package_registries`
+
+### Platform (shared features)
+
+Common capabilities across products like organizations, users, permissions, and the CLI. Start here: `/docs/platform`
+
+### APIs
+
+REST API and GraphQL API documentation. Start here: `/docs/apis`
+
+For AI-assisted workflows, use the Buildkite MCP server to interact with Buildkite APIs directly. Read `/docs/apis/mcp_server` for setup and usage.
+
+## What is not in the docs
+
+- Pricing and plan details (see https://buildkite.com/pricing/)
+- Account management and billing workflows
+- Sales and support contact information
+- Internal architecture or infrastructure details
+
+For product announcements and technical articles, see the Buildkite blog at https://buildkite.com/resources/blog/
+
+## How pages are structured
+
+Documentation pages in this repository live under `pages/` with a directory structure that maps to URL paths. For example, `pages/pipelines/configure/dynamic_pipelines.md` maps to `/docs/pipelines/configure/dynamic-pipelines`. Note that filenames use underscores but URLs use hyphens. Navigation is defined in `data/nav.yml`.
+
+---
+
 # Buildkite documentation style rules
 
 ## Instructions
@@ -584,3 +642,29 @@ steps:
 
 If asked to rewrite a document based on these instructions:
 Use natural writing style. Write like a human technical writer, not like AI. AVOID AI WRITING PATTERNS!
+
+## Landing the Plane (Session Completion)
+
+**When ending a work session**, you MUST complete ALL steps below. Work is NOT complete until `git push` succeeds.
+
+**MANDATORY WORKFLOW:**
+
+1. **File issues for remaining work** - Create issues for anything that needs follow-up
+2. **Run quality gates** (if code changed) - Tests, linters, builds
+3. **Update issue status** - Close finished work, update in-progress items
+4. **PUSH TO REMOTE** - This is MANDATORY:
+   ```bash
+   git pull --rebase
+   bd sync
+   git push
+   git status  # MUST show "up to date with origin"
+   ```
+5. **Clean up** - Clear stashes, prune remote branches
+6. **Verify** - All changes committed AND pushed
+7. **Hand off** - Provide context for next session
+
+**CRITICAL RULES:**
+- Work is NOT complete until `git push` succeeds
+- NEVER stop before pushing - that leaves work stranded locally
+- NEVER say "ready to push when you are" - YOU must push
+- If push fails, resolve and retry until it succeeds
