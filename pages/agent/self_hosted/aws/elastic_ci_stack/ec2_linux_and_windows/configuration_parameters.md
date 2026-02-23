@@ -11,7 +11,7 @@ The Elastic CI Stack for AWS can be configured using parameters in AWS CloudForm
 
 The following tables list all of the available configuration parameters. For CloudFormation deployments, these are parameters in the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml). For Terraform deployments, these are variables in the [Terraform module](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-aws).
 
-Note that you must provide a value for the Buildkite Agent token (CloudFormation: [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath) or [`BuildkiteAgentToken`](#BuildkiteAgentToken); Terraform: `agent_token_parameter_store_path` or `agent_token`) to use the stack. All other parameters are optional.
+Note that you must provide a value for the Buildkite agent token (CloudFormation: [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath) or [`BuildkiteAgentToken`](#BuildkiteAgentToken); Terraform: `agent_token_parameter_store_path` or `agent_token`) to use the stack. All other parameters are optional.
 
 
 <!--

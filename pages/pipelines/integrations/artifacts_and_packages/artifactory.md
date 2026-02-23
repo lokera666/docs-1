@@ -1,10 +1,10 @@
 # Artifactory
 
-There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Buildkite. This document covers how to configure the Buildkite Agent's built-in Artifactory support, as well as how to use Artifactory's package management features in your Buildkite pipelines.
+There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Buildkite. This document covers how to configure the Buildkite agent's built-in Artifactory support, as well as how to use Artifactory's package management features in your Buildkite pipelines.
 
-## Buildkite Agent's Artifactory support
+## Buildkite agent's Artifactory support
 
-The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/hooks) to configure the Agent's Artifactory support.
+The Buildkite agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/hooks) to configure the Agent's Artifactory support.
 
 See the [Managing pipeline secrets](/docs/pipelines/security/secrets/managing) documentation for how to securely set up these environment variables.
 
@@ -58,8 +58,8 @@ steps:
 
 <%= image "artifactory-go-local-repository.png", width: 1484/2, height: 674/2, alt: "Screenshot of an artifact in the go-local repository in Artifactory" %>
 
-> 📘 Retrieving artifacts using the Buildkite Agent  
-> The Buildkite Agent uses Buildkite's APIs to fetch the correct URLs to download artifacts from Artifactory. By default, the agent searches for artifacts uploaded within the same build. To download artifacts that were uploaded in different builds using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts) or [artifacts-buildkite-plugin](https://github.com/buildkite-plugins/artifacts-buildkite-plugin), pass the [`BUILDKITE_BUILD_ID`](/docs/agent/cli/reference/artifact#downloading-artifacts-options) of the job through which the artifact was uploaded, as additional information to the `--build` option's argument.
+> 📘 Retrieving artifacts using the Buildkite agent
+> The Buildkite agent uses Buildkite's APIs to fetch the correct URLs to download artifacts from Artifactory. By default, the agent searches for artifacts uploaded within the same build. To download artifacts that were uploaded in different builds using [`buildkite-agent artifact download`](/docs/agent/cli/reference/artifact#downloading-artifacts) or [artifacts-buildkite-plugin](https://github.com/buildkite-plugins/artifacts-buildkite-plugin), pass the [`BUILDKITE_BUILD_ID`](/docs/agent/cli/reference/artifact#downloading-artifacts-options) of the job through which the artifact was uploaded, as additional information to the `--build` option's argument.
 
 ## Using Artifactory for package management
 

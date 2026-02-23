@@ -81,7 +81,7 @@ Buildkite Package Registries provide secure OCI-compliant container image storag
 
 ### Authentication with OIDC
 
-The recommended authentication method for CI/CD pipelines is [Open ID Connect (OIDC) tokens](/docs/pipelines/security/oidc). OIDC tokens are short-lived, automatically issued by the Buildkite Agent, and more secure than static API tokens.
+The recommended authentication method for CI/CD pipelines is [Open ID Connect (OIDC) tokens](/docs/pipelines/security/oidc). OIDC tokens are short-lived, automatically issued by the Buildkite agent, and more secure than static API tokens.
 
 ```yaml
 steps:

@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Debian
+# Installing Buildkite agent on Debian
 
-The Buildkite Agent is supported on Debian versions 8 and above using our signed apt repository.
+The Buildkite agent is supported on Debian versions 8 and above using our signed apt repository.
 
 
 ## Installation
@@ -20,7 +20,7 @@ Next, ensure you have the `apt-transport-https` package installed for the HTTPS 
 sudo apt-get install -y apt-transport-https dirmngr curl gpg
 ```
 
-Now, you can add Buildkite Agent's signed apt repository. Buildkite Agent versions come in three release channels:
+Now, you can add Buildkite agent's signed apt repository. Buildkite agent versions come in three release channels:
 
 - **Stable**: Thoroughly tested, production-ready releases recommended for most users.
 - **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.

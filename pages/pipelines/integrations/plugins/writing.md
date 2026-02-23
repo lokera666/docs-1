@@ -367,11 +367,11 @@ my-buildkite-plugins/
 The agent clones the entire repository, then uses the hooks and configuration from the specified subdirectory.
 
 > 📘
-> Subdirectory plugins requires v3.108.0 or later of the Buildkite Agent.
+> Subdirectory plugins requires v3.108.0 or later of the Buildkite agent.
 
 ## Cross-platform plugins
 
-Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite Agent automatically selects the appropriate hook file based on the operating system it's running on.
+Plugins can support multiple operating systems by including platform-specific hook scripts. The Buildkite agent automatically selects the appropriate hook file based on the operating system it's running on.
 
 ### How hook file selection works
 

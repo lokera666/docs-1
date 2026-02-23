@@ -12,7 +12,7 @@ When you create a new organization in Buildkite, an initial agent token is creat
 
 ## Using and storing tokens
 
-An agent token is used by the Buildkite Agent's [start](/docs/agent/cli/reference/start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/self-hosted/configure), or provided using the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_TOKEN`.
+An agent token is used by the Buildkite agent's [start](/docs/agent/cli/reference/start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/self-hosted/configure), or provided using the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_TOKEN`.
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
@@ -321,7 +321,7 @@ An expired agent token will prevent agents configured with this token from being
 
 ## Additional agent tokens
 
-In addition to the agent token, the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
+In addition to the agent token, the Buildkite agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
 
 ### Session tokens
 
@@ -329,7 +329,7 @@ Session tokens are internal tokens that last for the lifetime of the agent conne
 
 ### Job tokens
 
-Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite Agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
+Job tokens are internal agent access tokens that are generated for each individual job when it starts. They are exposed to the job as the [environment variable](/docs/pipelines/configure/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN` and are used by the Buildkite agent's local Job API, which provides access to various CLI commands (including [annotate](/docs/agent/cli/reference/annotate), [artifact](/docs/agent/cli/reference/artifact), [meta-data](/docs/agent/cli/reference/meta-data), and [pipeline](/docs/agent/cli/reference/pipeline) commands). Job tokens are scoped to a single job for security reasons, limiting both the duration and the scope of access, and are valid until the job finishes.
 
 You can set a default or maximum [command timeout](/docs/pipelines/configure/build-timeouts#command-timeouts) to further scope the lifetime of job tokens.
 
@@ -337,7 +337,7 @@ You can set a default or maximum [command timeout](/docs/pipelines/configure/bui
 
 When an agent starts, it follows the token exchange process:
 
-1. The agent connects to the Buildkite Agent API to register itself using its configured _agent token_ (`BUILDKITE_AGENT_TOKEN`).
+1. The agent connects to the Buildkite agent API to register itself using its configured _agent token_ (`BUILDKITE_AGENT_TOKEN`).
 1. The Agent API generates and returns a [session token](#additional-agent-tokens-session-tokens) to the agent.
 1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
 1. When the agent accepts a job, Buildkite generates a [job token](#additional-agent-tokens-job-tokens) specific to that job.
@@ -357,13 +357,13 @@ When an agent starts, it follows the token exchange process:
   </tr>
   <tr>
     <td>Session token (internal)</td>
-    <td>Buildkite Agent API during registration</td>
+    <td>Buildkite agent API during registration</td>
     <td>Agent lifecycle APIs, polling for jobs, and starting jobs.</td>
     <td>Until the agent disconnects.</td>
   </tr>
   <tr>
     <td>Job token (internal)</td>
-    <td>Buildkite Agent API when job is accepted</td>
+    <td>Buildkite agent API when job is accepted</td>
     <td>Local Job API access for CLI commands (including <a href="/docs/agent/cli/reference/annotate">annotate</a>,  <a href="/docs/agent/cli/reference/artifact">artifact</a>,  <a href="/docs/agent/cli/reference/meta-data">meta-data</a>, and  <a href="/docs/agent/cli/reference/pipeline">pipeline</a> commands).</td>
     <td>Until the job finishes.</td>
   </tr>
@@ -483,13 +483,13 @@ Unclustered agent tokens are specific to each Buildkite organization (created be
 
 ### Additional agent tokens
 
-In addition to the unclustered agent token (and as is the case for [agent tokens associated with a cluster](#additional-agent-tokens)), the Buildkite Agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
+In addition to the unclustered agent token (and as is the case for [agent tokens associated with a cluster](#additional-agent-tokens)), the Buildkite agent automatically generates and manages two internal types of tokens during its operation—[session tokens](#additional-agent-tokens-session-tokens) and [job tokens](#additional-agent-tokens-job-tokens).
 
 #### Token exchange process
 
 When an agent starts, it follows the token exchange process:
 
-1. The agent connects to the Buildkite Agent API to register itself using its configured _unclustered agent token_ (`BUILDKITE_AGENT_TOKEN`).
+1. The agent connects to the Buildkite agent API to register itself using its configured _unclustered agent token_ (`BUILDKITE_AGENT_TOKEN`).
 1. The Agent API generates and returns a _session token_ to the agent.
 1. The agent uses this session token to poll for available jobs and manage its connection to Buildkite.
 1. When the agent accepts a job, Buildkite generates a _job token_ specific to that job.
@@ -509,13 +509,13 @@ When an agent starts, it follows the token exchange process:
   </tr>
   <tr>
     <td>Session token (internal)</td>
-    <td>Buildkite Agent API during registration</td>
+    <td>Buildkite agent API during registration</td>
     <td>Agent lifecycle APIs, polling for jobs, and starting jobs.</td>
     <td>Until the agent disconnects.</td>
   </tr>
   <tr>
     <td>Job token (internal)</td>
-    <td>Buildkite Agent API when job is accepted</td>
+    <td>Buildkite agent API when job is accepted</td>
     <td>Local Job API access for CLI commands (including <a href="/docs/agent/cli/reference/annotate">annotate</a>,  <a href="/docs/agent/cli/reference/artifact">artifact</a>,  <a href="/docs/agent/cli/reference/meta-data">meta-data</a>, and  <a href="/docs/agent/cli/reference/pipeline">pipeline</a> commands).</td>
     <td>Until the job finishes.</td>
   </tr>

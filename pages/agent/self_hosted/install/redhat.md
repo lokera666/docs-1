@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Red Hat Enterprise Linux, CentOS, and Amazon Linux
+# Installing Buildkite agent on Red Hat Enterprise Linux, CentOS, and Amazon Linux
 
-The Buildkite Agent is supported on the following operating systems, using the yum repository:
+The Buildkite agent is supported on the following operating systems, using the yum repository:
 
 - Red Hat Enterprise Linux
   + Red Hat Enterprise Linux 7 (RHEL7)
@@ -20,7 +20,7 @@ Start by adding the yum repository for your architecture (if unsure, run `uname 
 
 <!-- TODO: Verify if this is still valid for yum repository packages for the agent -->
 
-Buildkite Agent versions come in three release channels:
+Buildkite agent versions come in three release channels:
 
 - **Stable**: Thoroughly tested, production-ready releases recommended for most users.
 - **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.
@@ -91,7 +91,7 @@ The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`.
 
 ## Which user the agent runs as
 
-On Red Hat, the Buildkite Agent runs as user `buildkite-agent`.
+On Red Hat, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 

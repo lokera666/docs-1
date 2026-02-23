@@ -1,6 +1,6 @@
 # Environment and dependency management
 
-This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite Agents](/docs/agent), [queues](/docs/agent/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
+This page covers best practices for containerized builds, dependency management, handling of secrets, and environment configuration using [Buildkite agents](/docs/agent), [queues](/docs/agent/queues), [plugins](/docs/pipelines/integrations/plugins), and [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines).
 
 ## Build containerization for consistency
 

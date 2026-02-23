@@ -66,7 +66,7 @@ steps:
       queue: hosted-m
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.24"
+          image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
           fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
 

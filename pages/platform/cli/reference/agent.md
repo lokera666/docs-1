@@ -92,8 +92,7 @@ bk agent list [flags]
 | --- | --- |
 | `--debug` | Enable debug output for REST API calls |
 | `--hostname=STRING` | Filter agents by their hostname |
-| `--limit=100` | Maximum number of agents to return |
-| `-o, --output=""` | Output format. One of: json, yaml, text |
+| `--limit=100` | Maximum number of agents to return -o, --output=""          Output format. One of: json, yaml, text |
 | `--name=STRING` | Filter agents by their name |
 | `--per-page=30` | Number of agents per page |
 | `--state=STRING` | Filter agents by state (running, idle, paused) |
@@ -250,8 +249,7 @@ bk agent view <agent> [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-w`, `--web` | Open agent in a browser |
-| `-o, --output=""` | Output format. One of: json, yaml, text |
+| `-w`, `--web` | Open agent in a browser -o, --output=""    Output format. One of: json, yaml, text |
 | `--debug` | Enable debug output for REST API calls |
 
 ### Examples
@@ -279,3 +277,4 @@ View agent as JSON:
 ```bash
 bk agent view 0198d108-a532-4a62-9bd7-b2e744bf5c45 --output json
 ```
+

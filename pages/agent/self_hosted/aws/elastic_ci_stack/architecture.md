@@ -1,6 +1,6 @@
 # Architecture of the Elastic CI Stack for AWS
 
-The Elastic CI Stack for AWS provisions and manages the infrastructure required to run a scalable Buildkite Agent cluster. This page aims to explain the internal components, resources, and mechanisms that make up the stack.
+The Elastic CI Stack for AWS provisions and manages the infrastructure required to run a scalable Buildkite agent cluster. This page aims to explain the internal components, resources, and mechanisms that make up the stack.
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
@@ -20,12 +20,12 @@ The EC2 instances provisioned by the stack run using a pre-configured Amazon Mac
 
 ### Core components
 
-- The Buildkite Agent - the main component.
+- The Buildkite agent - the main component.
 - Docker -  pre-installed to ensure that any containerized workflows function as intended, such as the [Docker-Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [Docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) Buildkite plugins.
-- Git - the Buildkite Agent actively uses Git to checkout codebases ahead of builds.
+- Git - the Buildkite agent actively uses Git to checkout codebases ahead of builds.
 
 ### AWS integration
-- Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite Agent processes.
+- Amazon SSM Agent -  enables remote management of instances, is used this from the Agent Scaler in order to kill Buildkite agent processes.
 - CloudWatch Agent - for streaming to log groups.
 - AWS CLI - for interacting with AWS Resources during build time; can be used within a pipeline.
 - EC2 Instance Connect - can be used to connect to an instance via the AWS Console.
@@ -109,11 +109,11 @@ This works alongside the demand-based scaling provided by the Agent Scaler Lambd
 
 The stack uses Auto Scaling lifecycle hooks to ensure graceful termination of agents. Without lifecycle hooks, AWS would immediately terminate instances when scaling in or rebalancing, which would interrupt any running builds and potentially cause failures or data loss.
 
-Lifecycle hooks pause the termination process, giving the Buildkite Agent time to complete its current job before the instance is destroyed. This is critical for maintaining build reliability and ensuring that your CI/CD pipelines don't experience unexpected interruptions.
+Lifecycle hooks pause the termination process, giving the Buildkite agent time to complete its current job before the instance is destroyed. This is critical for maintaining build reliability and ensuring that your CI/CD pipelines don't experience unexpected interruptions.
 
 ### Instance terminating hook
 
-When an instance is scheduled for termination (due to scaling in or spot instance reclamation), the `instance_terminating` hook pauses the termination process on the `autoscaling:EC2_INSTANCE_TERMINATING` transition. This gives the Buildkite Agent time to finish its current job and gracefully shut down before the EC2 instance is destroyed.
+When an instance is scheduled for termination (due to scaling in or spot instance reclamation), the `instance_terminating` hook pauses the termination process on the `autoscaling:EC2_INSTANCE_TERMINATING` transition. This gives the Buildkite agent time to finish its current job and gracefully shut down before the EC2 instance is destroyed.
 
 The `lifecycled` daemon running on the instance polls for this hook. When detected, it stops the Buildkite agent service, waiting for any running jobs to finish, and then signals the Auto Scaling group to proceed with termination. The default timeout for this process is 3600 seconds (1 hour), but this is configurable using the `InstanceTerminationGracePeriod` (CloudFormation) or `instance_termination_grace_period` (Terraform) parameter.
 
@@ -159,7 +159,7 @@ The stack does not create a bucket for build artifacts by default. You can optio
 
 The stack uses AWS Systems Manager Parameter Store to securely manage agent tokens. This provides a centralized, encrypted location for sensitive information that instances need at boot time.
 
-The Buildkite Agent token is stored as a SecureString parameter, which encrypts the token at rest using AWS KMS. When EC2 instances launch, they retrieve this token from Parameter Store and use it to register with Buildkite.
+The Buildkite agent token is stored as a SecureString parameter, which encrypts the token at rest using AWS KMS. When EC2 instances launch, they retrieve this token from Parameter Store and use it to register with Buildkite.
 
 ## Monitoring
 

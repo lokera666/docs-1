@@ -1175,6 +1175,6 @@ Agent versions with known issues are indicated in these tables.
 
 ## Agent versions 2.x
 
-Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite Agent releases](https://github.com/buildkite/agent/releases) page.
+Buildkite version 2.x agent releases are not listed on this page. However, their installer bundles and changelogs are still available from the [Buildkite agent releases](https://github.com/buildkite/agent/releases) page.
 
 To upgrade from a 3.0-beta or 2.x agent version to a stable 3.x one, see [Upgrading from 3.0-beta and 2.x versions](/docs/agent/self-hosted/versions-directory/upgrading-from-3-dot-0-beta-and-v2).
