@@ -163,7 +163,7 @@ For more information, see the honeycomb documentation: https://docs.honeycomb.io
 ### Datadog agent-less OpenTelemetry
 
 > 🚧 Preview feature
-> The Datadog OTLP traces intake endpoint is currently in Preview. Contact your Datadog account representative to request access.
+> The Datadog OTLP traces intake endpoint is currently in preview. Contact your Datadog account representative to request access.
 
 Set the endpoint to the OTLP traces intake base URL for your [Datadog site](https://docs.datadoghq.com/getting_started/site/). Do not include the `/v1/traces` path, as it is automatically appended. For example:
 
