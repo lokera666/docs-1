@@ -194,6 +194,55 @@ RSpec.describe LLMFullText do
       end
     end
 
+    context "with Redcarpet inline attribute lists" do
+      let(:nav_data) do
+        [
+          {
+            name: "Test Section",
+            children: [
+              {
+                name: "IAL Page",
+                path: "test/ial"
+              }
+            ]
+          }
+        ].map(&:deep_stringify_keys)
+      end
+
+      before do
+        filepath = Rails.root.join("pages", "test/ial.md")
+        allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+        content = [
+          "Header 1 | Header 2",
+          "--- | ---",
+          "Cell 1 | Cell 2",
+          '{: class="responsive-table"}',
+          "",
+          "```yaml",
+          "steps:",
+          "  - command: echo hello",
+          "```",
+          '{: codeblock-file="pipeline.yml"}'
+        ].join("\n")
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+      end
+
+      it "strips Redcarpet IAL annotations" do
+        result = llm_full_text.generate
+        expect(result).not_to include('{: class="responsive-table"}')
+        expect(result).not_to include('{: codeblock-file="pipeline.yml"}')
+      end
+
+      it "preserves the table and code block content" do
+        result = llm_full_text.generate
+        expect(result).to include("Header 1 | Header 2")
+        expect(result).to include("Cell 1 | Cell 2")
+        expect(result).to include("- command: echo hello")
+      end
+    end
+
     context "with ERB tags in content" do
       let(:nav_data) do
         [

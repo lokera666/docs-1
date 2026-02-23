@@ -84,6 +84,9 @@ class LLMFullText
     # Remove HTML comments
     content = content.gsub(/<!--.*?-->/m, "")
 
+    # Strip Redcarpet inline attribute lists (e.g., {: class="responsive-table"})
+    content = content.gsub(/^\{:.*?\}\s*$/, "")
+
     # Bump headings down by 3 levels so page content sits below the
     # structural headings (# doc title, ## section, ### page title).
     # Caps at H6 (######) since Markdown doesn't support deeper levels.
