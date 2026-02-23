@@ -4,7 +4,7 @@ Buildkite is committed to making its web application usable for everyone, includ
 
 ## Theme and display options
 
-Buildkite supports three display theme options, accessible from the navigation menu:
+Buildkite offers three display theme options, accessible from the navigation menu. While these are primarily comfort and usability features rather than accessibility-specific accommodations, they can help users adjust the interface to suit their visual preferences:
 
 - **Light** — the default Buildkite theme
 - **Dark** — an experimental dark mode that inverts the interface colors
@@ -21,15 +21,15 @@ The job log viewer offers an additional theme toggle, allowing you to switch bet
 
 ## Keyboard navigation
 
-Buildkite supports keyboard navigation for core workflows throughout the web application.
+The Buildkite web application supports keyboard navigation, largely through standard browser behavior. Some areas of the application have more intentional keyboard support than others.
 
 ### Skip navigation
 
-All major layouts include a "Skip to main content" link that becomes visible when focused. This allows keyboard and screen reader users to bypass the navigation and jump directly to the page content.
+Some layouts include a "Skip to main content" link that becomes visible when focused. This allows keyboard and screen reader users to bypass the navigation and jump directly to the page content.
 
 ### Focus indicators
 
-Interactive elements display visible focus rings when navigated using the keyboard. Buildkite uses the `:focus-visible` CSS pseudo-class, so focus indicators only appear during keyboard navigation and don't interfere with mouse interactions.
+Interactive elements display visible focus rings when navigated using the keyboard. Buildkite uses the `:focus-visible` CSS pseudo-class, so focus indicators appear during keyboard navigation and don't interfere with mouse interactions. Coverage may vary across some custom components.
 
 ### Keyboard shortcuts
 
@@ -46,17 +46,17 @@ Custom interactive components such as dropdowns, combo boxes, tree views, and to
 
 ## Screen reader support
 
-Buildkite uses semantic HTML and ARIA attributes to support screen readers.
+Buildkite uses semantic HTML and ARIA attributes to support screen readers. The depth of support varies across the application — key components have intentional ARIA labeling, while others rely on browser and platform defaults.
 
 ### Semantic structure
 
 - Pages use the `<main>` landmark element with an `id` anchor for skip navigation
 - The `lang="en"` attribute is set on the root `<html>` element
-- Navigation, headers, and content areas use appropriate semantic HTML elements
+- Navigation, headers, and content areas use semantic HTML elements in many areas
 
 ### ARIA attributes
 
-Buildkite's interface components include ARIA attributes to convey their purpose and state to assistive technologies:
+Key interface components include ARIA attributes to convey their purpose and state to assistive technologies:
 
 - **Build status icons** include `aria-label` attributes describing the current state, for example "Build state: passed"
 - **Dialogs** use `role="dialog"` with appropriate labeling
@@ -70,10 +70,6 @@ Buildkite's interface components include ARIA attributes to convey their purpose
 ### Visually hidden content
 
 Buildkite uses visually hidden text (hidden from the screen but available to screen readers) to provide additional context where the visual interface relies on icons or layout for meaning.
-
-## Reduced motion
-
-Buildkite respects the `prefers-reduced-motion` operating system setting. When reduced motion is enabled, CSS animations such as loading spinners and progress bars are suppressed or stopped.
 
 ## Color and contrast
 
