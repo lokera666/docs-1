@@ -10,7 +10,7 @@ The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-patt
 > 🚧
 > `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
-When enabled, steps containing an `if_changed` key are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
+When enabled, steps containing an `if_changed` attribute are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
 
 ## Monorepo workflows
 
