@@ -10,9 +10,9 @@ To natively implement sparse checkout in Buildkite Pipelines, you can use the [S
 
 ## Git mirrors
 
-[Git mirrors](/docs/agent/v3/self-hosted/configure/git-mirrors) are one of the most effective ways to speed up Git checkouts in Buildkite Pipelines. Instead of fetching the entire repository from your remote Git server every time, agents maintain a single local bare mirror of each repository on the host machine.
+[Git mirrors](/docs/agent/self-hosted/configure/git-mirrors) are one of the most effective ways to speed up Git checkouts in Buildkite Pipelines. Instead of fetching the entire repository from your remote Git server every time, agents maintain a single local bare mirror of each repository on the host machine.
 
-When a build runs, the Buildkite Agent performs a fast local clone from the mirror by using `git clone --reference` flag, significantly reducing checkout times, especially for large repositories or those with extensive histories. Submodules also benefit from this optimization by referencing the mirror during their checkout process.
+When a build runs, the Buildkite agent performs a fast local clone from the mirror by using `git clone --reference` flag, significantly reducing checkout times, especially for large repositories or those with extensive histories. Submodules also benefit from this optimization by referencing the mirror during their checkout process.
 
 ## Comparing sparse checkout and Git mirrors
 
@@ -43,4 +43,4 @@ While both approaches help optimize your Git workflow, they solve different prob
 
 The default checkout behavior in Buildkite Pipelines prioritizes completeness and flexibility. As a result, if you're migrating to Buildkite Pipelines from another CI/CD platform, especially if you're using LFS, you might notice differences in checkout speed or behavior.
 
-To understand how Buildkite's checkout defaults differ from other platforms in a GitHub Actions-based example (including LFS handling, shallow clones, and customization options), see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understanding-the-difference-in-default-checkout-behaviors).
+To understand how Buildkite's checkout defaults differ from other platforms in a GitHub Actions-based example (including LFS handling, shallow clones, and customization options), see [Understanding the difference in default checkout behaviors](/docs/pipelines/migration/from-githubactions#understand-the-differences-the-difference-in-default-checkout-behaviors).

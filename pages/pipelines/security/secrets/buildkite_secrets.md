@@ -1,12 +1,12 @@
 # Buildkite secrets
 
-_Buildkite secrets_ is an encrypted key-value store secrets management service offered by Buildkite for use by the Buildkite Agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/v3/cli/reference/secret) or within a job's environment variables by defining `secrets` on relevant steps within a pipeline YAML configuration. The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
+_Buildkite secrets_ is an encrypted key-value store secrets management service offered by Buildkite for use by the Buildkite agent. These secrets can be accessed using the [`buildkite-agent secret get` command](/docs/agent/cli/reference/secret) or within a job's environment variables by defining `secrets` on relevant steps within a pipeline YAML configuration. The secrets are encrypted both at rest and in transit, and are decrypted on Buildkite's application servers when accessed by the agent.
 
 Buildkite secrets:
 
 - Are scoped within a given [cluster](/docs/pipelines/security/clusters), and are accessible to all agents within that cluster only, since each cluster has its own unique secrets encryption key. The secrets are decrypted by the Buildkite control plane and then sent to the agent.
 
-- Are available to both [Buildkite hosted](/docs/agent/v3/buildkite-hosted) as well as self-hosted agents.
+- Are available to both [Buildkite hosted](/docs/agent/buildkite-hosted) as well as self-hosted agents.
 
 ## Access control
 
@@ -29,7 +29,7 @@ To create a new Buildkite secret using the Buildkite interface:
     * The maximum permitted length for a key is 255 characters.
     * If you attempt to use any other characters for the key, or you begin your key with `buildkite` or `bk` (regardless of case), your secret will not be created when selecting **Create Secret**.
 
-1. Enter the **Value** for the secret. This value can be any number of valid UTF-8 characters up to a maximum of 8 kilobytes. Be aware that once the secret is created, this value will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
+1. Enter the **Value** for the secret. This value can be any number of valid UTF-8 characters up to a maximum of 32 kilobytes. Be aware that once the secret is created, this value will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
 1. Select **Create Secret** to create your new secret, which can now be accessed within jobs through the `buildkite-agent secret get` command.
 
 ## Update a secret's value
@@ -43,7 +43,7 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 1. Select **Agents** in the global navigation to access the **Clusters** page.
 1. Select the cluster where the secret you wish to update is located.
 1. Select **Secrets** to access the **Secrets** page, then select **Edit** in the row of the secret you wish to update.
-1. Enter a new **Value** for your secret. This value can be any number of valid UTF-8 characters up to a maximum of 8 kilobytes. Be aware that once the secret's value is updated, it will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
+1. Enter a new **Value** for your secret. This value can be any number of valid UTF-8 characters up to a maximum of 32 kilobytes. Be aware that once the secret's value is updated, it will no longer be visible through the Buildkite interface and will be redacted when output in build logs.
 1. Select **Update Secret** to update the secret's value.
 
 > 📘
@@ -53,8 +53,8 @@ To update an existing Buildkite secret's value using the Buildkite interface:
 
 ### From within a pipeline YAML configuration
 
-> 📘 Minimum Buildkite Agent version requirement
-> To use Buildkite secrets in a job, defined by its pipeline YAML configuration, version 3.106.0 or later of the Buildkite Agent is required. Using earlier versions of the Buildkite Agent will result in pipeline failures.
+> 📘 Minimum Buildkite agent version requirement
+> To use Buildkite secrets in a job, defined by its pipeline YAML configuration, version 3.106.0 or later of the Buildkite agent is required. Using earlier versions of the Buildkite agent will result in pipeline failures.
 
 Once you've [created a secret](#create-a-secret), you can specify secrets in your pipeline YAML configuration, which will be injected into your job environment. Secrets can be specified for all steps in a build and per command step.
 
@@ -96,7 +96,7 @@ This will inject the value of the secret `API_ACCESS_TOKEN` into the environment
 
 ### From a build script or hook
 
-Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret get` command](/docs/agent/v3/cli/reference/secret) can be used within the Buildkite Agent to print the secret's value to standard out (stdout). You can use this command within standard bash-like commands to redirect the secret's output into an environment variable, a file, or your own tool that uses the Buildkite secret's value directly, for example:
+Once you've [created a secret](#create-a-secret), the [`buildkite-agent secret get` command](/docs/agent/cli/reference/secret) can be used within the Buildkite agent to print the secret's value to standard out (stdout). You can use this command within standard bash-like commands to redirect the secret's output into an environment variable, a file, or your own tool that uses the Buildkite secret's value directly, for example:
 
 - Setting a Buildkite secret with the key `secret_name` into an environment variable called `SECRET_VAR`:
 

@@ -16,16 +16,12 @@ RSpec.feature "reading pages" do
 
     it "has appropriate meta tags" do
       visit "/docs/agent"
-      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent v3")
-      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
+      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite agent")
     end
 
-    it "adds the agent version number to the title" do
-      visit "/docs/agent/v3"
-      expect(page.title).to include("The Buildkite Agent v3")
-
-      visit "/docs/agent/v2"
-      expect(page.title).to include("The Buildkite Agent v2")
+    it "has the correct title" do
+      visit "/docs/agent"
+      expect(page.title).to include("The Buildkite agent")
     end
 
     it "links to the GitHub source files" do
@@ -91,9 +87,11 @@ RSpec.feature "reading pages" do
       /docs/agent/build-artifacts
       /docs/agent/build-meta-data
       /docs/agent/build-pipelines
+      /docs/agent/self-hosted/aws/elastic-ci-stack
+      /docs/agent/self-hosted/code-access#ssh-keys-for-github
       /docs/agent/uploading-pipelines
       /docs/agent/upgrading
-      /docs/agent/v3/plugins
+      /docs/agent/plugins
       /docs/api
       /docs/api/accounts
       /docs/api/builds
@@ -122,11 +120,9 @@ RSpec.feature "reading pages" do
       /docs/guides/controlling-concurrency
       /docs/guides/deploying-to-heroku
       /docs/guides/docker-containerized-builds
-      /docs/guides/elastic-ci-stack-aws
       /docs/guides/environment-variables
       /docs/guides/getting-started
       /docs/guides/github-enterprise
-      /docs/guides/github-repo-access
       /docs/guides/gitlab
       /docs/guides/images-in-build-output
       /docs/guides/managing-log-output

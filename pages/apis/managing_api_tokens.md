@@ -7,8 +7,8 @@ Buildkite API access tokens are issued to individual Buildkite user accounts, no
 You can [create](#creating-and-editing-api-access-tokens-create-an-api-access-token) and [edit](#creating-and-editing-api-access-tokens-edit-an-existing-api-access-token) API access tokens through your **Personal Settings**.
 
 > 📘
+> You'll need to be a member of a Buildkite organization to generate and use an API access token with this organization. This is especially important for contributors to public and open-source projects.
 > Once API access tokens have been created within a Buildkite organization, Buildkite organization administrators can use the [API Access Audit](#auditing-tokens) page to view and manage all such tokens that have been created within it.
-> Also, you'll need to be a member of a Buildkite organization to generate and use an API access token with this organization. This is especially important for contributors to public and open-source projects.
 
 ### Create an API access token
 
@@ -102,7 +102,7 @@ A token's REST API scopes are granular, and you can select some or all of the fo
       {
         name: "Agents",
         key: "read_agents, write_agents",
-        description: "List and retrieve details of agents—stop agents. To register self-hosted agents, use an [agent token](/docs/agent/v3/self-hosted/tokens) instead.",
+        description: "List and retrieve details of agents—stop agents. To register self-hosted agents, use an [agent token](/docs/agent/self-hosted/tokens) instead.",
         read: true, write: true, delete: false
       },
       {
@@ -408,4 +408,4 @@ If you own the token, you can revoke your token from the [API access token page]
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
-[Agent token]: /docs/agent/v3/self-hosted/tokens
+[Agent token]: /docs/agent/self-hosted/tokens
