@@ -180,7 +180,7 @@ Add the required headers:
 | `dd-api-key`     | `<Datadog API key>`            |
 | `dd-otlp-source` | `<value provided by Datadog>` |
 
-The `dd-otlp-source` value is a specific identifier provided by Datadog after your organization is allowlisted for the OTLP traces intake endpoint.
+The `dd-otlp-source` value is a specific identifier provided by Datadog after your organization is on the allowlist for the OTLP traces intake endpoint.
 
 For more information, see [Datadog's OTLP traces intake documentation](https://docs.datadoghq.com/opentelemetry/setup/otlp_ingest/traces/).
 
