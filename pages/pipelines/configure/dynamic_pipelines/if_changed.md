@@ -1,11 +1,11 @@
 # Using if_changed
 
-The `if_changed` feature is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that skips the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows you to detect changes in the repository and only build what changed.
+The `if_changed` attribute is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that skips the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows you to detect changes in the repository and only build what changed.
 
 > 📘 Notes on agent version requirements
-> The minimum Buildkite Agent version required for using `if_changed` is v3.99 (with `--apply-if-changed` flag). Starting with Buildkite Agent version v3.103.0 and newer, this feature is enabled by default. From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
+> The minimum Buildkite Agent version required for using `if_changed` is version 3.99 (with `--apply-if-changed` flag). Starting with Buildkite Agent version 3.103.0, this feature is enabled by default. From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
 
-`if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/v3/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/v3/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
+`if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
 
 > 🚧
 > `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
@@ -43,7 +43,7 @@ The `if_changed` feature compares files against a base reference to determine wh
 
 The agent resolves the comparison base by checking the following in order, using the first valid value:
 
-1. The [`--git-diff-base`](/docs/agent/v3/cli/reference/pipeline#git-diff-base) agent configuration flag or `BUILDKITE_GIT_DIFF_BASE` environment variable
+1. The [`--git-diff-base`](/docs/agent/cli/reference/pipeline#git-diff-base) agent configuration flag or `BUILDKITE_GIT_DIFF_BASE` environment variable
 1. `origin/$BUILDKITE_PULL_REQUEST_BASE_BRANCH` (automatically set on pull request builds)
 1. `origin/$BUILDKITE_PIPELINE_DEFAULT_BRANCH` (the pipeline's configured default branch)
 1. `origin/main`
@@ -70,7 +70,7 @@ steps:
     if_changed: "backend/**"
 ```
 
-Alternatively, set it through [agent configuration](/docs/agent/v3/cli/reference/pipeline#git-diff-base) using the `--git-diff-base` flag, or as an environment variable on the agent itself.
+Alternatively, set it through [agent configuration](/docs/agent/cli/reference/pipeline#git-diff-base) using the `--git-diff-base` flag, or as an environment variable on the agent itself.
 
 ## What happens when steps are skipped
 
@@ -80,7 +80,7 @@ When the `if_changed` pattern doesn't match any changed files, the step is [skip
 - The step's dependencies and dependents are handled appropriately
 - The overall build continues to the next steps
 
-This is similar to using a `skip` [attribute](/docs/pipelines/configure/step-types/command-step#command-step-attributes), but the decision is made dynamically based on file changes rather than being pre-determined.
+This is similar to using a `skip` [attribute](/docs/pipelines/configure/step-types/command-step#command-step-attributes), but the decision is made dynamically based on file changes rather than being predetermined.
 
 ## Glob pattern reference
 
@@ -96,10 +96,10 @@ The key pattern features are:
 
 ## Usage examples
 
-These are some examples that demonstrate various forms of the `if_changed` feature.
+This section covers some examples that demonstrate various forms of the `if_changed` attribute.
 
 > 🚧 Common mistake with dynamic pipelines
-> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file that is uploaded during the `buildkite-agent pipeline upload` command, NOT in the step that performs the upload. This is necessary because the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
+> When using dynamic pipelines, the `if_changed` attribute must be placed in the YAML file that is uploaded during the `buildkite-agent pipeline upload` command, _not_ in the step that performs the upload. This is necessary because the agent must have access to your repository when it processes the `if_changed` attribute during the `buildkite-agent pipeline upload` command.
 
 ### Single glob pattern
 
@@ -251,11 +251,11 @@ The file format is a newline-separated list of file paths relative to the reposi
 
 ## Troubleshooting
 
-In this section, you can find some of the issues that you might run into when using the `if_changed` feature and how to solve them.
+In this section, you can find some of the issues that you might run into when using the `if_changed` attribute and how to solve them.
 
 ### Step still runs when it shouldn't
 
-1. **Check your agent version**: Ensure you're running agent v3.103.0+ (or using `--apply-if-changed` flag with v3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed#notes-on-agent-version-requirements) at the start of this page).
+1. **Check your agent version**: Ensure you're running agent version 3.103.0+ (or using `--apply-if-changed` flag with version 3.99+. See [Notes on agent version requirements](/docs/pipelines/configure/dynamic-pipelines/if-changed#notes-on-agent-version-requirements) at the start of this page).
 1. **Verify pattern placement**: Make sure `if_changed` is in the correct YAML file (see the dynamic pipelines note above).
 1. **Test your glob pattern**: The pattern is matched against file paths relative to your repository root.
 1. **Check the comparison base**: The agent resolves the comparison base using a [specific order](/docs/pipelines/configure/dynamic-pipelines/if-changed#how-change-detection-works). Set `BUILDKITE_GIT_DIFF_BASE` if you need a different base.
