@@ -73,7 +73,8 @@ bk artifacts list [<build-number>] [flags]
 
 | Flag | Description |
 | --- | --- |
-| `-j`, `--job=STRING` | List artifacts for a specific job on the given build. -o, --output=""          Output format. One of: json, yaml, text |
+| `-j`, `--job=STRING` | List artifacts for a specific job on the given build. |
+| `-o`, `--output=""` | Output format. One of: json, yaml, text |
 | `-p`, `--pipeline=STRING` | The pipeline to view. This can be a {pipeline slug} or in the format {org slug}/{pipeline slug}. If omitted, it will be resolved using the current directory. |
 | `--debug` | Enable debug output for REST API calls |
 
