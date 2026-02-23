@@ -10,7 +10,7 @@ When using Namespace remote Docker builders with the [Elastic CI Stack for AWS](
 
 1. The stack instance authenticates with Namespace using [Buildkite OIDC](/docs/pipelines/security/oidc) or [AWS Cognito](https://aws.amazon.com/cognito/) (learn more in [Authentication](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/namespace-remote-builders#authentication)).
 1. The CLI for Namespace (`nsc`) configures [Docker Buildx](https://docs.docker.com/reference/cli/docker/buildx/) on the instance to target the remote builders.
-1. Namespace runs the build workload remotely while the Buildkite Agent continues orchestrating the pipeline.
+1. Namespace runs the build workload remotely while the Buildkite agent continues orchestrating the pipeline.
 1. Built images are pushed to Namespace's registry (`nscr.io`) or any other registry you configure.
 
 ## Prerequisites

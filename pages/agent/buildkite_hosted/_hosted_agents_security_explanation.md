@@ -1,6 +1,6 @@
 Customer security is paramount to Buildkite, where our source code, build artifacts and deployment processes represent some of our most valuable and sensitive assets.
 
-The shift from a [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to a [Buildkite hosted](/docs/pipelines/architecture#buildkite-hosted-architecture) architecture for Buildkite Agents, introduces the potential for new attack vectors and shared responsibility models, and hence, additional security considerations.
+The shift from a [self-hosted](/docs/pipelines/architecture#self-hosted-hybrid-architecture) to a [Buildkite hosted](/docs/pipelines/architecture#buildkite-hosted-architecture) architecture for Buildkite agents, introduces the potential for new attack vectors and shared responsibility models, and hence, additional security considerations.
 
 The security model for Buildkite hosted agents has the following characteristics to address these security considerations and to mitigate attack risks.
 

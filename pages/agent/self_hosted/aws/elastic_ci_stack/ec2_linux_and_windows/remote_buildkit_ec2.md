@@ -2,7 +2,7 @@
 
 [BuildKit](https://docs.docker.com/build/buildkit/) supports running container builds on a remote daemon.
 
-Running builds on a separate instance provides faster CPU, persistent cache storage, and isolation from your pipeline agents. The Buildkite Agent coordinates the build while BuildKit executes it on the remote node.
+Running builds on a separate instance provides faster CPU, persistent cache storage, and isolation from your pipeline agents. The Buildkite agent coordinates the build while BuildKit executes it on the remote node.
 
 This guide shows you how to provision an Amazon EC2 instance as a dedicated BuildKit builder and connect Elastic CI Stack for AWS agents to it.
 

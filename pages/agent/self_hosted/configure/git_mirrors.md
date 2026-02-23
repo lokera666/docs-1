@@ -1,6 +1,6 @@
 # Git mirrors
 
-Git mirrors allow you to create local copies of Git repositories on Buildkite Agents. Git mirrors work by maintaining a single bare Git mirror for each repository on a host, shared among multiple agents and pipelines. Checkouts then reference this mirror using `git clone --reference`, as do submodules.
+Git mirrors allow you to create local copies of Git repositories on Buildkite agents. Git mirrors work by maintaining a single bare Git mirror for each repository on a host, shared among multiple agents and pipelines. Checkouts then reference this mirror using `git clone --reference`, as do submodules.
 
 ## When to use Git mirrors
 
@@ -45,7 +45,7 @@ This section covers common issues with Git mirrors and how to solve or prevent t
 
 ### Parallelism issues
 
-When multiple agents fetch from the same mirror simultaneously, conflicts may occur. The Buildkite Agent implements a locking system that prevents multiple agents from updating the same mirror simultaneously. This file-based lock works across multiple machines, even when the mirror directory is a network file share.
+When multiple agents fetch from the same mirror simultaneously, conflicts may occur. The Buildkite agent implements a locking system that prevents multiple agents from updating the same mirror simultaneously. This file-based lock works across multiple machines, even when the mirror directory is a network file share.
 
 ### Checkout corruption
 
@@ -53,4 +53,4 @@ A mirror repository and a reference clone (checkout) work together. The checkout
 
 ### Updating mirrors
 
-The command `git remote update` is commonly used to refresh mirrors because it updates all references. However, `git fetch origin <branch>` is the preferred approach for most CI/CD use cases because it fetches only the objects a particular job requires. The Buildkite Agent now uses `git fetch origin <branch>` instead of `git remote update` for this reason. Remember that `git remote update` also runs auto maintenance that may cause the checkout corruption mentioned above.
+The command `git remote update` is commonly used to refresh mirrors because it updates all references. However, `git fetch origin <branch>` is the preferred approach for most CI/CD use cases because it fetches only the objects a particular job requires. The Buildkite agent now uses `git fetch origin <branch>` instead of `git remote update` for this reason. Remember that `git remote update` also runs auto maintenance that may cause the checkout corruption mentioned above.

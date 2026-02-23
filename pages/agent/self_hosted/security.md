@@ -1,6 +1,6 @@
-# Buildkite Agent security
+# Buildkite agent security
 
-In cases where a Buildkite Agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
+In cases where a Buildkite agent is being deployed into a sensitive environment, there are a few default settings which may be adjusted and techniques that may be used.
 
 ## Securely storing secrets
 
@@ -148,13 +148,13 @@ You can sign the steps your pipeline runs for extra security. This allows the ag
 
 ## Customize the bootstrap
 
-The Buildkite Agent comes with a default bootstrap handler, but can be
+The Buildkite agent comes with a default bootstrap handler, but can be
 [configured](/docs/agent/self-hosted/configure#bootstrap-script) to run your own
 instead. Providing your own bootstrap provides the highest level of security and
 control of your agent. You can use it to customize your agent, sanitize command
 output, and implement your own security logic.
 
-The Buildkite Agent is separated into a daemon executable and a bootstrap
+The Buildkite agent is separated into a daemon executable and a bootstrap
 executable. The daemon is responsible for communicating with the Buildkite API
 and executing the bootstrap for each assigned job. The bootstrap is responsible
 for checking out source code, calling hooks, running commands, and uploading

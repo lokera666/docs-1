@@ -55,15 +55,15 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Consider using strict pipeline upload guards, such as the [reject-secrets](/docs/agent/cli/reference/pipeline#reject-secrets) option for `buildkite-agent pipeline upload` commands.
 - Have incident response procedures for secret compromise, including automated revocation and rotation processes. Note that cluster maintainers can [revoke tokens](/docs/agent/self-hosted/tokens#revoke-a-token) using the REST API for rapid containment.
 
-## Buildkite Agent security
+## Buildkite agent security
 
-**Risk:** Buildkite Agent compromise leading to privilege escalation, lateral movement, data access, malicious code execution.
+**Risk:** Buildkite agent compromise leading to privilege escalation, lateral movement, data access, malicious code execution.
 
 **Controls:**
 
 - Set [granular command authorization controls](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller) for what the `buildkite-agent` user is allowed to run, restricting executable operations to predefined security parameters.
 - Configure automated regular credential rotation, such as setting automatic [expiration dates](/docs/agent/self-hosted/tokens#agent-token-lifetime) on your agent tokens to limit their window of opportunity to be compromised.
-- [Upgrade your Buildkite Agents](/docs/agent/self-hosted/install#upgrade-agents) on a regular basis.
+- [Upgrade your Buildkite agents](/docs/agent/self-hosted/install#upgrade-agents) on a regular basis.
 - Deploy ephemeral build environments using isolated virtual machines or containers. Ensure that your deployment environment is secure by installing minimal operating systems, disabling inbound SSH access, and enforcing strict network egress controls.
 - Isolate pipelines with sensitive builds to run on dedicated agent pools within their own [cluster](/docs/pipelines/security/clusters). This way, you're ensuring that critical workloads cannot be affected by compromise of less secure environments—for example, open-source repositories with unverified code.
 - Enable [pipeline signing](/docs/agent/self-hosted/security/signed-pipelines) and verification mechanisms.
@@ -71,9 +71,9 @@ Use this guide as a reference for building a defensible, auditable, and resilien
 - Utilize [OIDC-based authentication](/docs/pipelines/security/oidc) to establish secure, short-lived credential exchange between agents and cloud infrastructure, leveraging session tags to add strong unique claims.
 - [Disable command evaluation](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-disable-command-evaluation) where appropriate and enforce script-only execution instead.
 - Consider using the [`--no-plugins` buildkite-agent start option](/docs/agent/cli/reference/start#no-plugins) to prevent the agent from loading any plugins.
-- Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite Agent](/docs/agent/self-hosted/security).
+- Learn more about making your virtual machine or container running the `buildkite-agent` process more secure in [Securing your Buildkite agent](/docs/agent/self-hosted/security).
 
-> 📘 On better Buildkite Agent security
+> 📘 On better Buildkite agent security
 > For small teams with limited experience in hosting and hardening infrastructure, [Buildkite hosted agents](/docs/agent/buildkite-hosted) provide a secure, fully managed solution that reduces operational overhead. However, organizations with stringent governance, risk, and compliance (GRC) requirements that mandate enhanced security postures, should deploy [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture) for their most sensitive workloads, as this approach offers greater control over security configurations and compliance controls.
 
 ## API access token compromise
@@ -130,7 +130,7 @@ Buildkite enforces TLS encryption by default for all platform communications, en
 - Set zero-tolerance policies for manual pipeline overrides, with any unauthorized modifications triggering immediate alerts within your [security information and event management (SIEM)](https://en.wikipedia.org/wiki/Security_information_and_event_management) system to ensure rapid incident response and maintain configuration integrity.
 - Establish a "break glass" protocol that is tied to SIEM alerts in case someone has to make manual modifications to Buildkite's systems outside of the automated IaC workflow.
 - Deploy agent-level [lifecycle hooks](/docs/agent/hooks#agent-lifecycle-hooks) as these cannot be bypassed or avoided through a `pipeline.yml` modification or other developer-level code change. You can also customize the hooks to scan your `pipeline.yml` files to validate their structure and contents, and ensure that those files conform to your Buildkite organization's security requirements.
-- Use [ephemeral Buildkite Agents](/docs/pipelines/glossary#ephemeral-agent) (like the Buildkite [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)) or tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
+- Use [ephemeral Buildkite agents](/docs/pipelines/glossary#ephemeral-agent) (like the Buildkite [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)) or tools such as [Ansible](https://docs.ansible.com/) or [Puppet](https://www.puppet.com/blog/puppet-cicd) to force configuration changes on persistent hosts.
 - Mandate comprehensive security scanning (including container vulnerability and static code analysis scanning) and [SBOM](https://en.wikipedia.org/wiki/Software_supply_chain) generation for all builds. For instance, use [pipeline templates](/docs/pipelines/governance/templates) to ensure every pipeline in your Buildkite organization inherits predetermined configurations and maintains consistent baseline protections.
 - Restrict plugin usage to [private](/docs/pipelines/integrations/plugins/using#plugin-sources) or [version-pinned](/docs/pipelines/integrations/plugins/using#pinning-plugin-versions) plugins to prevent supply chain attacks and ensure reproducible builds with known, vetted components.
 - Use only [verified Docker images](https://docs.docker.com/docker-hub/repos/manage/trusted-content/dvp-program/).

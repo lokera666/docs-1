@@ -1,6 +1,6 @@
 # buildkite-agent artifact
 
-The Buildkite Agent's `artifact` command provides support for uploading and
+The Buildkite agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build
 steps no matter the machine or network.
 
@@ -10,7 +10,7 @@ example.
 ## Uploading artifacts
 
 You can use this command in your build scripts to store artifacts. Artifacts are accessible using the web interface and can be downloaded by future build steps.
-Artifacts can be stored in the Buildkite-managed artifact store, or your own storage location, depending on how you have configured your Buildkite Agent.
+Artifacts can be stored in the Buildkite-managed artifact store, or your own storage location, depending on how you have configured your Buildkite agent.
 
 Be aware that the Buildkite-managed artifact store has an upload size limit of 5Gb per file/artifact.
 

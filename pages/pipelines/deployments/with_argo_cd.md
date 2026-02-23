@@ -49,7 +49,7 @@ You can insert a [block step](/docs/pipelines/configure/step-types/block-step) b
     key: "block-step-condition-for-deploy"
     block: "Deploy this to Dev?"
   - key: "deploy-to-dev"
-    label: "Buildkite Agent to Argo CD CLI Manifest for Dev"
+    label: "Buildkite agent to Argo CD CLI Manifest for Dev"
     command: |
       echo "--- :rocket: Deploying to Dev via Argo CD"
       argocd app sync my-app-dev --server $MYARGOCD_SERVER --auth-token $MYARGOCD_TOKEN
@@ -86,7 +86,7 @@ The [Argo CD Deployment Buildkite Plugin](https://github.com/buildkite-plugins/a
 
 ### Requirements for using the plugin
 
-The plugin requires the Argo CD CLI to be installed on your Buildkite Agents, as it uses the CLI for Argo CD operations while adding the enhanced monitoring and rollback logic on top.
+The plugin requires the Argo CD CLI to be installed on your Buildkite agents, as it uses the CLI for Argo CD operations while adding the enhanced monitoring and rollback logic on top.
 
 ### Authentication setup
 
