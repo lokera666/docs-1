@@ -18,7 +18,7 @@ Available commands are:
 
   <a href="/docs/agent/cli/reference/start">start</a>             Starts a Buildkite agent
   acknowledgements  Prints the licenses and notices of open source software incorporated into this software.
-  <a href="/docs/agent/cli/reference/tool">tool</a>              Utilities for working with the Buildkite Agent
+  <a href="/docs/agent/cli/reference/tool">tool</a>              Utilities for working with the Buildkite agent
   help, h           Shows a list of commands or help for one command
 
 Commands that can be run within a Buildkite job:

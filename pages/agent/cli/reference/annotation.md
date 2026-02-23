@@ -1,6 +1,6 @@
 # buildkite-agent annotation
 
-The Buildkite Agent's `annotation` command allows manipulating existing build annotations.
+The Buildkite agent's `annotation` command allows manipulating existing build annotations.
 
 Annotations are added using [the `buildkite-agent annotate` command](/docs/agent/cli/reference/annotate).
 

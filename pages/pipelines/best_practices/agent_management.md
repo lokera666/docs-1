@@ -1,10 +1,10 @@
 # Agent management best practices
 
-This page covers best practices for effective management of [Buildkite Agents](/docs/agent). Buildkite Agents execute your pipeline's jobs. The right infrastructure, queue layout, and lifecycle policies for your Buildkite Agents determine the security, speed, and cost of your agent fleet.
+This page covers best practices for effective management of [Buildkite agents](/docs/agent). Buildkite agents execute your pipeline's jobs. The right infrastructure, queue layout, and lifecycle policies for your Buildkite agents determine the security, speed, and cost of your agent fleet.
 
 ## Choosing the right architecture
 
-Buildkite Agents can run on local machines, cloud compute, container schedulers, and serverless infrastructure. Choose based on your workload characteristics, cost constraints, and operational maturity. Many teams adopt a hybrid approach, combining different stacks for different workload types.
+Buildkite agents can run on local machines, cloud compute, container schedulers, and serverless infrastructure. Choose based on your workload characteristics, cost constraints, and operational maturity. Many teams adopt a hybrid approach, combining different stacks for different workload types.
 
 | Stack | Best for | Key benefits |
 | ----- | -------- | ------------ |
@@ -13,7 +13,7 @@ Buildkite Agents can run on local machines, cloud compute, container schedulers,
 | **Buildkite hosted agents** | Speed to value, zero ops, bursty workloads | Fully managed, isolated clusters, per-minute billing |
 | **Hybrid approach** | Cost optimization and accounting for different use cases for different teams| Provides the best agent infrastructure for your particular needs |
 
-See a more detailed overview of each architecture type for Buildkite Agents to choose what's right for your Buildkite organization.
+See a more detailed overview of each architecture type for Buildkite agents to choose what's right for your Buildkite organization.
 
 ### Cloud compute
 
@@ -96,11 +96,11 @@ Learn more about using clusters and queues in [Managing clusters](/docs/pipeline
 
 ## Right-sizing of your agent fleet
 
-- Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and [Buildkite Agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
-- Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
+- Monitor queue times with [cluster insights](/docs/pipelines/security/clusters#cluster-insights) and [Buildkite agent Metrics](https://github.com/buildkite/buildkite-agent-metrics).
+- Use cloud-based autoscaling ([Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), [Buildkite agent Scaler](https://github.com/buildkite/buildkite-agent-scaler), [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s)).
 - Maintain dedicated pools for CPU-intensive, GPU-enabled, or OS-specific workloads.
-- Configure [graceful termination](/docs/agent#signal-handling) to allow jobs to complete.
-- To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you can have a single Docker image that contains the latest Buildkite Agent binary, a selection of development and deployment tools, and a config that reads information such as queues or tags from environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.
+- Configure [graceful termination](/docs/agent/lifecycle#signal-handling) to allow jobs to complete.
+- To be able to duplicate your fleet of agents in an easy way, favor agent images and configurations that are able to run in more than one environment. For example, you can have a single Docker image that contains the latest Buildkite agent binary, a selection of development and deployment tools, and a config that reads information such as queues or tags from environment variables. You could then run such image as Kubernetes agents, ECS agents, or in a Docker setup on a virtual machine.
 
 ## Resilience and redundancy
 
@@ -116,4 +116,4 @@ Build security into agent infrastructure from the start. Follow least privilege 
 - Use short-lived tokens and [ephemeral agents](/docs/agent/buildkite-hosted/linux#agent-images)
 - Enforce infrastructure-as-code ([Terraform](/docs/package-registries/ecosystems/terraform), CloudFormation)
 
-For more information on agent security, see [Buildkite Agent security](/docs/pipelines/best-practices/security-controls#buildkite-agent-security).
+For more information on agent security, see [Buildkite agent security](/docs/pipelines/best-practices/security-controls#buildkite-agent-security).

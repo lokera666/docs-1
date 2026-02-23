@@ -1,4 +1,4 @@
-# Buildkite Agent prioritization
+# Buildkite agent prioritization
 
 Agent prioritization controls how Buildkite assigns jobs to available agents. Understanding how the job dispatch system works helps you optimize your agent configuration for better performance and resource utilization.
 

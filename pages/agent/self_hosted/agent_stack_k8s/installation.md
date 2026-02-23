@@ -37,7 +37,7 @@ Both of these deployment methods:
 
 - Create a Kubernetes deployment in the `buildkite` namespace with a single Pod containing the `controller` container.
   * The `buildkite` namespace is created if it does not already exist in the Kubernetes cluster.
-- Use the provided `agentToken` to query the Buildkite Agent API looking for jobs:
+- Use the provided `agentToken` to query the Buildkite agent API looking for jobs:
   * In your Buildkite organization (associated with the `agentToken`)
   * Assigned to the [default queue](/docs/agent/queues#assigning-a-self-hosted-agent-to-a-queue-the-default-self-hosted-queue) in your Buildkite cluster (associated with the `agentToken`)
 

@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on macOS
+# Installing Buildkite agent on macOS
 
-The Buildkite Agent is supported on macOS 11 (Big Sur) or newer using Homebrew or the Buildkite installer script, and supports pre-release versions of both macOS and Xcode.
+The Buildkite agent is supported on macOS 11 (Big Sur) or newer using Homebrew or the Buildkite installer script, and supports pre-release versions of both macOS and Xcode.
 
 ## Installation
 

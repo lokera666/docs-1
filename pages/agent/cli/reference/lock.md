@@ -1,6 +1,6 @@
 # buildkite-agent lock
 
-The Buildkite Agent's `lock` subcommands provide the ability to coordinate multiple concurrent builds on the same host that access shared resources.
+The Buildkite agent's `lock` subcommands provide the ability to coordinate multiple concurrent builds on the same host that access shared resources.
 
 With the `lock` command, processes can acquire and release a lock using the `acquire` and `release` subcommands. For the special case of performing setup once for the life of the agent (and waiting until it is complete), there are the `do` and `done` subcommands. These provide an alternative to using `flock` or OS-dependent locking mechanisms.
 

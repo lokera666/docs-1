@@ -141,5 +141,5 @@ When migrating from the Elastic CI Stack to the Agent Stack for Kubernetes:
 
 - [Agent hooks and plugins on Kubernetes](/docs/agent/self-hosted/agent-stack-k8s/agent-hooks-and-plugins)
 - [Agent hook execution differences](/docs/agent/self-hosted/agent-stack-k8s/agent-hooks-and-plugins#agent-hook-execution-differences)
-- [Buildkite Agent hooks reference](/docs/agent/hooks)
+- [Buildkite agent hooks reference](/docs/agent/hooks)
 - [Environment variables](/docs/pipelines/configure/environment-variables)

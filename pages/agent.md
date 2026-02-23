@@ -4,19 +4,17 @@
 
 The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on [your own self-hosted](/docs/agent/self-hosted) or [Buildkite's hosted](/docs/agent/buildkite-hosted) infrastructure. The agent's main responsibilities are polling buildkite.com for work, running a build's jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
-This page contains reference information for Buildkite organization administrators that provides an overview on how Buildkite agents work, and how to set up and configuration them to work with your Buildkite organization.
+This page provides Buildkite organization administrators with an overview of the [differences between self-hosted and Buildkite hosted agents](#self-hosted-and-buildkite-hosted-agents-compared), [how the Buildkite agent works](/docs/agent#how-it-works), the [agent's lifecycle](#agent-lifecycle), how to [customize the agent's functionality with hooks](#customizing-with-hooks), and the agent's [command line usage](#command-line-usage).
 
 If you're new to Buildkite Pipelines, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial, which will initially set you up to run [Buildkite hosted agents](/docs/agent/buildkite-hosted). From there, you can decide whether to continue using Buildkite hosted agents, or set yourself up to run [self-hosted agents](/docs/agent/self-hosted).
-
-Learn more about the differences between self-hosted and Buildkite hosted agents in [Self-hosted and Buildkite hosted agents compared](#self-hosted-and-buildkite-hosted-agents-compared).
 
 ## Self-hosted and Buildkite hosted agents compared
 
 The following table lists key feature differences between [self-hosted](/docs/agent/self-hosted) and [Buildkite hosted](/docs/agent/buildkite-hosted) agents. If you are looking to establish, expand or modify your Buildkite agent infrastructure, this table should help you choose which path or paths to take.
 
-In a nutshell though:
+In summary though:
 
-- _Self-hosted agents_ are suitable when your organization has any of the following conditions:
+- _Self-hosted agents_ are suitable when your organization has any of the following requirements:
 
     * You need full control over your agent infrastructure.
     * Your agents need a lot of customization.
@@ -120,61 +118,14 @@ By default, a pipeline's jobs run on the first available agent associated with t
 
 Learn more about how Buildkite routes jobs to queues in the [Queues overview](/docs/agent/queues) page.
 
-## Command line usage
+## Agent lifecycle
 
-The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).
+The agent goes through several stages during its operation, from starting up and registering with Buildkite, through to polling for and running jobs, and shutting down. For details on signal handling, exit codes, and troubleshooting common lifecycle issues, see the [Agent lifecycle](/docs/agent/lifecycle) page.
 
 ## Customizing with hooks
 
 The agent's behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline's code repository. Hooks can be used to set up [secrets](/docs/pipelines/security/secrets/managing) as well as overriding default behavior. See the [hooks](/docs/agent/hooks) documentation for full details.
 
-## Signal handling
+## Command line usage
 
-When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit.
-
-If the process does not exit within the 10s grace period it will be forcefully terminated with a `SIGKILL` signal. If you require a longer grace period, it can be customized using the [cancel-grace-period](/docs/agent/self-hosted/configure#configuration-settings) agent configuration option.
-
-The agent also accepts the following two signals directly:
-
-- `SIGTERM` - Instructs the agent to gracefully disconnect, after completing any job that it may be running.
-- `SIGQUIT` - Instructs the agent to forcefully disconnect, canceling any job that it may be running.
-
-## Exit codes
-
-The agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below.
-
-Exit code           | Description
-------------------- | -------------------------------------------------------------------
-0                   | The job exited with a status of 0 (success)
-1                   | The job exited with a status of 1 (most common error status)
-94                  | The checkout timed out waiting for a Git mirrors lock
-128 + signal number | The job was terminated by a signal (see note below)
-255                 | The agent was gracefully terminated
--1                  | Buildkite lost contact with the agent or it stopped reporting to us
-
-> 📘 Jobs terminated by signals
-> When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.
-
-Exit codes for common signals:
-
-Exit code | Signal | Name    | Description
---------- | ------ | ------- | --------------------------------------------
-130       | 2      | SIGINT  | Terminal interrupt signal
-137       | 9      | SIGKILL | Kill (cannot be caught or ignored)
-139       | 11     | SIGSEGV | Segmentation fault; Invalid memory reference
-141       | 13     | SIGPIPE | Write on a pipe with no one to read it
-143       | 15     | SIGTERM | Termination signal (graceful)
-
-## Troubleshooting
-
-One issue you sometimes need to troubleshoot is when Buildkite loses contact with an agent, resulting in a `-1` exit code. After registering with the Buildkite API, an agent regularly sends heartbeat updates to indicate that it is operational. If the Buildkite API does not receive any heartbeat requests from an agent for 3 consecutive minutes, that agent is marked as lost within the next 60 seconds, and will not be assigned any further jobs.
-
-Various factors can cause an agent to fail to send heartbeat updates. Common reasons include networking issues and resource constraints, such as CPU, memory, or I/O limitations on the infrastructure hosting the agent.
-
-In such cases, it's essential to check the agent logs and examine metrics related to networking, CPU, memory, and I/O to help identify the cause of the failed heartbeat updates.
-
-If the agents run on the Elastic CI Stack for AWS with spot instances, the abrupt termination of spot instances can also result in marking agents as lost. To investigate this issue, you can use the [log collector script](https://github.com/buildkite/elastic-ci-stack-for-aws?tab=readme-ov-file#collect-logs-via-script) script to gather all relevant logs and metrics from the Elastic CI Stack for AWS.
-
-### Timeouts
-
-Occasionally, a job may time out if it exceeds the maximum allowed [command step timeout](/docs/pipelines/configure/build-timeouts). Depending on the `cancel-grace-period` set on the agent, the job may not complete gracefully, resulting in an unexpected exit code (`-1`).
+The Buildkite agent has a command line interface (CLI) that lets you interact with and control the agent through the command line. For a complete reference of all available commands, see the [Command-line reference](/docs/agent/cli/reference).

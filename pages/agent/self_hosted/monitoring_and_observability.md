@@ -42,7 +42,7 @@ The URL paths available from the health checking service are as follows:
   and the number of workers is set with the `--spawn` flag. If the previous
   heartbeat for this worker failed, it returns HTTP status 500 and a description
   of the failure. Otherwise, it returns HTTP status 200.
-- **`/metrics`**: (Added in Buildkite Agent version 3.113.0)
+- **`/metrics`**: (Added in Buildkite agent version 3.113.0)
   [Prometheus plain-text metrics](https://prometheus.io/docs/instrumenting/exposition_formats/)
   describing agent behaviour over time.
 - **`/status`**: A human-friendly page detailing various systems inside the
@@ -56,7 +56,7 @@ The following shows the `/status` page for an agent:
 
 ### Prometheus metrics reference
 
-Prometheus metrics were added to the health-checking service in Buildkite Agent version 3.113.0.
+Prometheus metrics were added to the health-checking service in Buildkite agent version 3.113.0.
 
 Metric | Type | Description
 --- | --- | ---
@@ -99,7 +99,7 @@ sum(rate(buildkite_agent_logs_bytes_uploaded_total[5m]))
 
 ## Datadog metrics
 
-The Buildkite Agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
+The Buildkite agent supports sending metrics to Datadog via DogStatsD for monitoring and observability.
 
 To enable Datadog metrics, start the agent with the `--metrics-datadog` option or set `metrics-datadog=true` in the agent's configuration file.
 
@@ -126,7 +126,7 @@ Once enabled, the agent will generate the following metrics (duration measured i
 
 ## Tracing
 
-For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite Agent](/docs/agent/self-hosted/monitoring-and-observability/tracing).
+For Datadog APM or OpenTelemetry tracing, see [Tracing in the Buildkite agent](/docs/agent/self-hosted/monitoring-and-observability/tracing).
 
 [systemd]: https://www.freedesktop.org/software/systemd/man/systemd-journald.service.html
 [launchd]: https://developer.apple.com/library/archive/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
