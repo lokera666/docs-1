@@ -84,6 +84,15 @@ class LLMFullText
     # Remove HTML comments
     content = content.gsub(/<!--.*?-->/m, "")
 
+    # Bump headings down by 3 levels so page content sits below the
+    # structural headings (# doc title, ## section, ### page title).
+    # Caps at H6 (######) since Markdown doesn't support deeper levels.
+    content = content.gsub(/^(#+)(\s)/) do
+      hashes = $1
+      new_level = [hashes.length + 3, 6].min
+      "#" * new_level + $2
+    end
+
     # Clean up excessive blank lines left by stripping
     content = content.gsub(/\n{3,}/, "\n\n")
 

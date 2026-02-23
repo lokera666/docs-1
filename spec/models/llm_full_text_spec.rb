@@ -106,9 +106,11 @@ RSpec.describe LLMFullText do
         expect(result).to include("URL: https://buildkite.com/docs/test/my-page")
       end
 
-      it "includes the page content" do
+      it "includes the page content with bumped headings" do
         result = llm_full_text.generate
         expect(result).to include("This is test content.")
+        expect(result).to include("#### Test Page")
+        expect(result).not_to match(/^# Test Page/)
       end
 
       it "separates pages with horizontal rules" do
@@ -140,6 +142,55 @@ RSpec.describe LLMFullText do
       it "skips pages that do not exist on disk" do
         result = llm_full_text.generate
         expect(result).not_to include("Missing Page")
+      end
+    end
+
+    context "heading level adjustment" do
+      let(:nav_data) do
+        [
+          {
+            name: "Test Section",
+            children: [
+              {
+                name: "Heading Page",
+                path: "test/headings"
+              }
+            ]
+          }
+        ].map(&:deep_stringify_keys)
+      end
+
+      before do
+        filepath = Rails.root.join("pages", "test/headings.md")
+        allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+        content = [
+          "# Page title",
+          "## Section",
+          "### Subsection",
+          "#### Detail",
+          "Some text with #hashtag intact"
+        ].join("\n")
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+      end
+
+      it "bumps page headings down by 3 levels" do
+        result = llm_full_text.generate
+        expect(result).to include("#### Page title")
+        expect(result).to include("##### Section")
+        expect(result).to include("###### Subsection")
+      end
+
+      it "caps headings at H6" do
+        result = llm_full_text.generate
+        expect(result).to include("###### Detail")
+        expect(result).not_to include("#######")
+      end
+
+      it "does not modify non-heading hash characters" do
+        result = llm_full_text.generate
+        expect(result).to include("#hashtag")
       end
     end
 
