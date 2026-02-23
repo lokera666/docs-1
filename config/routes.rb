@@ -478,6 +478,7 @@ Rails.application.routes.draw do
 
   # LLMs.txt
   get "/docs/llms.txt", to: "llm_text#index", defaults: { format: "txt" }
+  get "/docs/llms-full.txt", to: "llm_full_text#index", defaults: { format: "txt" }
 
   # Homepage
   get "/docs" => "pages#index", as: :home_page
