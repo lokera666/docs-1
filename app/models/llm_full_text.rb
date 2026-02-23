@@ -87,6 +87,9 @@ class LLMFullText
     # Strip Redcarpet inline attribute lists (e.g., {: class="responsive-table"})
     content = content.gsub(/^\{:.*?\}\s*$/, "")
 
+    # Convert HTML to Markdown-friendly plain text
+    content = strip_html(content)
+
     # Bump headings down by 3 levels so page content sits below the
     # structural headings (# doc title, ## section, ### page title).
     # Caps at H6 (######) since Markdown doesn't support deeper levels.
@@ -142,6 +145,56 @@ class LLMFullText
 
     parsed = ::FrontMatterParser::Parser.parse_file(filepath)
     parsed.content.strip
+  end
+
+  def strip_html(content)
+    # Convert links: <a href="url">text</a> → [text](url)
+    content = content.gsub(/<a\s[^>]*href="([^"]*)"[^>]*>(.*?)<\/a>/m) do
+      url, text = $1, $2
+      text = text.gsub(/<[^>]+>/, "") # strip nested tags from link text
+      "[#{text.strip}](#{url})"
+    end
+
+    # Convert inline formatting
+    content = content.gsub(/<strong>(.*?)<\/strong>/m, '**\1**')
+    content = content.gsub(/<b>(.*?)<\/b>/m, '**\1**')
+    content = content.gsub(/<em>(.*?)<\/em>/m, '_\1_')
+    content = content.gsub(/<code>(.*?)<\/code>/m, '`\1`')
+
+    # Convert headings: <h2>text</h2> → ## text
+    content = content.gsub(/<h([1-6])[^>]*>(.*?)<\/h\1>/m) do
+      level, text = $1.to_i, $2
+      text = text.gsub(/<[^>]+>/, "") # strip nested tags
+      "#{"#" * level} #{text.strip}"
+    end
+
+    # Convert details/summary to plain text
+    content = content.gsub(/<summary>(.*?)<\/summary>/m, '**\1**')
+    content = content.gsub(/<\/?details>/m, "")
+
+    # Convert <br> tags to newlines
+    content = content.gsub(/<br\s*\/?>/, "\n")
+
+    # Convert paragraphs to double newlines
+    content = content.gsub(/<\/p>\s*/m, "\n\n")
+    content = content.gsub(/<p[^>]*>/m, "")
+
+    # Convert simple table rows to pipe-separated text
+    content = content.gsub(/<tr[^>]*>\s*/m, "")
+    content = content.gsub(/<\/tr>/m, "\n")
+    content = content.gsub(/<t[hd][^>]*>(.*?)<\/t[hd]>/m, '| \1 ')
+
+    # Strip remaining HTML tags
+    content = content.gsub(/<[^>]+>/m, "")
+
+    # Decode common HTML entities
+    content = content.gsub("&lt;", "<")
+    content = content.gsub("&gt;", ">")
+    content = content.gsub("&amp;", "&")
+    content = content.gsub("&quot;", '"')
+    content = content.gsub("&nbsp;", " ")
+
+    content
   end
 
   def should_skip_item?(item)

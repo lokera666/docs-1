@@ -305,7 +305,7 @@ RSpec.describe LLMFullText do
 
         it "resolves url_helpers to actual URLs" do
           result = llm_full_text.generate
-          expect(result).to include('href="https://buildkite.com/user/api-access-tokens"')
+          expect(result).to include("[API tokens](https://buildkite.com/user/api-access-tokens)")
           expect(result).not_to include("<%=")
         end
       end
@@ -379,6 +379,103 @@ RSpec.describe LLMFullText do
           expect(result).not_to include("<%=")
           expect(result).not_to include("some_unknown_helper")
         end
+      end
+    end
+
+    context "HTML to Markdown conversion" do
+      let(:nav_data) do
+        [
+          {
+            name: "Test Section",
+            children: [
+              {
+                name: "HTML Page",
+                path: "test/html"
+              }
+            ]
+          }
+        ].map(&:deep_stringify_keys)
+      end
+
+      before do
+        filepath = Rails.root.join("pages", "test/html.md")
+        allow(File).to receive(:exist?).with(filepath).and_return(true)
+      end
+
+      it "converts HTML links to Markdown links" do
+        content = 'Visit <a href="https://buildkite.com">Buildkite</a> for details.'
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("[Buildkite](https://buildkite.com)")
+        expect(result).not_to include("<a ")
+      end
+
+      it "converts inline formatting tags" do
+        content = "<strong>bold</strong> and <em>italic</em> and <code>mono</code>"
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("**bold**")
+        expect(result).to include("_italic_")
+        expect(result).to include("`mono`")
+      end
+
+      it "converts HTML headings to Markdown headings" do
+        content = '<h2>Section title</h2>'
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        # h2 becomes ## then gets bumped +3 to #####
+        expect(result).to include("##### Section title")
+        expect(result).not_to include("<h2>")
+      end
+
+      it "converts HTML tables to pipe-separated text" do
+        content = "<table><tr><th>Name</th><th>Value</th></tr><tr><td>key</td><td>val</td></tr></table>"
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("| Name")
+        expect(result).to include("| Value")
+        expect(result).to include("| key")
+        expect(result).not_to include("<table>")
+        expect(result).not_to include("<tr>")
+      end
+
+      it "converts details/summary to plain text" do
+        content = "<details><summary>More info</summary>Hidden content</details>"
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("**More info**")
+        expect(result).to include("Hidden content")
+        expect(result).not_to include("<details>")
+      end
+
+      it "decodes HTML entities" do
+        content = "Use &lt;command&gt; and &amp; operator"
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("Use <command> and & operator")
+      end
+
+      it "strips remaining unrecognized HTML tags" do
+        content = '<div class="wrapper"><span>text</span></div>'
+        parsed = double("Parsed", content: content)
+        allow(::FrontMatterParser::Parser).to receive(:parse_file).and_return(parsed)
+
+        result = llm_full_text.generate
+        expect(result).to include("text")
+        expect(result).not_to include("<div")
+        expect(result).not_to include("<span")
       end
     end
 
