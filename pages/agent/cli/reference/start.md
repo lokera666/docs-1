@@ -1,6 +1,6 @@
 # buildkite-agent start
 
-The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
+The Buildkite agent's `start` command is used to manually start an agent and register it with Buildkite.
 
 ## Starting an agent
 

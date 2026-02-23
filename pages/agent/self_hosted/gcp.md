@@ -1,10 +1,10 @@
-# Buildkite Agents on Google Cloud Platform
+# Buildkite agents on Google Cloud Platform
 
-The Buildkite Agent can be run on Google Cloud Platform (GCP) using Buildkite's Elastic CI Stack for GCP Terraform module, or by installing the agent on your self-managed instances. This page covers common installation and setup recommendations for different scenarios of using the Buildkite Agent on GCP.
+The Buildkite agent can be run on Google Cloud Platform (GCP) using Buildkite's Elastic CI Stack for GCP Terraform module, or by installing the agent on your self-managed instances. This page covers common installation and setup recommendations for different scenarios of using the Buildkite agent on GCP.
 
 ## Using the Elastic CI Stack for GCP Terraform module
 
-The [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite Agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration. You can build a [custom image](/docs/agent/self-hosted/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
+The [Elastic CI Stack for GCP](/docs/agent/self-hosted/gcp/elastic-ci-stack) is a Terraform module for an autoscaling Buildkite agent cluster. The agent instances include Docker, Cloud Storage, and Cloud Logging integration. You can build a [custom image](/docs/agent/self-hosted/gcp/elastic-ci-stack/terraform#custom-images) if you need additional tools for your pipelines.
 
 You can use an Elastic CI Stack for GCP deployment to test Linux projects, parallelize large test suites, run Docker containers or docker-compose integration tests, or perform any tasks related to GCP ops.
 
@@ -12,7 +12,7 @@ You can deploy an instance of the Elastic CI Stack for GCP by following the [Ter
 
 ## Using the Buildkite Agent Stack for Kubernetes on GCP
 
-The Buildkite Agent's jobs can be run within a Kubernetes cluster on GCP.
+The Buildkite agent's jobs can be run within a Kubernetes cluster on GCP.
 
 To start, you will need your own Kubernetes cluster running on GCP. Learn more in [Google Kubernetes Engine (GKE) documentation](https://cloud.google.com/kubernetes-engine).
 
@@ -20,7 +20,7 @@ Once your Kubernetes cluster is running on GCP, you can then set up the [Buildki
 
 ## Installing the agent on your own GCP instances
 
-To run the Buildkite Agent on your own [Google Compute Engine](https://cloud.google.com/compute) instance, use whichever installer matches your instance operating system.
+To run the Buildkite agent on your own [Google Compute Engine](https://cloud.google.com/compute) instance, use whichever installer matches your instance operating system.
 
 For example, to install on an Ubuntu-based instance:
 
@@ -55,7 +55,7 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE
 
 Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Kubernetes Engine, you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
 
-You can also set the application credentials using the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Buildkite Agent versions 3.15.2 and above, you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/security/secrets/managing) documentation to learn about setting up environment variables securely.
+You can also set the application credentials using the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Buildkite agent versions 3.15.2 and above, you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/security/secrets/managing) documentation to learn about setting up environment variables securely.
 
 ### Configuring access control
 
@@ -101,7 +101,7 @@ ${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 
 ## Suggested reading
 
-To continue exploring the possibilities of using the Buildkite Agent on Google Cloud Platform, you will benefit from visiting the following documentation pages:
+To continue exploring the possibilities of using the Buildkite agent on Google Cloud Platform, you will benefit from visiting the following documentation pages:
 
 - [Elastic CI Stack for GCP overview](/docs/agent/self-hosted/gcp/elastic-ci-stack)
 - [Terraform setup guide](/docs/agent/self-hosted/gcp/elastic-ci-stack/terraform)

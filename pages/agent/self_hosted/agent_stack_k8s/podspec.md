@@ -39,9 +39,9 @@ With multiple `PodSpec` inputs provided, here is how the Agent Stack for Kuberne
 
 ## PodSpec command and interpretation of arguments
 
-In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite Agent instead of the container's default entrypoint.
+In a `podSpec`, `command` _must_ be a list of strings, since it is [defined by Kubernetes](https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#entrypoint). However, the Buildkite Agent Stack for Kubernetes controller runs the Buildkite agent instead of the container's default entrypoint.
 
-To run a command, the controller must _re-interpret_ `command` into input for the Buildkite Agent. By default, the controller treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
+To run a command, the controller must _re-interpret_ `command` into input for the Buildkite agent. By default, the controller treats `command` as a sequence of multiple commands, similar to steps and commands in a `pipeline.yaml` file which is different to the interpretation of `command` (as an entrypoint vector run without a shell as a single command) in Kubernetes.
 
 This _interposer_ behavior can be changed using `commandParams/interposer`, which can have one of the following values:
 
@@ -114,7 +114,7 @@ For versions of the controller prior to 0.30.0, you can specify a different imag
 
 ### Environment variables precedence
 
-During its bootstrap phase, the Buildkite Agent receives some of its environment variables from the Buildkite platform. These environment variables are normally set using the `env` keyword in pipeline.yaml file.
+During its bootstrap phase, the Buildkite agent receives some of its environment variables from the Buildkite platform. These environment variables are normally set using the `env` keyword in pipeline.yaml file.
 
 During the generation of the Kubernetes `podSpec`, the `podSpec` receives some of its environment variables from the Agent Stack for Kubernetes controller itself, some controller-specific environment variables defined in the values.yaml file, as well as environment variables that can be set in various `podSpec` configuration steps of the pipeline.yaml file.
 

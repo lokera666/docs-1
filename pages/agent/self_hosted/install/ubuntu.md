@@ -1,10 +1,10 @@
-# Installing Buildkite Agent on Ubuntu
+# Installing Buildkite agent on Ubuntu
 
-The Buildkite Agent is supported on Ubuntu versions 18.04 and above using our signed apt repository.
+The Buildkite agent is supported on Ubuntu versions 18.04 and above using our signed apt repository.
 
 ## Installation
 
-First, add our signed apt repository. Buildkite Agent versions come in three release channels:
+First, add our signed apt repository. Buildkite agent versions come in three release channels:
 
 - **Stable**: Thoroughly tested, production-ready releases recommended for most users.
 - **Unstable/Beta**: Newer features that are still being tested, may contain bugs that affect stability.

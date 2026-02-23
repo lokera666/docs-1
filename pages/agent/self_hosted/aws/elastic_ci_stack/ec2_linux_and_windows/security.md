@@ -2,7 +2,7 @@
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
 
-The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customize this, the best practice is to create your own VPC and provide values for the [Network Configuration](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters#network-configuration) parameters:
+The S3 buckets that Buildkite agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customize this, the best practice is to create your own VPC and provide values for the [Network Configuration](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters#network-configuration) parameters:
 
 * `VpcId`
 * `Subnets`
@@ -41,7 +41,7 @@ You're not required to create any special IAM roles or policies, though the depl
 
 * [`buildkite-agent artifact` IAM Permissions](/docs/agent/cli/reference/artifact#using-your-private-aws-s3-bucket-iam-permissions), a policy to allow the Buildkite agent to read/write artifacts to a custom S3 artifact storage location
 * [`BootstrapScriptUrl` IAM Policy](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script), a policy to allow the EC2 instances to read an S3-stored `BootstrapScriptUrl` object
-* Using AWS Secrets Manager to store your Buildkite Agent token depends on a resource policy to grant read access to the Elastic CI Stack for AWS roles (the scaling Lambda and EC2 Instance Profile)
+* Using AWS Secrets Manager to store your Buildkite agent token depends on a resource policy to grant read access to the Elastic CI Stack for AWS roles (the scaling Lambda and EC2 Instance Profile)
 
 ### Key creation
 
@@ -67,9 +67,9 @@ CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but 
 
 ## Using AWS Secrets Manager in the Elastic CI Stack for AWS
 
-The Elastic CI Stack for AWS supports reading a Buildkite Agent token from
+The Elastic CI Stack for AWS supports reading a Buildkite agent token from
 the AWS Systems Manager Parameter Store. The token can be stored in a plaintext
-parameter, or encrypted with a KMS Key for access control purposes. You can also store your Buildkite Agent token using AWS Secrets Manager if
+parameter, or encrypted with a KMS Key for access control purposes. You can also store your Buildkite agent token using AWS Secrets Manager if
 you need the advanced functionality it offers over the Parameter
 Store.
 
@@ -79,7 +79,7 @@ regions in your account.
 
 ### Storing agent tokens
 
-To store your Buildkite Agent token as an AWS Secrets
+To store your Buildkite agent token as an AWS Secrets
 Manager secret, configure the Elastic CI Stack for AWS's
 `BuildkiteAgentTokenParameterStorePath` parameter to reference your secret with
 the special parameter path `/aws/reference/secretsmanager/your_Secrets_Manager_secret_ID`.
@@ -115,7 +115,7 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 
 ### Multi-region replication
 
-It is also possible to replicate your Buildkite Agent token to multiple regions
+It is also possible to replicate your Buildkite agent token to multiple regions
 using AWS Secret Manager's [multi-region replication](https://docs.aws.amazon.com/secretsmanager/latest/userguide/create-manage-multi-region-secrets.html). You
 can then deploy an Elastic CI Stack for AWS to each region and use the Parameter Store
 reference path to read the secret from the regionally replicated secret.
@@ -143,7 +143,7 @@ Now, changes to the agent token secret (either made by hand or using Automatic
 Secret Rotation) will be replicated from the primary region to each replica
 region.
 
-The Elastic CI Stack for AWS will only retrieve the Buildkite Agent token once when the
+The Elastic CI Stack for AWS will only retrieve the Buildkite agent token once when the
 instance boots. You should [refresh your Auto Scaling Group instances](https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html)
 after rotating and replicating the secret, and before revoking the old token.
 

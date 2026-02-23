@@ -5,7 +5,7 @@ This guide leads you through getting started with the [Elastic CI Stack for AWS]
 > 📘 Prefer Terraform?
 > This guide uses AWS CloudFormation. For the Terraform setup instructions, see the [Terraform setup guide](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/terraform).
 
-The Elastic CI Stack for AWS lets you launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/security/clusters) in your own AWS account.
+The Elastic CI Stack for AWS lets you launch a private, autoscaling [Buildkite agent cluster](/docs/pipelines/security/clusters) in your own AWS account.
 
 <!-- vale off -->
 
@@ -23,7 +23,7 @@ Most Elastic CI Stack for AWS features are supported on both Linux and Windows. 
 - Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2022 (64-bit x86)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any [other config values](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/templates/aws-stack.yml)), and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite agent token (and any [other config values](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/templates/aws-stack.yml)), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
@@ -134,7 +134,7 @@ as a value for the `--role-arn` flag.
 
 To gain a better understanding of how Elastic CI Stack for AWS works and how to use it most effectively and securely, check out the following resources:
 
-- [Running Buildkite Agent on AWS](/docs/agent/aws)
+- [Running Buildkite agent on AWS](/docs/agent/aws)
 - [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
 - [Configuration parameters for Elastic CI Stack for AWS](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/configuration-parameters)
 - [Using AWS Secrets Manager](/docs/agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/security#using-aws-secrets-manager-in-the-elastic-ci-stack-for-aws)
