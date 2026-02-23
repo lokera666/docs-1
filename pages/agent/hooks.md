@@ -1,6 +1,6 @@
 # Buildkite agent hooks
 
-An agent goes through different phases in its lifecycle, including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
+An agent goes through different phases in its [lifecycle](/docs/agent/lifecycle), including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
 
 ## What's a hook?
 
