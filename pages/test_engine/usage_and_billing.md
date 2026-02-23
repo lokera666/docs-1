@@ -4,7 +4,9 @@ Test Engine is designed to optimize your test suites through the management of y
 
 ## Managed tests
 
-Each and every test that can be uniquely identified by its combination of test suite, scope, and name, is a _managed test_, which in turn is used for billing purposes in Test Engine.
+Buildkite bills Test Engine customers by number of _managed test_ executions. See the [Buildkite Pricing](https://buildkite.com/pricing/) page for plan-level details.
+
+Each and every test that can be uniquely identified by its combination of test suite, scope, and name, is a _managed test_.
 
 For example, each of the following three tests are unique managed tests:
 
@@ -24,6 +26,9 @@ For billing purposes, Buildkite measures usage by calculating the number of mana
 > If a specific managed test has run multiple times on a specific day, then this only counts once towards the usage measurement for that day.
 
 ## Test executions
+
+> 🚧 Legacy plans only
+> This section is only applicable to Buildkite Test Engine customers on _legacy plans_. Test executions are no longer used to measure usage for billing purposes on current and new Buildkite plans.
 
 Some legacy Buildkite plans measure usage based on the _total number of times_ a test was executed (test execution count).
 
