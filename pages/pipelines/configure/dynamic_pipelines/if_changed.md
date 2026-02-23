@@ -218,7 +218,7 @@ steps:
 Starting with Buildkite Agent version 3.115.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
 
 - Working with shallow clones where Git history is limited
-- Using external monorepo tools (for example, [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
+- Using external monorepo tools (such as [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
 - Integrating with CI systems that already compute changed files upstream
 - Working with non-git repositories
 
