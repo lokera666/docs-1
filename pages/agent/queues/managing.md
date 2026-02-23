@@ -255,7 +255,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/common_create_queue_fields' %>
 
-- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only), by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects. For example:
+- `hostedAgents` (required) an object that configures this queue to use [Buildkite hosted agents](/docs/agent/buildkite-hosted), which makes this a _Buildkite hosted queue_, and defines the instance shape (within its `instanceShape` field) for this queue's [Linux-](#create-a-buildkite-hosted-queue-instance-shape-values-for-linux) or [macOS-](#create-a-buildkite-hosted-queue-instance-shape-values-for-macos) based Buildkite hosted agent. You can also specify a custom agent image that this Buildkite hosted queue uses (a [private preview](/docs/agent/buildkite-hosted/linux/custom-base-images#use-an-agent-image-specify-a-custom-image-for-a-queue) feature only) by passing its URL as the value to its `agentImageRef` field nested within `linux`, then `platformSettings` objects. For example:
 
     ```graphql
     hostedAgents: {
