@@ -3,12 +3,12 @@
 The `if_changed` attribute is a [glob pattern](/docs/pipelines/configure/glob-pattern-syntax) that skips the step from a build if it does not match any files changed in the build. For example: `**.go,go.mod,go.sum,fixtures/**`. This feature allows you to detect changes in the repository and only build what changed.
 
 > 📘 Notes on agent version requirements
-> The minimum Buildkite Agent version required for using `if_changed` is version 3.99 (with `--apply-if-changed` flag). Starting with Buildkite Agent version 3.103.0, this feature is enabled by default. From version 3.109.0 of the Buildkite Agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
+> The minimum Buildkite agent version required for using `if_changed` is version 3.99 (with `--apply-if-changed` flag). Starting with Buildkite agent version 3.103.0, this feature is enabled by default. From version 3.109.0 of the Buildkite agent, `if_changed` also supports lists of glob patterns and `include` and `exclude` attributes.
 
-`if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/cli/reference/pipeline) of the Buildkite Agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
+`if_changed` can be used as an attribute of [command](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes-if-changed), [group](/docs/pipelines/configure/step-types/group-step#agent-applied-attributes-if-changed), [trigger](/docs/pipelines/configure/step-types/trigger-step#agent-applied-attributes-if-changed) steps, or by using the [agent CLI](/docs/agent/cli/reference/pipeline#apply-if-changed) on the [pipeline upload command](/docs/agent/cli/reference/pipeline) of the Buildkite agent to detect [`if_changed` attribute](/docs/pipelines/configure/step-types/command-step#agent-applied-attributes) usage in your pipeline steps.
 
 > 🚧
-> `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite Agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
+> `if_changed` is an agent-applied attribute, and such attributes are not accepted in pipelines set using the Buildkite interface. When used as an agent-applied attribute, it will only be applied by the Buildkite agent when uploading a pipeline (`buildkite-agent pipeline upload`), since they require direct access to your code or repository to process correctly.
 
 When enabled, steps containing an `if_changed` attribute are evaluated against the Git diff. If the `if_changed` glob pattern matches no files changed in the build, the step is skipped.
 
@@ -145,7 +145,7 @@ steps:
 
 ### Pattern lists
 
-Starting with Buildkite Agent version 3.109, lists of patterns are supported. If any changed file matches any of the patterns, the step runs. This provides a more readable alternative to brace expansion.
+Starting with Buildkite agent version 3.109, lists of patterns are supported. If any changed file matches any of the patterns, the step runs. This provides a more readable alternative to brace expansion.
 
 This step runs if any Go-related file changes:
 
@@ -169,7 +169,7 @@ steps:
 
 ### Include and exclude attributes
 
-Starting with Buildkite Agent version 3.109, `include` and `exclude` attributes are supported. The `exclude` attribute eliminates matching files from causing a step to run. When using `exclude`, the `include` attribute is required.
+Starting with Buildkite agent version 3.109, `include` and `exclude` attributes are supported. The `exclude` attribute eliminates matching files from causing a step to run. When using `exclude`, the `include` attribute is required.
 
 This step runs for changes in `spec/`, but not for changes in `spec/integration/`:
 
@@ -215,10 +215,10 @@ steps:
 
 ## Advanced use cases for if_changed
 
-Starting with Buildkite Agent version 3.115.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
+Starting with Buildkite agent version 3.115.0, you can provide a custom list of changed files instead of relying on Git diff. This is useful when:
 
 - Working with shallow clones where Git history is limited
-- Using external monorepo tools (for example, [Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
+- Using external monorepo tools (for example,[Bazel](/docs/pipelines/tutorials/bazel)) that have their own change detection
 - Integrating with CI systems that already compute changed files upstream
 - Working with non-git repositories
 
