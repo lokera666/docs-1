@@ -243,7 +243,7 @@ RSpec.describe LLMFullText do
       end
     end
 
-    context "with ERB tags in content" do
+    context "ERB helper resolution" do
       let(:nav_data) do
         [
           {
@@ -258,21 +258,127 @@ RSpec.describe LLMFullText do
         ].map(&:deep_stringify_keys)
       end
 
-      before do
-        filepath = Rails.root.join("pages", "erb/page.md")
-        allow(File).to receive(:exist?).with(filepath).and_return(true)
+      context "with image helpers" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
 
-        content = "Some text\n<%= image 'test.png' %>\nMore text"
-        parsed = double("Parsed", content: content)
-        allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+          content = "Some text\n<%= image 'screenshot.png' %>\nMore text\n<%= image 'diagram.png', width: 800, height: 600 %>"
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+        end
+
+        it "replaces image helpers with descriptive placeholders" do
+          result = llm_full_text.generate
+          expect(result).to include("[Image: screenshot.png]")
+          expect(result).to include("[Image: diagram.png]")
+          expect(result).not_to include("<%=")
+        end
       end
 
-      it "strips ERB tags from content" do
-        result = llm_full_text.generate
-        expect(result).to include("Some text")
-        expect(result).to include("More text")
-        expect(result).not_to include("<%=")
-        expect(result).not_to include("%>")
+      context "with URL helpers" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+          content = 'Returns a [paginated list](<%= paginated_resource_docs_url %>) of resources.'
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+        end
+
+        it "resolves paginated_resource_docs_url to the actual URL" do
+          result = llm_full_text.generate
+          expect(result).to include("[paginated list](/docs/apis/rest-api#pagination)")
+          expect(result).not_to include("<%=")
+        end
+      end
+
+      context "with url_helpers" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+          content = '<a href="<%= url_helpers.user_access_tokens_url %>">API tokens</a>'
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+        end
+
+        it "resolves url_helpers to actual URLs" do
+          result = llm_full_text.generate
+          expect(result).to include('href="https://buildkite.com/user/api-access-tokens"')
+          expect(result).not_to include("<%=")
+        end
+      end
+
+      context "with render_markdown partials" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+          content = "Before partial\n<%= render_markdown partial: 'shared/my-partial' %>\nAfter partial"
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+
+          partial_path = Rails.root.join("pages", "shared/my_partial.md")
+          partial_underscored = File.join(File.dirname(partial_path), "_my_partial.md")
+          allow(File).to receive(:exist?).with(partial_path).and_return(false)
+          allow(File).to receive(:exist?).with(partial_underscored).and_return(true)
+
+          partial_parsed = double("Parsed", content: "Inlined partial content")
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(partial_underscored).and_return(partial_parsed)
+        end
+
+        it "inlines the partial content" do
+          result = llm_full_text.generate
+          expect(result).to include("Before partial")
+          expect(result).to include("Inlined partial content")
+          expect(result).to include("After partial")
+          expect(result).not_to include("render_markdown")
+        end
+      end
+
+      context "with render partials" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+          content = "Before\n<%= render 'agent/cli/help/annotate' %>\nAfter"
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+
+          partial_path = Rails.root.join("pages", "agent/cli/help/annotate.md")
+          partial_underscored = File.join(File.dirname(partial_path), "_annotate.md")
+          allow(File).to receive(:exist?).with(partial_path).and_return(false)
+          allow(File).to receive(:exist?).with(partial_underscored).and_return(true)
+
+          partial_parsed = double("Parsed", content: "Annotate help content")
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(partial_underscored).and_return(partial_parsed)
+        end
+
+        it "inlines the partial content" do
+          result = llm_full_text.generate
+          expect(result).to include("Annotate help content")
+          expect(result).not_to include("<%= render")
+        end
+      end
+
+      context "with unresolvable ERB" do
+        before do
+          filepath = Rails.root.join("pages", "erb/page.md")
+          allow(File).to receive(:exist?).with(filepath).and_return(true)
+
+          content = "Text before\n<%= some_unknown_helper %>\nText after"
+          parsed = double("Parsed", content: content)
+          allow(::FrontMatterParser::Parser).to receive(:parse_file).with(filepath).and_return(parsed)
+        end
+
+        it "strips remaining ERB tags as a fallback" do
+          result = llm_full_text.generate
+          expect(result).to include("Text before")
+          expect(result).to include("Text after")
+          expect(result).not_to include("<%=")
+          expect(result).not_to include("some_unknown_helper")
+        end
       end
     end
 
