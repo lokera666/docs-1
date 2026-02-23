@@ -52,7 +52,12 @@ class LLMText
       if child["path"]
         # This is a leaf node with a path - add it as a link
         url = "https://buildkite.com/docs/#{child['path']}.md"
-        content << "- [#{child['name']}](#{url})"
+        description = descriptions[child["path"]]
+        if description
+          content << "- [#{child['name']}](#{url}): #{description}"
+        else
+          content << "- [#{child['name']}](#{url})"
+        end
       elsif child["children"]
         # Check if this section has any valid children after filtering
         temp_content = []
@@ -75,5 +80,9 @@ class LLMText
 
   def should_skip_item?(item)
     item["path"]&.include?("apis/graphql/schemas/") # Skip GraphQL schema docs
+  end
+
+  def descriptions
+    @descriptions ||= YAML.load_file(Rails.root.join("data", "llm_descriptions.yml")) || {}
   end
 end
