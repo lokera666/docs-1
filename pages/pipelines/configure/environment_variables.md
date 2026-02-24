@@ -174,7 +174,7 @@ The job environment is made by merging the following sets of values, where value
 <tbody>
   <tr>
     <th><em>Pipeline</em></th>
-    <td>Optional variables set by you in the **YAML Steps editor** using a top-level <code>env</code> attribute</td>
+    <td>Optional variables set by you in the YAML Steps editor using a top-level <code>env</code> attribute</td>
   </tr>
   <tr>
     <th><em>Build</em></th>
@@ -182,7 +182,7 @@ The job environment is made by merging the following sets of values, where value
   </tr>
     <tr>
     <th><em>Step</em></th>
-    <td>Optional variables set by you on a step in the **YAML steps editor** or a pipeline.yml file</td>
+    <td>Optional variables set by you on a step in the YAML steps editor or a pipeline.yml file</td>
   </tr>
   <tr>
     <th><em>Standard</em></th>
