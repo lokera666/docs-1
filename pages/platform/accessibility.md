@@ -6,7 +6,7 @@ Buildkite is committed to making its web application usable for everyone, includ
 
 Buildkite offers three display theme options, accessible from the navigation menu. While these are primarily comfort and usability features rather than accessibility-specific accommodations, they can help users adjust the interface to suit their visual preferences:
 
-- **Light** — the default Buildkite theme
+- **Light**: the default Buildkite theme
 - **Dark** — an experimental dark mode that inverts the interface colors
 - **System** — automatically matches your operating system's light or dark preference
 
