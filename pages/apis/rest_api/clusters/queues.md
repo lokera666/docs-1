@@ -307,7 +307,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   <tr>
     <th><code>hostedAgents</code></th>
     <td>
-      Updates the <em>instance shape</em> for an existing <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manage <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>.
+      Updates the <em>instance shape</em> for an existing <a href="/docs/agent/queues/managing#create-a-buildkite-hosted-queue">Buildkite hosted queue</a>, which in turn manages <a href="/docs/agent/buildkite-hosted">Buildkite hosted agents</a>.
       <br>
       <em>Example:</em>
       <br/>
