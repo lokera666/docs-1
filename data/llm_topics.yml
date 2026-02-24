@@ -190,3 +190,35 @@ packages:
     - "apis/graphql/cookbooks/registries"
     - "apis/webhooks/package-registries"
     - "platform/integrations/slack-workspace"
+
+best-practices:
+  name: "Buildkite Best Practices Documentation"
+  description: "Buildkite documentation for CI/CD best practices, covering pipeline design and structure, agent management, Docker-based builds, parallelization, monorepos, dependency management, secrets, infrastructure as code, caching, monitoring, and security controls."
+  paths:
+    - "pipelines/best-practices"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+
+why-buildkite-pipelines:
+  name: "Why Buildkite Pipelines"
+  description: "Buildkite documentation explaining the advantages of Buildkite Pipelines, including comparisons with Jenkins, GitLab, and GitHub Actions, getting started guides, architecture overview, pipeline converter, migration guides, and source control setup."
+  paths:
+    - "pipelines/advantages"
+    - "pipelines/converter"
+    - "pipelines/migration"
+    - "pipelines/source-control"
+  exact_paths:
+    - "pipelines"
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/dashboard-walkthrough"
+    - "pipelines/build-page"
+    - "pipelines/glossary"
+    - "agent"
+    - "agent/lifecycle"
+    - "agent/hooks"
