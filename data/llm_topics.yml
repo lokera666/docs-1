@@ -264,3 +264,95 @@ why-buildkite-pipelines:
     - "agent"
     - "agent/lifecycle"
     - "agent/hooks"
+
+user-management:
+  name: "Buildkite User Management Documentation"
+  description: "Buildkite documentation for user and team management, covering permissions, SSO providers, two-factor authentication, audit logging, API token management, and system banners."
+  paths:
+    - "platform/team-management"
+    - "platform/sso"
+  exact_paths:
+    - "platform/tutorials/2fa"
+    - "platform/audit-log"
+    - "platform/security/tokens"
+    - "pipelines/security/permissions"
+    - "test-engine/permissions"
+    - "package-registries/security/permissions"
+    - "apis/managing-api-tokens"
+
+ai-tools-and-mcp:
+  name: "Buildkite AI Tools and MCP Documentation"
+  description: "Buildkite documentation for AI tool integration, covering the MCP server (remote and local), available tools and toolsets, model providers, GraphQL portals, and configuring AI coding agents."
+  paths:
+    - "apis/mcp-server"
+    - "apis/model-providers"
+  exact_paths:
+    - "apis/graphql/portals"
+    - "apis/graphql/portals/limits"
+    - "apis/graphql/portals/ephemeral-portal-tokens"
+    - "apis/graphql/portals/user-invoked-portals"
+    - "apis/managing-api-tokens"
+
+getting-started:
+  name: "Getting Started with Buildkite Pipelines"
+  description: "Buildkite documentation for getting started with Buildkite Pipelines, covering first pipeline creation, architecture, dashboard walkthrough, build page, pipeline converter, glossary, and connecting source control."
+  paths:
+    - "pipelines/converter"
+    - "pipelines/source-control"
+  exact_paths:
+    - "pipelines"
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/dashboard-walkthrough"
+    - "pipelines/build-page"
+    - "pipelines/glossary"
+    - "pipelines/configure/defining-steps"
+    - "pipelines/configure/environment-variables"
+    - "agent"
+    - "agent/buildkite-hosted"
+
+cli-tools:
+  name: "Buildkite CLI Tools Documentation"
+  description: "Buildkite documentation for CLI tools, covering the Buildkite CLI (bk) for managing pipelines, builds, and agents, and the buildkite-agent CLI reference for agent operations, artifacts, meta-data, and pipeline uploads."
+  paths:
+    - "platform/cli"
+    - "agent/cli"
+  exact_paths:
+    - "agent"
+    - "apis"
+
+buildkite-apis:
+  name: "Buildkite APIs Documentation"
+  description: "Buildkite documentation for APIs, covering the REST API, GraphQL API, webhooks, MCP server, agent API, model providers, API token management, portals, and rate limits."
+  paths:
+    - "apis"
+
+migrating-to-buildkite:
+  name: "Migrating to Buildkite Pipelines"
+  description: "Buildkite documentation for migrating to Buildkite Pipelines from other CI/CD tools, covering migration guides from Jenkins, GitHub Actions, and Bamboo, plus the AI-powered pipeline converter for translating CI configurations."
+  paths:
+    - "pipelines/migration"
+    - "pipelines/converter"
+  exact_paths:
+    - "pipelines/getting-started"
+    - "pipelines/create-your-own"
+    - "pipelines/architecture"
+    - "pipelines/source-control"
+
+debugging:
+  name: "Buildkite Debugging and Troubleshooting Documentation"
+  description: "Buildkite documentation for debugging and troubleshooting builds, agents, and infrastructure, covering log output management, build annotations, terminal access, agent lifecycle, and platform-specific troubleshooting guides."
+  exact_paths:
+    - "agent/self-hosted/agent-stack-k8s/troubleshooting"
+    - "agent/self-hosted/aws/elastic-ci-stack/ec2-linux-and-windows/troubleshooting"
+    - "agent/self-hosted/aws/elastic-ci-stack/ec2-mac/troubleshooting"
+    - "agent/self-hosted/gcp/elastic-ci-stack/troubleshooting"
+    - "agent/buildkite-hosted/macos/troubleshooting-fastlane"
+    - "agent/buildkite-hosted/terminal-access"
+    - "agent/lifecycle"
+    - "agent/cli/reference/annotate"
+    - "agent/cli/reference/annotation"
+    - "pipelines/configure/managing-log-output"
+    - "pipelines/configure/links-and-images-in-log-output"
+    - "apis/rest-api/annotations"
