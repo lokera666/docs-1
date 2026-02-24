@@ -24,4 +24,4 @@ The Buildkite Platform documentation contains docs for _platform_-level features
 
 - [Accessibility](/docs/platform/accessibility), which documents the accessibility features available across the Buildkite web application, including theme options, keyboard navigation, screen reader support, and reduced motion.
 
-- [Service quotas](/docs/platform/service-quotas), lists Buildkite's default service quota values and how you can alter these if required.
+- [Limits](/docs/platform/limits), lists Buildkite's default service quota values and how you can alter these if required.

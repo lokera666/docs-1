@@ -13,7 +13,7 @@ Buildkite offers three display theme options, accessible from the navigation men
 The theme selection persists across sessions. When set to **System**, Buildkite responds to changes in your OS display settings in real time.
 
 > 📘 Experimental dark mode
-> Dark mode is currently experimental and uses a CSS color inversion technique. Some visual elements may not display perfectly in dark mode. Buildkite is working toward native dark mode support in newer interface components.
+> Dark mode is currently experimental and uses a CSS color inversion technique. Some visual elements may not be displayed perfectly in dark mode. Buildkite is working toward native dark mode support in newer interface components.
 
 ### Job log themes
 
