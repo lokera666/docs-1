@@ -110,7 +110,7 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-- The YAML Steps editor in your pipeline settings, using a top-level `env` attribute before your steps — for values that are *not secret*.
+- The **YAML Steps editor** in your pipeline settings, using a top-level `env` attribute before your steps — for values that are *not secret*.
 - [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
 - An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
 
@@ -121,7 +121,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 Any environment variables set by Buildkite will be interpolated by the Agent.
 
-If you're using the YAML Steps editor to define your pipeline, only the following subset of the environment variables are available:
+If you're using the **YAML Steps editor** to define your pipeline, only the following subset of the environment variables are available:
 
 - `BUILDKITE_BRANCH`
 - `BUILDKITE_TAG`
@@ -139,9 +139,9 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 - `BUILDKITE_MERGE_QUEUE_BASE_BRANCH`
 - `BUILDKITE_MERGE_QUEUE_BASE_COMMIT`
 
-Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Steps editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
+Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the **YAML Steps editor** as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/configure/environment-variables#runtime-variable-interpolation).
 
-Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+Alternatively, you can also access the rest of the Buildkite [environment variables](/docs/pipelines/configure/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/cli/reference/pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/configure/dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
 ## Runtime variable interpolation
 
@@ -165,7 +165,7 @@ There are many different levels at which environment variables are merged togeth
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job's Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
 > 📘
-> If you are not using YAML Steps, the precedence of environment variables is different from the list below.
+> If you are not using YAML steps, the precedence of environment variables is different from the list below.
 > Please [migrate your pipelines](/docs/pipelines/tutorials/pipeline-upgrade) to use YAML steps.
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
@@ -174,7 +174,7 @@ The job environment is made by merging the following sets of values, where value
 <tbody>
   <tr>
     <th><em>Pipeline</em></th>
-    <td>Optional variables set by you in the YAML Steps editor using a top-level <code>env</code> attribute</td>
+    <td>Optional variables set by you in the **YAML Steps editor** using a top-level <code>env</code> attribute</td>
   </tr>
   <tr>
     <th><em>Build</em></th>
@@ -182,7 +182,7 @@ The job environment is made by merging the following sets of values, where value
   </tr>
     <tr>
     <th><em>Step</em></th>
-    <td>Optional variables set by you on a step in the YAML steps editor or a pipeline.yml file</td>
+    <td>Optional variables set by you on a step in the **YAML steps editor** or a pipeline.yml file</td>
   </tr>
   <tr>
     <th><em>Standard</em></th>
