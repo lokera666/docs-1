@@ -111,8 +111,8 @@ The following environment variables have been deprecated.
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
 - The YAML Steps editor in your pipeline settings, using a top-level `env` attribute before your steps — for values that are *not secret*.
-* [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
-* An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
+- [Build pipeline configuration](/docs/pipelines/configure/step-types/command-step) — for values that are *not secret*.
+- An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the [Secrets](/docs/pipelines/security/secrets/managing) documentation for further information and best practices.
