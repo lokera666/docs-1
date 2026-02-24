@@ -8,7 +8,7 @@ Elastic CI Stack for GCP sends logs to Cloud Logging via the Ops Agent. The foll
 
 ### Application logs
 
-- Buildkite Agent logs - log name: `buildkite_agent`
+- Buildkite agent logs - log name: `buildkite_agent`
 
   * Contains agent lifecycle events, job execution, and errors
   * Severity levels: `DEBUG`, `INFO`, `WARNING`, `ERROR`, `CRITICAL`
@@ -60,7 +60,7 @@ resource.type="gce_instance"
 resource.labels.instance_id="INSTANCE_ID"
 ```
 
-View Buildkite Agent errors:
+View Buildkite agent errors:
 
 ```text
 resource.type="gce_instance"
@@ -77,7 +77,7 @@ log_name="projects/PROJECT_ID/logs/cloud_init_output"
 
 ### Viewing logs with gcloud CLI
 
-View recent Buildkite Agent logs:
+View recent Buildkite agent logs:
 
 ```bash
 gcloud logging read "resource.type=gce_instance AND log_name=projects/PROJECT_ID/logs/buildkite_agent" \
@@ -190,7 +190,7 @@ If you have multiple stacks, check that they listen to unique queues determined 
 
 This could also happen if you have agents that are not part of an Elastic CI Stack for GCP [started with a tag](/docs/agent/cli/reference/start#tags) of the form `queue=<name of queue>`. Any agents started like this will compete with a stack for jobs, but the stack will scale out as if this competition did not exist.
 
-## Instances fail to boot the Buildkite Agent
+## Instances fail to boot the Buildkite agent
 
 Check the managed instance group's activity logs and Cloud Logging for the booting instances to determine the issue. Observe where in the startup script the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
 

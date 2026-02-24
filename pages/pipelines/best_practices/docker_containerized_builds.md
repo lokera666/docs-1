@@ -77,7 +77,7 @@ docker-compose run app test.sh
 
 For more examples and information on using this plugin, have a look at the [Docker Compose Plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
 
-The Buildkite Agent also has support for running build steps in an existing Docker image. To use the Docker plugin, add the `plugins` attribute to your command step.
+The Buildkite agent also has support for running build steps in an existing Docker image. To use the Docker plugin, add the `plugins` attribute to your command step.
 
 In this example, the `yarn` commands will be run inside a Docker container using the `node:8` Docker image:
 
@@ -110,7 +110,7 @@ and [parallel builds](parallel-builds) documentation.
 
 ## Adding buildkite-agent to the Docker group
 
-On the agent machine, to allow `buildkite-agent` to use the Docker client, you'll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system's `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform's [Docker installation instructions](https://docs.docker.com/installation/) for more details.
+On the agent machine, to allow `buildkite-agent` to use the Docker client, you'll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system's `docker` group, and then restarting the Buildkite agent to ensure it is running with the correct permissions. See your platform's [Docker installation instructions](https://docs.docker.com/installation/) for more details.
 
 ## Adding a cleanup task
 

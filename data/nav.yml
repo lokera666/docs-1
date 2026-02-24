@@ -376,6 +376,8 @@
               path: "agent/queues"
             - name: "Managing"
               path: "agent/queues/managing"
+        - name: "Agent lifecycle"
+          path: "agent/lifecycle"
         - name: "Hooks"
           path: "agent/hooks"
         - name: "Command-line reference"
@@ -446,6 +448,8 @@
           children:
             - name: "Overview"
               path: "pipelines/configure/dynamic-pipelines"
+            - name: "Using if_changed"
+              path: "pipelines/configure/dynamic-pipelines/if-changed"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
               pill: "preview"

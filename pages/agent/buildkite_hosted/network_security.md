@@ -40,7 +40,7 @@ When using Buildkite hosted agents, be aware of the following network security c
 
 - Since the infrastructure of Buildkite hosted agents is shared across Buildkite customers, the IP address ranges for Buildkite hosted agents originate from a common source, and could be shared between different customers' configured hosted agents.
 
-- Buildkite Agents (regardless of whether they are part of a [Buildkite hosted or self-hosted environment and architecture](/docs/pipelines/architecture)) connect to the Buildkite platform over regular public internet connections using HTTPS.
+- Buildkite agents (regardless of whether they are part of a [Buildkite hosted or self-hosted environment and architecture](/docs/pipelines/architecture)) connect to the Buildkite platform over regular public internet connections using HTTPS.
 
 - All communications use TLS encryption for data in transit.
 
@@ -52,7 +52,7 @@ When using Buildkite hosted agents, be aware of the following network security c
 
 Buildkite hosted agents are capable of providing a secure build environment that is suitable for building most customers' products, as hosted agents can be more convenient, less expensive to manage, and more secure than [self-hosted agents](/docs/pipelines/architecture#self-hosted-hybrid-architecture), especially for customers without dedicated security teams. For organizations building products where a zero-trust build environment and infrastructure is required, the recommendation is to use self-hosted agents to build these products.
 
-Therefore, for the sake of convenience, cost and security, your organization may require a blended build environment, where some products are built using Buildkite hosted agents, and other products (where zero-trust build infrastructure segmentation is required) are built using [Buildkite Agents](/docs/agent) configured in your own self-hosted environments. Such a setup allows you to:
+Therefore, for the sake of convenience, cost and security, your organization may require a blended build environment, where some products are built using Buildkite hosted agents, and other products (where zero-trust build infrastructure segmentation is required) are built using [Buildkite agents](/docs/agent) configured in your own self-hosted environments. Such a setup allows you to:
 
 - Control network security rules directly.
 
@@ -60,6 +60,6 @@ Therefore, for the sake of convenience, cost and security, your organization may
 
 - Maintain network boundaries protected by your own security controls.
 
-While Buildkite Agents themselves do not require VPN software (because the agents communicate with the Buildkite platform over HTTPS), your internal systems can be protected behind VPN or firewall rules that only allow connections from allowlisted IP ranges.
+While Buildkite agents themselves do not require VPN software (because the agents communicate with the Buildkite platform over HTTPS), your internal systems can be protected behind VPN or firewall rules that only allow connections from allowlisted IP ranges.
 
-If you are running self-hosted agents inside your network, run these Buildkite Agents on subnets behind your VPN or in your virtual private clouds (VPCs). Buildkite Agents only make outbound requests using HTTPS to the `agent.buildkite.com` address, and hence, there is no need to configure inbound connections for such communication. This helps keep code, secrets and internal traffic maintained within your local environments.
+If you are running self-hosted agents inside your network, run these Buildkite agents on subnets behind your VPN or in your virtual private clouds (VPCs). Buildkite agents only make outbound requests using HTTPS to the `agent.buildkite.com` address, and hence, there is no need to configure inbound connections for such communication. This helps keep code, secrets and internal traffic maintained within your local environments.

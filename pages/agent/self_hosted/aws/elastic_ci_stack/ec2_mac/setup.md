@@ -8,7 +8,7 @@ Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 > As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has **not** been incorporated into the Elastic CI Stack for AWS.
 
 Using an Auto Scaling group for your instances ensures booting your macOS
-Buildkite Agents is repeatable, and enables automatic instance replacement when
+Buildkite agents is repeatable, and enables automatic instance replacement when
 hardware failures occur.
 
 ## Before you start
@@ -82,7 +82,7 @@ You do not need to install the `buildkite-agent` in your template AMI, the
 `UserData` script.
 
 > 📘 UserData script considerations
-> The default UserData script installs the Buildkite Agent using Homebrew. Since Homebrew is installed under the `ec2-user` account (not root), the UserData script must run Homebrew commands using `su - ec2-user -c`. If you're customizing the UserData script, ensure you maintain this pattern to avoid "command not found: brew" errors.
+> The default UserData script installs the Buildkite agent using Homebrew. Since Homebrew is installed under the `ec2-user` account (not root), the UserData script must run Homebrew commands using `su - ec2-user -c`. If you're customizing the UserData script, ensure you maintain this pattern to avoid "command not found: brew" errors.
 
 ## Step 3: Associate your AMI with a self-managed license in AWS License Manager
 
@@ -191,7 +191,7 @@ number of instances you require.
 The Auto Scaling group will automatically provision Dedicated Hosts using the
 host resource group and boot instances on them. The launch template's `UserData`
 script will resize the root disk, then install, configure, and start the
-Buildkite Agent.
+Buildkite agent.
 
 EC2 Mac instances are slower to boot and terminate than Linux instances. If want
 to match your **Desired capacity** to your workload, consider configuring

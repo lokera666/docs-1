@@ -75,7 +75,7 @@ For the detailed IAM policy configuration, see [Namespace AWS federation documen
 Create a Dockerfile that includes Docker CLI, Buildx, and Namespace CLI:
 
 ```dockerfile
-# Use the official Buildkite Agent Alpine Kubernetes image as base
+# Use the official Buildkite agent Alpine Kubernetes image as base
 FROM buildkite/agent:alpine-k8s
 
 # Switch to root
@@ -144,7 +144,7 @@ Use this option when [support@namespace.so](mailto:support@namespace.so) has bee
 
 ### AWS Cognito authentication
 
-Use this option to use AWS Cognito federation for EKS clusters with IAM Roles for Service Accounts (IRSA). The Buildkite Agent pod authenticates using Cognito, then Namespace provisions the remote builders for the pipeline.
+Use this option to use AWS Cognito federation for EKS clusters with IAM Roles for Service Accounts (IRSA). The Buildkite agent pod authenticates using Cognito, then Namespace provisions the remote builders for the pipeline.
 
 ```yaml
     command: |

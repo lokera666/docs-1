@@ -1,6 +1,6 @@
 # buildkite-agent pause
 
-The Buildkite Agent's `pause` command is used to manually pause a running Buildkite Agent.
+The Buildkite agent's `pause` command is used to manually pause a running Buildkite agent.
 
 ## Pausing an agent
 

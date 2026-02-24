@@ -26,7 +26,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Docker registry push/pull
 * CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
-* Support for stable, beta or edge Buildkite Agent releases
+* Support for stable, beta or edge Buildkite agent releases
 * Multiple stacks in the same AWS Account
 * Rolling updates to stack instances to reduce interruption
 
@@ -173,7 +173,7 @@ Select the **buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx** group and then the **I
 
 <%= image "buildkite-demo-instances.png", width: 3266/2, height: 1748/2, alt: "AWS Auto Scaling Group launching" %>
 
-Once the instances are ready, they will appear on your Buildkite Agents page:
+Once the instances are ready, they will appear on your Buildkite agents page:
 
 <%= image "buildkite-connected-agents.png", size: "#{1584/2}x#{1508/2}", alt: 'Buildkite Connected Agents' %>
 

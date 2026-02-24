@@ -256,11 +256,15 @@ Optional attributes:
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
+### if_changed
+
+<%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
+
 ## Container image attributes
 
-The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) controller to run your [Buildkite Agents](/docs/agent), or [Buildkite hosted agents](/docs/agent/buildkite-hosted).
+The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) controller to run your [Buildkite agents](/docs/agent), or [Buildkite hosted agents](/docs/agent/buildkite-hosted).
 
-- If you are running your Buildkite Agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/self-hosted/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
+- If you are running your Buildkite agents using the Agent Stack for Kubernetes, you can use the `image` attribute to specify a [container image](/docs/agent/self-hosted/agent-stack-k8s/podspec#podspec-command-and-interpretation-of-arguments-custom-images) for a command step to run its job in.
 
 - If you are using Buildkite hosted agents, support for the `image` attribute is experimental and subject to change.
 
@@ -449,7 +453,7 @@ Optional attributes:
 When a single retry rule specifies multiple conditions (`exit_status`, `signal`, and `signal_reason`), all conditions must match for that rule to trigger a retry. If you define multiple retry rules, they are evaluated in the order they appear, and the first matching rule is applied. Exit statuses not matched by any rule are not retried, so you don't need to explicitly set `limit: 0` for unmatched statuses.
 
 > 📘 -1 exit status
-> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit Codes](/docs/agent#exit-codes) for information on other exit codes.
+> A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on [Exit codes](/docs/agent/lifecycle#exit-codes) for information on other such codes.
 
 ```yml
 steps:

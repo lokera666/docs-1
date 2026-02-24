@@ -143,11 +143,11 @@ You can use an existing IAM role instead of letting the stack create one. This i
 
 To use a custom role, pass a pre-existing role's ARN to the Terraform variable `instance_role_arn`, or the CloudFormation Parameter `InstanceRoleARN`.
 
-For the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, you can also provide custom roles using the Terraform variables `scaler_lambda_role_arn`, `asg_process_suspender_role_arn`, and `stop_buildkite_agents_role_arn`. Custom Lambda roles are currently only supported when using Terraform.
+For the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite agents Lambda, you can also provide custom roles using the Terraform variables `scaler_lambda_role_arn`, `asg_process_suspender_role_arn`, and `stop_buildkite_agents_role_arn`. Custom Lambda roles are currently only supported when using Terraform.
 
 ### IAM policy requirements
 
-As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite Agents need an access to:
+As a baseline, a custom IAM role needs the same permissions the stack would normally create. At minimum, Buildkite agents need an access to:
 
 * SSM for agent tokens and instance management
 * Auto Scaling for instance lifecycle management
@@ -312,7 +312,7 @@ When using KMS keys for signed pipelines or encrypted parameters, the following 
 
 ### Lambda roles
 
-When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the following additional permissions are required beyond the core agent policy:
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite agents Lambda, the following additional permissions are required beyond the core agent policy:
 
 ```json
 {
@@ -461,7 +461,7 @@ The following is the trust policy that is created for all the Elastic CI Stack f
 
 ```
 
-When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite Agents Lambda, the trust policy must include `lambda.amazonaws.com` in your Trust Policy:
+When using custom IAM roles for the Agent Scaler Lambda, the ASG Process Suspender Lambda, or the Stop Buildkite agents Lambda, the trust policy must include `lambda.amazonaws.com` in your Trust Policy:
 
 ```json
 {
@@ -544,7 +544,7 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a script on instance boot. The script executes before the Buildkite Agent starts and runs with elevated privileges, making it useful for installing software, configuring settings, or performing other customizations.
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a script on instance boot. The script executes before the Buildkite agent starts and runs with elevated privileges, making it useful for installing software, configuring settings, or performing other customizations.
 
 The stack parameter accepts a URI that specifies the location and retrieval method for your bootstrap script. Supported URI schemes include:
 
@@ -574,7 +574,7 @@ After creating the policy, you must specify the policy's ARN in the `ManagedPoli
 
 ## Configuring agent environment variables
 
-You can configure environment variables for the Buildkite Agent process by using the `AgentEnvFileUrl` stack parameter. These environment variables apply to the agent process itself and are useful for configuring proxy settings, debugging options, or other agent-specific configuration. These variables are _not_ the same as build environment variables, which should be configured in your pipeline.
+You can configure environment variables for the Buildkite agent process by using the `AgentEnvFileUrl` stack parameter. These environment variables apply to the agent process itself and are useful for configuring proxy settings, debugging options, or other agent-specific configuration. These variables are _not_ the same as build environment variables, which should be configured in your pipeline.
 
 The parameter accepts a URI that specifies the location and retrieval method for an environment file. Supported URI schemes include:
 
@@ -595,4 +595,4 @@ You can assess and monitor health and proper function of the Elastic CI Stack fo
 
 * **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
-* **CloudWatch Logs** log streams for the Buildkite Agent and EC2 Instance system console.
+* **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.

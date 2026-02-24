@@ -2,7 +2,7 @@
 
 Buildkite's Linux hosted agents are:
 
-- [Buildkite Agents](/docs/agent) hosted by Buildkite that run in a Linux environment.
+- [Buildkite agents](/docs/agent) hosted by Buildkite that run in a Linux environment.
 
 - Configured as part of a _Buildkite hosted queue_, where the Buildkite hosted agent's machine type is Linux, has a particular [size](#sizes) to efficiently manage jobs with varying requirements, and comes pre-installed with software in the form of [agent images](#agent-images), which can be [customized with other software](/docs/agent/buildkite-hosted/linux/custom-base-images).
 

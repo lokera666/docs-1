@@ -66,7 +66,7 @@ steps:
       queue: hosted-m
     plugins:
       - docker#v5.13.0:
-          image: "golang:1.24"
+          image: "golang:1.25"
       - .buildkite/plugins/check-for-changes:
           fail_message: "Do not edit BK CLI docs directly - use scripts/update-bkcli-help.sh"
 
@@ -265,6 +265,7 @@ steps:
 
   - label: ":robot_face: AI Style Review"
     if: build.branch != "main" && build.pull_request.draft != true
+    if_changed: "pages/**/*.md"
     agents:
       queue: hosted
     timeout_in_minutes: 3

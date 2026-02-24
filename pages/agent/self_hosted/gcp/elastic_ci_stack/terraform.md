@@ -2,7 +2,7 @@
 
 This guide helps you to get started with the [Elastic CI Stack for GCP](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp) using [Terraform](https://www.terraform.io/).
 
-Elastic CI Stack for GCP allows you to launch a private, autoscaling [Buildkite Agent cluster](/docs/pipelines/security/clusters) in your own GCP project.
+Elastic CI Stack for GCP allows you to launch a private, autoscaling [Buildkite agent cluster](/docs/pipelines/security/clusters) in your own GCP project.
 
 ## Before you start
 
@@ -21,7 +21,7 @@ The Elastic CI Stack for GCP does not require familiarity with the underlying GC
 
 - [Google Compute Engine](https://cloud.google.com/products/compute) (to select a `machine_type` appropriate for your workload)
 - [Google Cloud Storage](https://cloud.google.com/storage) (for storing build artifacts)
-- [Secret Manager](https://cloud.google.com/security/products/secret-manager) (for storing the Buildkite Agent token securely)
+- [Secret Manager](https://cloud.google.com/security/products/secret-manager) (for storing the Buildkite agent token securely)
 
 Elastic CI Stack for GCP provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, Cloud NAT, and firewall rules for custom instance networking.
 
@@ -49,7 +49,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 When using the default base image, each machine includes:
 
 - [Debian 13 (trixie)](https://www.debian.org/releases/trixie/)
-- [The Buildkite Agent](/docs/agent)
+- [The Buildkite agent](/docs/agent)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com) (when using custom Packer image)
 - [Docker Compose v2](https://docs.docker.com/compose/) (when using custom Packer image)
@@ -132,7 +132,7 @@ cd packer
 
 This builds a Debian 12-based image with:
 
-- Pre-installed Buildkite Agent
+- Pre-installed Buildkite agent
 - Docker Engine with Compose v2 and Buildx
 - Multi-architecture build support
 - Automated Docker garbage collection

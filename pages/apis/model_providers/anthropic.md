@@ -27,7 +27,7 @@ The following [Claude API](https://platform.claude.com/docs/en/api/overview) end
 - [`GET /v1/models` endpoint](https://platform.claude.com/docs/en/api/models/list): Retrieves all available Anthropic models.
 - [`GET /v1/models/{model_id}` endpoint](https://platform.claude.com/docs/en/api/models): Gets information about a specific model's capabilities and limits.
 
-These endpoints are accessed by appending them to the end of your Buildkite model provider API's base URL—for example, to access the Claude API `POST /v1/messages` endpoint from your Buildkite Agent, use the following URL:
+These endpoints are accessed by appending them to the end of your Buildkite model provider API's base URL—for example, to access the Claude API `POST /v1/messages` endpoint from your Buildkite agent, use the following URL:
 
 ```url
 https://agent.buildkite.com/v3/ai/anthropic/v1/messages

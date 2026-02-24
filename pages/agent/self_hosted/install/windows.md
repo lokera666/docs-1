@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Windows
+# Installing Buildkite agent on Windows
 
-The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
+The Buildkite agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
 
 ## Security considerations
 
@@ -20,7 +20,7 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 
 ## Manual installation
 
-1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite Agent releases on GitHub</a>
+1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite agent releases on GitHub</a>
 2. Extract the files to a directory of your choice (we recommend `C:\buildkite-agent`)
 3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/self-hosted/tokens)
 4. Run `buildkite-agent.exe start` from a command prompt
@@ -72,15 +72,15 @@ While the agent will work without Git installed, you will require [Git for Windo
 
 ## Running as a service
 
-The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once both nssm and the [Buildkite Agent](#automated-install-with-powershell) have been installed, you can create the service that will run the Buildkite Agent using either of the following (set of) commands:
+The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once both nssm and the [Buildkite agent](#automated-install-with-powershell) have been installed, you can create the service that will run the Buildkite agent using either of the following (set of) commands:
 
-Run the nssm GUI, create the Buildkite Agent service and configure it manually:
+Run the nssm GUI, create the Buildkite agent service and configure it manually:
 
 ```
 nssm install buildkite-agent
 ```
 
-Alternatively, create the Buildkite Agent service with the following set of nssm commands, ensuring that the command prompt or PowerShell running these commands has administrator privileges:
+Alternatively, create the Buildkite agent service with the following set of nssm commands, ensuring that the command prompt or PowerShell running these commands has administrator privileges:
 
 ```
 # These commands assume you installed the agent using PowerShell

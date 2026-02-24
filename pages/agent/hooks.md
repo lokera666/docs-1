@@ -1,6 +1,6 @@
 # Buildkite agent hooks
 
-An agent goes through different phases in its lifecycle, including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
+An agent goes through different phases in its [lifecycle](/docs/agent/lifecycle), including starting up, shutting down, and checking out code. Hooks let you extend or override the behavior of agents at different stages of its lifecycle. You "hook into" the agent at a particular stage.
 
 ## What's a hook?
 
@@ -83,7 +83,7 @@ See the [plugin documentation](/docs/pipelines/integrations/plugins) for how to 
 
 ## Polyglot hooks
 
-Buildkite Agent versions prior to v3.85.0 require hooks to be shell scripts. However, with the Buildkite Agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
+Buildkite agent versions prior to v3.85.0 require hooks to be shell scripts. However, with the Buildkite agent version v3.85.0 or later, hooks are significantly more flexible and can be written in the programming language of your choice.
 
 In addition to the regular shell script hooks, polyglot hooks enable you to run two more types of hooks:
 
