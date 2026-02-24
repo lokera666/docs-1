@@ -23,6 +23,48 @@ agent:
   paths:
     - "agent"
 
+self-hosted-agents:
+  name: "Buildkite Self-Hosted Agent Documentation"
+  description: "Buildkite documentation for self-hosted agents, covering installation on Linux, macOS, Windows, and Docker, running on AWS, GCP, and Kubernetes, agent configuration, security, monitoring, and the CLI reference."
+  paths:
+    - "agent/self-hosted"
+    - "agent/cli"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+    - "pipelines/best-practices/agent-management"
+    - "pipelines/security/clusters"
+    - "pipelines/security/clusters/manage"
+    - "pipelines/security/clusters/migrate-from-unclustered-to-clustered-agents"
+    - "pipelines/security/oidc"
+    - "pipelines/security/secrets/managing"
+    - "pipelines/configure/environment-variables"
+    - "pipelines/integrations/plugins"
+
+hosted-agents:
+  name: "Buildkite Hosted Agent Documentation"
+  description: "Buildkite documentation for Buildkite hosted agents, covering Linux and macOS instances, cache volumes, internal container registry, remote Docker builders, network security, code access, pipeline migration, and terminal access."
+  paths:
+    - "agent/buildkite-hosted"
+  exact_paths:
+    - "agent"
+    - "agent/queues"
+    - "agent/queues/managing"
+    - "agent/lifecycle"
+    - "agent/hooks"
+    - "pipelines/best-practices/agent-management"
+    - "pipelines/best-practices/caching"
+    - "pipelines/best-practices/parallel-builds"
+    - "pipelines/security/clusters"
+    - "pipelines/security/clusters/manage"
+    - "pipelines/security/oidc"
+    - "pipelines/configure/step-types/command-step"
+    - "pipelines/source-control"
+    - "platform/team-management/permissions"
+
 pipeline-configurations:
   name: "Buildkite Pipeline Configuration Documentation"
   description: "Buildkite documentation for configuring pipelines, including step types, dynamic pipelines, environment variables, workflows, artifacts, and build settings."
