@@ -8,7 +8,7 @@ Buildkite offers three display theme options, accessible from the navigation men
 
 - **Light**: the default Buildkite theme
 - **Dark**: an experimental dark mode that inverts the interface colors
-- **System** — automatically matches your operating system's light or dark preference
+- **System**: automatically matches your operating system's light or dark preference
 
 The theme selection persists across sessions. When set to **System**, Buildkite responds to changes in your OS display settings in real time.
 
