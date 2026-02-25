@@ -2,7 +2,7 @@
 
 One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file.
 
-The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
+The [Buildkite agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
 ## Configuring Bash
 

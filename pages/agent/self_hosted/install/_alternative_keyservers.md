@@ -1,4 +1,4 @@
-The PGP key used to sign the Buildkite Agent package is also hosted on the following keyservers. Use these keyservers if the one in the installation instructions is down.
+The PGP key used to sign the Buildkite agent package is also hosted on the following keyservers. Use these keyservers if the one in the installation instructions is down.
 
 - [keyserver.ubuntu.com](https://keyserver.ubuntu.com)
 

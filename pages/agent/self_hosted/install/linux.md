@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Linux
+# Installing Buildkite agent on Linux
 
-You can install Buildkite Agent on most Linux based systems (including macOS).
+You can install Buildkite agent on most Linux based systems (including macOS).
 
 
 ## Installation

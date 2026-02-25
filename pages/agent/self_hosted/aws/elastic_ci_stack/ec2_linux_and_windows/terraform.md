@@ -78,7 +78,7 @@ terraform plan
 terraform apply
 ```
 
-The Auto Scaling group will replace instances gradually during the update. Existing builds will complete before instances are terminated using the [Buildkite Agent Scaler](https://github.com/buildkite/buildkite-agent-scaler).
+The Auto Scaling group will replace instances gradually during the update. Existing builds will complete before instances are terminated using the [Buildkite agent Scaler](https://github.com/buildkite/buildkite-agent-scaler).
 
 ## Related documentation
 

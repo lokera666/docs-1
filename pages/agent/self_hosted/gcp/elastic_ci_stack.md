@@ -1,6 +1,6 @@
 # Elastic CI Stack for GCP overview
 
-The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildkite Agent](/docs/agent) cluster running on Google Cloud Platform. You can use it to run your builds on your own infrastructure, with complete control over security, networking, and costs.
+The Buildkite Elastic CI Stack for GCP gives you a private, autoscaling [Buildkite agent](/docs/agent) cluster running on Google Cloud Platform. You can use it to run your builds on your own infrastructure, with complete control over security, networking, and costs.
 
 ## Architecture
 
@@ -9,7 +9,7 @@ The stack is organized into four Terraform modules:
 - **[Networking](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/networking)** - VPC, subnets, Cloud NAT, and firewall rules
 - **[IAM](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/iam)** - service accounts and permissions for agents and metrics
 - **[Compute](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/compute)** - instance groups, autoscaling, and agent configuration
-- **[Buildkite Agent Metrics](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
+- **[Buildkite agent metrics](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/modules/buildkite-agent-metrics)** - Cloud Function for publishing queue metrics
 
 ## Features
 
@@ -21,9 +21,9 @@ The Buildkite Elastic CI Stack for GCP supports:
 - Configurable autoscaling based on build queue activity
 - Docker and Docker Compose v2
 - Multi-architecture build support (ARM/x86 cross-platform)
-- Cloud Logging for system and Buildkite Agent events
+- Cloud Logging for system and Buildkite agent events
 - Cloud Monitoring metrics from the Buildkite API
-- Support for stable, beta, or edge Buildkite Agent releases
+- Support for stable, beta, or edge Buildkite agent releases
 - Multiple stacks in the same GCP project
 - Rolling updates to stack instances to reduce interruption
 - Secret Manager integration for secure token storage
@@ -54,7 +54,7 @@ The Elastic CI Stack for GCP is inspired by the [Elastic CI Stack for AWS](https
 This is the list of contents on each machine running the Buildkite Elastic CI Stack for GCP:
 
 - [Debian 12 (Bookworm)](https://www.debian.org/releases/bookworm/)
-- [The Buildkite Agent](/docs/agent)
+- [The Buildkite agent](/docs/agent)
 - [Git](https://git-scm.com/)
 - [Docker](https://www.docker.com)
 - [Docker Compose v2](https://docs.docker.com/compose/)
@@ -64,7 +64,7 @@ This is the list of contents on each machine running the Buildkite Elastic CI St
 
 For more details on what versions are installed, see the [Packer templates](https://github.com/buildkite/terraform-buildkite-elastic-ci-stack-for-gcp/tree/main/packer).
 
-The Buildkite Agent runs as user `buildkite-agent`.
+The Buildkite agent runs as user `buildkite-agent`.
 
 ## Supported builds
 

@@ -248,7 +248,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins).
+To selectively allow and disallow plugins see [securing your Buildkite agent](/docs/agent/self-hosted/security#restrict-access-by-the-buildkite-agent-controller-allow-a-list-of-plugins).
 
 To disable plugins entirely, set the [`no-plugins`](/docs/agent/self-hosted/configure#no-plugins)
 option.

@@ -448,6 +448,8 @@
           children:
             - name: "Overview"
               path: "pipelines/configure/dynamic-pipelines"
+            - name: "Using if_changed"
+              path: "pipelines/configure/dynamic-pipelines/if-changed"
             - name: "Buildkite SDK"
               path: "pipelines/configure/dynamic-pipelines/sdk"
               pill: "preview"
@@ -920,6 +922,8 @@
       children:
         - name: "Slack Workspace"
           path: "platform/integrations/slack-workspace"
+    - name: "Accessibility"
+      path: "platform/accessibility"
     - name: "Limits"
       path: "platform/limits"
 - name: "APIs"

@@ -169,6 +169,6 @@ To optimize your setup:
 
 The cluster insights dashboard helps identify potential issues, but sometimes you may need additional support. Buildkite offers several resources to help you optimize your build infrastructure:
 
-- Review the [Buildkite Agents documentation](/docs/agent).
+- Review the [Buildkite agents documentation](/docs/agent).
 - Contact Buildkite support at support@buildkite.com for personalized guidance.
 - Join the [Buildkite community forum](https://forum.buildkite.community/) to discuss configurations with other users.
