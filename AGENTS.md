@@ -77,7 +77,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 When writing technical documentation for Buildkite:
 
 **Terminology:**
-- "Buildkite Agent" or "agent" when referring to the running process
+- "Buildkite agent" or "agent" when referring to the running process
 - `buildkite-agent` (in code blocks) when referring to the CLI tool
 - "Sign up/log in" (verbs) vs "signup/login" (nouns/adjectives)
 - "Time out" (verb) vs "timeout" (noun/adjective)
@@ -232,7 +232,7 @@ Ensure documentation is accessible and clear:
 
     Second paragraph within same list item (4 spaces).
 
-2. Next list item.
+1. Next list item.
 ```
 
 ## Spacing rules
