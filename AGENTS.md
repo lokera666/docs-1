@@ -50,7 +50,7 @@ Here are the rules:
 
 This style guide applies to Buildkite product documentation, API reference pages, step-by-step how-tos, and tutorials.
 
-**Language and Voice:**
+**Language and voice:**
 - Use US English (Merriam Webster)
 - Write in plain English, avoid unnecessary jargon
 - Maintain a semi-formal tone - balance between professional and approachable
@@ -62,10 +62,11 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Don't start sentences with "Additionally," "Furthermore," "Moreover"
 - Don't use redundant emphasis like "really," "very," or "quite"
 - Don't be overly enthusiastic, don't use unnecessary exclamation marks
+- If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
-- Format Buildkite UI elements in **bold** matching exact Buildkite interface capitalization. ONLY use bold for Buildkite UI element names (buttons, menu items, field names, tabs, etc.). Nothing else should be bolded. Not for emphasis, not for key terms, not for anything except UI elements.
+- Format Buildkite UI/interface elements in **bold** matching exact Buildkite interface capitalization. This formatting applies to Buildkite UI element names (buttons, menu items, field names, tabs, etc.). The only other elements that should be bolded are list items, where each one consists of an initial term (followed by a colon) or sentence, which in turn is usually followed by non-bolded text that defines, describes, or elaborates upon the initially bolded text.
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - Don't use emojis in lists
@@ -77,7 +78,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 When writing technical documentation for Buildkite:
 
 **Terminology:**
-- "Buildkite Agent" or "agent" when referring to the running process
+- "Buildkite agent" or "agent" when referring to the running process
 - `buildkite-agent` (in code blocks) when referring to the CLI tool
 - "Sign up/log in" (verbs) vs "signup/login" (nouns/adjectives)
 - "Time out" (verb) vs "timeout" (noun/adjective)
@@ -232,7 +233,7 @@ Ensure documentation is accessible and clear:
 
     Second paragraph within same list item (4 spaces).
 
-2. Next list item.
+1. Next list item.
 ```
 
 ## Spacing rules
@@ -304,6 +305,11 @@ Ensure documentation is accessible and clear:
 
 ## Callout rules
 
+**When to use callouts:**
+- Use info callouts (📘) for notes, tips, or supplementary information
+- Use warning callouts (🚧) for warnings, cautions, or troubleshooting tips
+- Do NOT use bolded labels like `**Note:**` or `**Warning:**` followed by text in paragraphs—use callouts instead
+
 **Info callouts:**
 ```markdown
 > 📘 Callout title
@@ -318,7 +324,8 @@ Ensure documentation is accessible and clear:
 ```
 
 **Callouts in numbered lists:**
-- Use indented bold text instead of emoji format
+- Within numbered lists, use indented bold text instead of emoji callouts
+- This is the ONE exception where `**Note:**` is acceptable
 - Example:
 ```markdown
 1. Step one.

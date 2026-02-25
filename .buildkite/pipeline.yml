@@ -264,7 +264,7 @@ steps:
           context: test-summary
 
   - label: ":robot_face: AI Style Review"
-    if: build.branch != "main" && build.pull_request.draft != true
+    if: build.branch != "main" && build.pull_request.draft != true && !(build.pull_request.labels includes "ai-reviewed")
     if_changed: "pages/**/*.md"
     agents:
       queue: hosted

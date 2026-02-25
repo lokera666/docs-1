@@ -504,6 +504,15 @@ func runReview(ctx *ReviewContext) error {
 		}
 	}
 
+	// Add "ai-reviewed" label to prevent re-runs on subsequent commits
+	if !ctx.DryRun {
+		if err := addLabel(ctx, "ai-reviewed"); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to add ai-reviewed label: %v\n", err)
+		} else {
+			fmt.Println(":label: Added 'ai-reviewed' label - remove this label to trigger a new review")
+		}
+	}
+
 	return nil
 }
 
@@ -537,6 +546,9 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 - Be precise with the replacement text - it will be used as a GitHub suggestion
 - Only suggest changes for lines that were added or modified in the PR (lines starting with + in the diff)
 - Do not suggest changes for unchanged lines or lines being deleted
+- ONLY apply rules that are explicitly stated in the style guide - do not invent exceptions, infer unstated rules, or apply general writing conventions that are not in the guide
+- If the style guide does not mention a specific exception or edge case, assume no exception exists
+- Pay attention to which section of the style guide a rule comes from - rules in the "YAML documentation" section only apply to YAML examples, not to JSON or REST API documentation
 
 ## PR #%s Diff
 
@@ -784,5 +796,10 @@ func postSummaryComment(ctx *ReviewContext) error {
 	}
 
 	cmd := exec.Command("gh", "pr", "comment", ctx.PRNumber, "--repo", ctx.Repo, "--body", sb.String())
+	return cmd.Run()
+}
+
+func addLabel(ctx *ReviewContext, label string) error {
+	cmd := exec.Command("gh", "pr", "edit", ctx.PRNumber, "--repo", ctx.Repo, "--add-label", label)
 	return cmd.Run()
 }
