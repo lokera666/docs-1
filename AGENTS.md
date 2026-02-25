@@ -62,7 +62,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 - Don't start sentences with "Additionally," "Furthermore," "Moreover"
 - Don't use redundant emphasis like "really," "very," or "quite"
 - Don't be overly enthusiastic, don't use unnecessary exclamation marks
-- If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with verb "appear/s", which can be used intransitively.
+- If the verb "display/s" is used intransitively, change it to be in the passive voice or replace this verb with "appear/s", which can be used intransitively.
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
