@@ -52,7 +52,8 @@ This section of the REST API documentation also contains several other endpoints
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's pipelines.
 
-**Note**: Results are sorted in descending order when filtering by creation date.
+> 📘
+> Filtering pipelines by creation date sorts results from newest to oldest.
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
