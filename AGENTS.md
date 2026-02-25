@@ -65,7 +65,7 @@ This style guide applies to Buildkite product documentation, API reference pages
 
 **Formatting standards:**
 - Use sentence case for ALL headings. Only capitalize the first word and proper nouns. Example: "Setting up your first pipeline" not "Setting Up Your First Pipeline".
-- Format Buildkite UI/interface elements in **bold** matching exact Buildkite interface capitalization. This formatting applies to Buildkite UI element names (buttons, menu items, field names, tabs, etc.). The only other items that should be bolded are list items, where each one consists of an initial term (followed by a colon) or sentence, which in turn is followed by text that defines, describes, or elaborates upon the initially bolded text.
+- Format Buildkite UI/interface elements in **bold** matching exact Buildkite interface capitalization. This formatting applies to Buildkite UI element names (buttons, menu items, field names, tabs, etc.). The only other elements that should be bolded are list items, where each one consists of an initial term (followed by a colon) or sentence, which in turn is usually followed by text that defines, describes, or elaborates upon the initially bolded text.
 - Format key terms and emphasis in _italics_ (use sparingly)
 - Use serial commas when listing items
 - Don't use emojis in lists
