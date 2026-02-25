@@ -21,20 +21,6 @@ class LLMText
       ""
     ]
 
-    # Add topic-specific guide index
-    topics = LLMTopicText.topics
-    if topics.any?
-      content << "## Topic guides"
-      content << ""
-      content << "Focused subsets of this documentation are available for specific topics:"
-      content << ""
-      topics.each do |slug, topic|
-        url = "https://buildkite.com/docs/llms-#{slug}.txt"
-        content << "- [#{topic['name']}](#{url}): #{topic['description']}"
-      end
-      content << ""
-    end
-
     # Process each top-level navigation section
     nav.data.each do |section|
       next unless section["children"] # Skip sections without children
@@ -51,6 +37,20 @@ class LLMText
         content.concat(temp_content)
         content << ""
       end
+    end
+
+    # Add topic-specific guide index at the end
+    topics = LLMTopicText.topics
+    if topics.any?
+      content << "## Topic guides"
+      content << ""
+      content << "Focused subsets of this documentation are available for specific topics:"
+      content << ""
+      topics.each do |slug, topic|
+        url = "https://buildkite.com/docs/llms-#{slug}.txt"
+        content << "- [#{topic['name']}](#{url}): #{topic['description']}"
+      end
+      content << ""
     end
 
     content.join("\n")
