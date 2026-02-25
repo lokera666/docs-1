@@ -305,6 +305,11 @@ Ensure documentation is accessible and clear:
 
 ## Callout rules
 
+**When to use callouts:**
+- Use info callouts (📘) for notes, tips, or supplementary information
+- Use warning callouts (🚧) for warnings, cautions, or troubleshooting tips
+- Do NOT use bolded labels like `**Note:**` or `**Warning:**` followed by text in paragraphs—use callouts instead
+
 **Info callouts:**
 ```markdown
 > 📘 Callout title
@@ -319,7 +324,8 @@ Ensure documentation is accessible and clear:
 ```
 
 **Callouts in numbered lists:**
-- Use indented bold text instead of emoji format
+- Within numbered lists, use indented bold text instead of emoji callouts
+- This is the ONE exception where `**Note:**` is acceptable
 - Example:
 ```markdown
 1. Step one.
