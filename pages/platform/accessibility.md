@@ -65,7 +65,7 @@ Key interface components include ARIA attributes to convey their purpose and sta
 - **Toggle switches** use `role="switch"` with `aria-checked` and `aria-labelledby`
 - **Tab interfaces** use `role="tablist"` for tabbed navigation
 - **Status updates** use `role="status"` and `role="alert"` to announce changes to screen readers
-- **Decorative elements** are marked with `aria-hidden="true"` to prevent screen reader noise
+- Decorative elements are marked with `aria-hidden="true"` to prevent screen reader noise
 
 ### Visually hidden content
 
