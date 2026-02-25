@@ -60,7 +60,7 @@ Key interface components include ARIA attributes to convey their purpose and sta
 
 - Build status icons include `aria-label` attributes describing the current state, for example "Build state: passed"
 - Dialogs use `role="dialog"` with appropriate labeling
-- **Tree views** in the build sidebar use `role="tree"` and `role="treeitem"` with `aria-expanded` state
+- Tree views in the build sidebar use `role="tree"` and `role="treeitem"` with `aria-expanded` state
 - **Combo boxes** use `role="listbox"` and `role="option"` with `aria-selected` state
 - **Toggle switches** use `role="switch"` with `aria-checked` and `aria-labelledby`
 - **Tab interfaces** use `role="tablist"` for tabbed navigation
