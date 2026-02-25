@@ -93,7 +93,8 @@ class LLMText
   end
 
   def should_skip_item?(item)
-    item["path"]&.include?("apis/graphql/schemas/") # Skip GraphQL schema docs
+    item["path"]&.include?("apis/graphql/schemas/") ||
+      item["path"]&.include?("pipelines/announcements/")
   end
 
   def descriptions
