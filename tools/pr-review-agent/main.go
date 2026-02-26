@@ -531,10 +531,11 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 
 ## Instructions
 
-1. Analyze the diff against the style guide rules.
-2. For each confirmed violation:
-   a. Use get_line_number to find the exact line number in the file
-   b. Use submit_suggestion to create a GitHub suggestion for the fix
+1. Analyze the diff against the style guide rules and identify ALL violations first.
+2. IMPORTANT: Batch your tool calls to minimize API requests:
+   - Call get_line_number for MULTIPLE violations in a single response
+   - Then call submit_suggestion for MULTIPLE fixes in a single response
+   - You can include up to 10 tool calls per response
 3. When finished, call finish_review with your verdict and summary.
 
 ## Critical Rules
@@ -576,27 +577,50 @@ func callAPI(ctx *ReviewContext, messages []Message) (*Response, error) {
 		url = fmt.Sprintf("%s/ai/anthropic/v1/messages", ctx.APIEndpoint)
 	}
 
-	req, err := http.NewRequest("POST", url, bytes.NewReader(jsonBody))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-api-key", ctx.APIToken)
-	req.Header.Set("anthropic-version", anthropicVer)
-
 	client := &http.Client{
 		Timeout: 5 * time.Minute,
 	}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("API request failed: %w", err)
-	}
-	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read response: %w", err)
+	// Retry logic with exponential backoff for rate limits
+	maxRetries := 5
+	baseDelay := 10 * time.Second
+
+	var resp *http.Response
+	var body []byte
+
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		req, err := http.NewRequest("POST", url, bytes.NewReader(jsonBody))
+		if err != nil {
+			return nil, fmt.Errorf("failed to create request: %w", err)
+		}
+
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("x-api-key", ctx.APIToken)
+		req.Header.Set("anthropic-version", anthropicVer)
+
+		resp, err = client.Do(req)
+		if err != nil {
+			return nil, fmt.Errorf("API request failed: %w", err)
+		}
+
+		body, err = io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			return nil, fmt.Errorf("failed to read response: %w", err)
+		}
+
+		// If not a rate limit error, break out of retry loop
+		if resp.StatusCode != http.StatusTooManyRequests {
+			break
+		}
+
+		// Rate limited - wait and retry
+		delay := baseDelay * time.Duration(1<<attempt) // Exponential backoff: 10s, 20s, 40s, 80s, 160s
+		if delay > 3*time.Minute {
+			delay = 3 * time.Minute // Cap at 3 minutes
+		}
+		fmt.Printf("⏳ Rate limited, waiting %v before retry (%d/%d)...\n", delay, attempt+1, maxRetries)
+		time.Sleep(delay)
 	}
 
 	// Check HTTP status code

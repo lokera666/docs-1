@@ -47,6 +47,20 @@ class LLMTopicText
       end
     end
 
+    # Add related topics footer
+    related = topic["related_topics"] || []
+    valid_related = related.select { |slug| self.class.topics.key?(slug) }
+    if valid_related.any?
+      content << "## See also"
+      content << ""
+      valid_related.each do |slug|
+        related_topic = self.class.topics[slug]
+        url = "https://buildkite.com/docs/llms-#{slug}.txt"
+        content << "- [#{related_topic['name']}](#{url}): #{related_topic['description']}"
+      end
+      content << ""
+    end
+
     content.join("\n")
   end
 
@@ -92,7 +106,8 @@ class LLMTopicText
   end
 
   def should_skip_item?(item)
-    item["path"]&.include?("apis/graphql/schemas/")
+    item["path"]&.include?("apis/graphql/schemas/") ||
+      item["path"]&.include?("pipelines/announcements/")
   end
 
   def descriptions
