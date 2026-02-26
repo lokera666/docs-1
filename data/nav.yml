@@ -465,6 +465,8 @@
           path: "pipelines/configure/skipping"
         - name: "Build artifacts"
           path: "pipelines/configure/artifacts"
+        - name: "Build annotations"
+          path: "pipelines/configure/annotations"
         - name: "Build timeouts"
           path: "pipelines/configure/build-timeouts"
         - name: "Pipeline tags"
