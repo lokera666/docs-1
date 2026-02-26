@@ -22,4 +22,6 @@ The Buildkite Platform documentation contains docs for _platform_-level features
 
 - [Integrations](/docs/platform/integrations/slack-workspace), contains integrations with the Buildkite platform that function across multiple Buildkite products.
 
-- [Service quotas](/docs/platform/service-quotas), lists Buildkite's default service quota values and how you can alter these if required.
+- [Accessibility](/docs/platform/accessibility), which documents the accessibility features available across the Buildkite web application, including theme options, keyboard navigation, screen reader support, and reduced motion.
+
+- [Limits](/docs/platform/limits), lists Buildkite's default service quota values and how you can alter these if required.
