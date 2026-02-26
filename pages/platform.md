@@ -2,7 +2,7 @@
 template: "landing_page"
 ---
 
-# The Buildkite Platform
+# The Buildkite platform
 
 Buildkite is an adaptable, composable, and scalable platform with everything platform teams need to build software delivery systems for their businesses—and rapidly deliver value to users.
 

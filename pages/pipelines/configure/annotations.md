@@ -12,19 +12,46 @@ Build annotations can be created from [within a build's job](#creating-an-annota
 
 There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each.
 
-All annotations can be retrieved using the [GraphQL API](/docs/apis/graphql/schemas/object/annotation) or the [REST API](/docs/apis/rest-api/annotations). You can also create annotations programmatically using the [buildAnnotate](/docs/apis/graphql/schemas/mutation/buildannotate) GraphQL mutation.
+All build annotations can be retrieved using the [GraphQL API](/docs/apis/graphql/schemas/object/annotation) or the [REST API](/docs/apis/rest-api/annotations).
+
+You can also create annotations programmatically using the [buildAnnotate](/docs/apis/graphql/schemas/mutation/buildannotate) GraphQL mutation.
 
 ### From within a build's job
 
+To create an annotation from within a build's job, use the [`buildkite-agent annotate`](/docs/agent/cli/reference/annotation) command within the step definition for this job.
 
-- **From within a build job**: using the [`buildkite-agent annotate`](/docs/agent/cli/reference/annotation) command. This is the most common approach and runs as part of your pipeline steps.
-
+This is the most common approach and runs as part of your pipeline steps.
 
 ### Externally using the REST API
 
-- **From outside a build**: using the [REST API](#creating-annotations-via-the-rest-api). This is useful for external tools or services that need to add annotations to a build without running inside an agent job.
+To [create a build annotation](/docs/apis/rest-api/annotations#create-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
-## Annotation styles
+```bash
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "body": "### Example annotation\n\nThis was created via the REST API",
+    "style": "info",
+    "context": "rest-api-example"
+  }'
+```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
+
+## Formatting annotations
+
+Build annotations support a number of different [styles](#formatting-annotations-annotation-styles), [Markdown syntaxes](#formatting-annotations-supported-markdown-syntax), as well as [CSS classes](#formatting-annotations-supported-css-classes).
+
+You can also [embed and link to artifacts](#formatting-annotations-embedding-and-linking-artifacts-in-annotations) from within your build annotations too.
+
+### Annotation styles
 
 You can change the visual style of annotations using the `--style` option.
 
@@ -43,29 +70,7 @@ steps:
 
 <%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
 
-## Job-scoped annotations
-
-By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build UI, making it easier to see contextual information directly next to the job that produced it.
-
-To create a job-scoped annotation, use the `--scope` flag:
-
-```bash
-buildkite-agent annotate --scope job "Job-specific information"
-```
-
-Job-scoped annotations are particularly useful for:
-
-- Test failures specific to individual jobs in a test matrix
-- Job-specific deployment information or terraform plans
-- Results from parallel jobs that need to be viewed separately
-- Build matrices where each job produces different output
-
-Job-scoped annotations appear inline with their corresponding job in the modern build UI, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
-
-> 📘 Version requirements
-> Job-scoped annotations require Buildkite Agent v3.112 or newer
-
-## Supported Markdown syntax
+### Supported Markdown syntax
 
 Buildkite Pipelines uses CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
 
@@ -82,11 +87,11 @@ CommonMark supports HTML inside Markdown blocks, but will revert to Markdown par
 >
 > Inline styles (for example, `style="margin-top: 0;"`) are stripped. Some CSS classes may not work on certain HTML elements due to CSS specificity. Use the supported Basscss classes listed below instead.
 
-## Supported CSS classes
+### Supported CSS classes
 
-A number of CSS classes are accepted in annotations. These include a subset of layout and formatting controls based on [Basscss](http://basscss.com), and colored console output.
+A number of CSS classes are accepted in annotations. These include a subset of layout and formatting controls based on [Basscss](#basscss), and [colored console output](#colored-console-output).
 
-### Basscss
+<h4 id="basscss">Basscss</h4>
 
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
 Annotation in Buildkite Pipelines accept the following parts of version 8.0 of Basscss within annotations:
@@ -167,7 +172,7 @@ bg-navy bg-teal bg-green bg-olive bg-lime bg-yellow
 bg-orange bg-red bg-fuchsia bg-purple bg-maroon bg-muted
 ```
 
-### Colored console output
+<h4 id="colored-console-output">Colored console output</h4>
 
 Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax. There is a limit of 10 blocks per annotation.
 
@@ -183,7 +188,6 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
     ```
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
-
 
 > 📘
 > Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're echoing to the terminal, so it doesn't get interpreted as a shell interpreted command.
@@ -218,7 +222,7 @@ If you're using our [terminal to HTML](http://buildkite.github.io/terminal-to-ht
 </pre>
 ```
 
-## Embedding & linking artifacts in annotations
+### Embedding and linking artifacts in annotations
 
 Uploaded artifacts can be embedded in annotations by referencing them using the `artifact://` prefix in your image source.
 
@@ -248,22 +252,31 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+## Job-scoped annotations
+
+By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build UI, making it easier to see contextual information directly next to the job that produced it.
+
+To create a job-scoped annotation, use the `--scope` flag:
+
+```bash
+buildkite-agent annotate --scope job "Job-specific information"
+```
+
+Job-scoped annotations are particularly useful for:
+
+- Test failures specific to individual jobs in a test matrix
+- Job-specific deployment information or terraform plans
+- Results from parallel jobs that need to be viewed separately
+- Build matrices where each job produces different output
+
+Job-scoped annotations appear inline with their corresponding job in the modern build UI, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
+
+> 📘 Version requirements
+> Job-scoped annotations require Buildkite agent v3.112 or newer
+
 ## Creating annotations via the REST API
 
 In addition to using the `buildkite-agent annotate` command, you can create, list, and delete annotations using the REST API.
-
-### Create an annotation
-
-```bash
-curl -H "Authorization: Bearer $TOKEN" \
-  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "body": "### Example annotation\n\nThis was created via the REST API",
-    "style": "info",
-    "context": "rest-api-example"
-  }'
-```
 
 ### List annotations for a build
 
