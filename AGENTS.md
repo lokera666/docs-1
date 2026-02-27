@@ -26,6 +26,12 @@ Paths in this section reference files and directories in this repository under `
 
 The Buildkite documentation at https://buildkite.com/docs covers product usage, configuration, API references, and tutorials. Pricing information is at https://buildkite.com/pricing/ and is not part of this repository.
 
+To discover documentation pages programmatically:
+
+- https://buildkite.com/docs/llms.txt — Index of all pages with brief descriptions to help decide which to fetch
+- https://buildkite.com/docs/llms-full.txt — Full rendered content of every page in a single file
+- `https://buildkite.com/docs/llms-{slug}.txt` — Topic-specific bundles (see links below and `data/llm_topics.yml` for available slugs)
+
 ## Product areas
 
 Buildkite has three main products and shared platform capabilities:
@@ -33,39 +39,54 @@ Buildkite has three main products and shared platform capabilities:
 ### Pipelines (CI/CD)
 
 The primary product. Start here: `pages/pipelines.md`
+For full bundled content, fetch: https://buildkite.com/docs/llms-pipelines.txt
 
-- **Why Buildkite Pipelines:** To understand what differentiates Buildkite from other CI/CD tools, read `pages/pipelines/advantages/buildkite_pipelines.md`. For detailed comparisons, see `pages/pipelines/advantages/buildkite_vs_jenkins.md`, `pages/pipelines/advantages/buildkite_vs_gitlab.md`, and `pages/pipelines/advantages/buildkite_vs_gha.md`. For sales-oriented competitive intelligence, see https://github.com/buildkite/conversion-rules
-- **Hybrid operating model:** Buildkite uses a hosted control plane with a choice of self-hosted or Buildkite-hosted execution. Each job in a pipeline runs on an agent machine. Read `pages/agent.md` for an overview, `pages/agent/self_hosted/` for running your own agents, and `pages/agent/buildkite_hosted/` for using Buildkite-hosted agents.
-- **Dynamic pipelines:** A key differentiator. Pipelines can be modified at runtime. Read `pages/pipelines/configure/dynamic_pipelines.md` for the feature overview, `pages/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel.md` for a tutorial, and `pages/pipelines/best_practices/working_with_monorepos.md` for monorepo patterns.
+- **Why Buildkite Pipelines:** To understand what differentiates Buildkite from other CI/CD tools, read `pages/pipelines/advantages/buildkite_pipelines.md`. For detailed comparisons, see `pages/pipelines/advantages/buildkite_vs_jenkins.md`, `pages/pipelines/advantages/buildkite_vs_gitlab.md`, and `pages/pipelines/advantages/buildkite_vs_gha.md`. To understand how Buildkite works differently compared to other tools, see https://github.com/buildkite/conversion-rules. Bundled content: https://buildkite.com/docs/llms-why-buildkite-pipelines.txt
+- **Hybrid operating model:** Buildkite uses a hosted control plane with a choice of self-hosted or Buildkite-hosted execution. Each job in a pipeline runs on an agent machine. Read `pages/agent.md` for an overview, `pages/agent/self_hosted/` for running your own agents, and `pages/agent/buildkite_hosted/` for using Buildkite-hosted agents. Bundled content: https://buildkite.com/docs/llms-self-hosted-agents.txt and https://buildkite.com/docs/llms-hosted-agents.txt
+- **Dynamic pipelines:** A key differentiator. Pipelines can be modified at runtime. Read `pages/pipelines/configure/dynamic_pipelines.md` for the feature overview, `pages/pipelines/tutorials/dynamic_pipelines_and_annotations_using_bazel.md` for a tutorial, and `pages/pipelines/best_practices/working_with_monorepos.md` for monorepo patterns. Bundled content: https://buildkite.com/docs/llms-dynamic-pipelines.txt
 - **Concurrency and parallelism:** Buildkite supports large-scale concurrency and multi-environment builds. Read `pages/pipelines/best_practices/parallel_builds.md`
 - **Hooks and plugins:** Hooks provide platform-level guardrails, and plugins provide reusable customization. Read `pages/agent/hooks.md` for hooks and `pages/pipelines/integrations/plugins.md` for plugins. Browse available plugins at https://buildkite.com/resources/plugins/ and pipeline examples at https://buildkite.com/resources/examples/
-- **Developer experience:** Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/agent/cli/reference/annotate.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content.
-- **Creating pipelines:** For pipeline configuration and setup, read `pages/pipelines/configure/`
-- **Security:** Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`pages/pipelines/integrations/secrets/plugins.md`) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`).
+- **Developer experience:** Annotations, structured log output, and embedded links and images reduce log digging. Read `pages/agent/cli/reference/annotate.md` for annotations, `pages/pipelines/configure/managing_log_output.md` for log management, and `pages/pipelines/configure/links_and_images_in_log_output.md` for rich log content. Bundled content: https://buildkite.com/docs/llms-debugging.txt
+- **Creating pipelines:** For pipeline configuration and setup, read `pages/pipelines/configure/`. Bundled content: https://buildkite.com/docs/llms-pipeline-configurations.txt
+- **Security:** Read `pages/pipelines/security/` for pipeline security, `pages/pipelines/best_practices/security_controls.md` for security best practices, and `pages/agent/self_hosted/security.md` for self-hosted agent security. For managing secrets, customers can use a secrets plugin (`pages/pipelines/integrations/secrets/plugins.md`) or use Buildkite Secrets (`pages/pipelines/security/secrets.md`). Bundled content: https://buildkite.com/docs/llms-security.txt
+- **Migration:** Guides for moving from Jenkins, GitHub Actions, and Bamboo. Read `pages/pipelines/migration/`. Bundled content: https://buildkite.com/docs/llms-migrating-to-buildkite.txt
+- **Best practices:** Patterns for pipeline design, agent management, Docker builds, parallelism, monorepos, caching, and more. Read `pages/pipelines/best_practices/`. Bundled content: https://buildkite.com/docs/llms-best-practices.txt
+- **Deployments:** Deploying to AWS Lambda, Kubernetes, Argo CD, and Heroku. Read `pages/pipelines/deployments/`. Bundled content: https://buildkite.com/docs/llms-deployments.txt
+- **Integrations:** Plugins, notifications, observability, and third-party tools. Read `pages/pipelines/integrations/`. Bundled content: https://buildkite.com/docs/llms-integrations.txt
+- **Monorepos:** Change detection and dynamic pipeline patterns for monorepos. Bundled content: https://buildkite.com/docs/llms-monorepos.txt
+- **Insights:** Waterfall views, cluster metrics, queue monitoring. Bundled content: https://buildkite.com/docs/llms-insights.txt
+- **Governance:** Pipeline templates, build exports, platform controls. Bundled content: https://buildkite.com/docs/llms-governance.txt
 
 ### Test Engine
 
 Tracks and analyzes test suite performance. Start here: `pages/test_engine.md`
+Bundled content: https://buildkite.com/docs/llms-test-engine.txt
 
 ### Packages
 
 Host and manage package registries. Start here: `pages/package_registries.md`
+Bundled content: https://buildkite.com/docs/llms-packages.txt
 
 ### Platform (shared features)
 
 Common capabilities across products like organizations, users, permissions, and the CLI. Start here: `pages/platform.md`
 
+- **User and team management:** Permissions, SSO, 2FA, audit log. Bundled content: https://buildkite.com/docs/llms-user-management.txt
+- **CLI tools:** The `bk` CLI and `buildkite-agent` CLI reference. Bundled content: https://buildkite.com/docs/llms-cli-tools.txt
+
+
 ### APIs
 
 REST API and GraphQL API documentation. Start here: `pages/apis.md`
+Bundled content: https://buildkite.com/docs/llms-buildkite-apis.txt
 
-For AI-assisted workflows, use the Buildkite MCP server to interact with Buildkite APIs directly. Read `pages/apis/mcp_server.md` for setup and usage.
+For AI-assisted workflows, use the Buildkite MCP server to interact with Buildkite APIs directly. Read `pages/apis/mcp_server.md` for setup and usage. Bundled content: https://buildkite.com/docs/llms-ai-tools-and-mcp.txt
 
 ## What is not in the docs
 
 - Pricing and plan details (see https://buildkite.com/pricing/)
 - Account management and billing workflows
-- Sales and support contact information
+- Sales and support contact information: to contact support email support@buildkite.com, to contact sales email sales@buildkite.com
 - Internal architecture or infrastructure details
 
 For product announcements and technical articles, see the Buildkite blog at https://buildkite.com/resources/blog/
