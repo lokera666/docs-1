@@ -1,26 +1,26 @@
-# Build annotations
+# Annotations
 
-Build annotations let you add custom content to a build page directly from your pipeline steps.
+Buildkite Pipelines' annotations feature lets you add custom content to a build page (known as _build annotations_) from your pipeline steps or using the REST or GraphQL APIs.
+
+You can also create annotations on individual jobs (known as _job-scoped annotations_) directly from your relevant pipeline steps.
 
 Creating such annotations can be highly useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
-## Creating an annotation
+## Creating a build annotation
 
-Build annotations can be created from [within a build's job](#creating-an-annotation-from-within-a-builds-job), as well as externally [using the REST API](#creating-an-annotation-externally-using-the-rest-api).
+Build annotations can be created from [within a build's job](#creating-a-build-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#creating-a-build-annotation-externally-using-the-rest-api) and [GraphQL API](#creating-a-build-annotation-externally-using-the-graphql-api).
 
 There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each.
 
-All build annotations can be retrieved using the [GraphQL API](/docs/apis/graphql/schemas/object/annotation) or the [REST API](/docs/apis/rest-api/annotations).
-
-You can also create annotations programmatically using the [buildAnnotate](/docs/apis/graphql/schemas/mutation/buildannotate) GraphQL mutation.
-
 ### From within a build's job
 
-To create an annotation from within a build's job, use the [`buildkite-agent annotate`](/docs/agent/cli/reference/annotation) command within the step definition for this job.
+To create an annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate) within the step definition for this job.
 
 This is the most common approach and runs as part of your pipeline steps.
+
+See [Formatting annotations](#formatting-annotations) for more information on how to use this Buildkite agent command to create annotations.
 
 ### Externally using the REST API
 
@@ -31,7 +31,7 @@ curl -H "Authorization: Bearer $TOKEN" \
   -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations" \
   -H "Content-Type: application/json" \
   -d '{
-    "body": "### Example annotation\n\nThis was created via the REST API",
+    "body": "### Example annotation\n\nThis was created using the REST API.",
     "style": "info",
     "context": "rest-api-example"
   }'
@@ -44,6 +44,83 @@ where:
 <%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
 
 <%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
+
+- For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
+
+### Externally using the GraphQL API
+
+To [create a build annotation](/docs/apis/graphql/schemas/mutation/buildannotate) using the [GraphQL API](/docs/apis/graphql-api), run the following example mutation:
+
+```graphql
+mutation {
+  buildAnnotate(input: {
+    buildID: "build-id",
+    body: "### Example annotation\n\nThis was created using the GraphQL API.",
+    style: INFO,
+    context: "graphql-api-example"
+  }) {
+    annotation {
+      uuid
+      style
+      context
+      body {
+        html
+      }
+    }
+  }
+}
+
+```
+
+where:
+
+- `buildID` (required) can be obtained by running the [Get builds](/docs/apis/graphql/cookbooks/builds#get-builds-for-a-pipeline) GraphQL API query and obtain this value from the `id` in the response associated with the number of your build (specified by the `number` value in the response). For example:
+
+    ```graphql
+    query GetBuilds {
+      pipeline(slug: "organization-slug/pipeline-slug") {
+        builds(first: 10) {
+          edges {
+            node {
+              id
+              number
+              url
+            }
+          }
+        }
+      }
+    }
+    ```
+
+    **Tip:** You can associate the build number with the annotation on the Buildkite interface by accessing **Pipelines** in the global navigation > your specific pipeline > your specific pipeline build, and then checking the build number after `builds/` in your Buildkite URL.
+
+- `style` can be `DEFAULT`, `ERROR`, `INFO`, `SUCCESS` or `WARNING`.
+
+- For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
+
+## Creating a job-scoped annotation
+
+By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build interface, making it easier to see contextual information directly next to the job that produced it.
+
+To create a job-scoped annotation, use the `--scope` flag:
+
+```bash
+buildkite-agent annotate --scope job "Job-specific information"
+```
+
+Job-scoped annotations are particularly useful for:
+
+- Test failures specific to individual jobs in a test matrix
+- Job-specific deployment information or terraform plans
+- Results from parallel jobs that need to be viewed separately
+- Build matrices where each job produces different output
+
+Job-scoped annotations appear inline with their corresponding job in the build interface, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
+
+> 📘 Version requirements
+> Job-scoped annotations require Buildkite agent v3.112 or newer
 
 ## Formatting annotations
 
@@ -252,45 +329,102 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Job-scoped annotations
+## List build annotations for a build
 
-By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build UI, making it easier to see contextual information directly next to the job that produced it.
+All build annotations for a build can be retrieved using the [REST API](#list-build-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-build-annotations-for-a-build-using-the-graphql-api).
 
-To create a job-scoped annotation, use the `--scope` flag:
+### Using the REST API
 
-```bash
-buildkite-agent annotate --scope job "Job-specific information"
-```
-
-Job-scoped annotations are particularly useful for:
-
-- Test failures specific to individual jobs in a test matrix
-- Job-specific deployment information or terraform plans
-- Results from parallel jobs that need to be viewed separately
-- Build matrices where each job produces different output
-
-Job-scoped annotations appear inline with their corresponding job in the modern build UI, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
-
-> 📘 Version requirements
-> Job-scoped annotations require Buildkite agent v3.112 or newer
-
-## Creating annotations via the REST API
-
-In addition to using the `buildkite-agent annotate` command, you can create, list, and delete annotations using the REST API.
-
-### List annotations for a build
+To [list build annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) using the Buildkite [REST API](/docs/apis/rest-api/annotations).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X GET "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations"
 ```
 
-### Delete an annotation
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
+
+### Using the GraphQL API
+
+To [list build annotations for a build](/docs/apis/graphql/schemas/object/annotation) using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
+
+```graphql
+query GetBuildAnnotations {
+  node(id: "build-id") {
+    ... on Build {
+      number
+      annotations(first: 10) {
+        edges {
+          node {
+            uuid
+            context
+            style
+            body {
+              text
+              html
+            }
+            createdAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+where `build-id` (required) can be obtained by running the [Get builds](/docs/apis/graphql/cookbooks/builds#get-builds-for-a-pipeline) GraphQL API query and obtaining this value from the `id` in the response associated with the number of your build (specified by the `number` value in the response). For example:
+
+```graphql
+query GetBuilds {
+  pipeline(slug: "organization-slug/pipeline-slug") {
+    builds(first: 10) {
+      edges {
+        node {
+          id
+          number
+        }
+      }
+    }
+  }
+}
+```
+
+## Removing an annotation
+
+Build annotations can be removed from [within a build's job](#removing-an-annotation-from-within-a-builds-job), as well as externally using the [REST API](#removing-an-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
+
+### From within a build's job
+
+To remove an annotation from within a build's job, use the [`buildkite-agent annotation remove` command](/docs/agent/cli/reference/annotation#removing-an-annotation) within the step definition for this job.
+
+This is the most common approach and runs as part of your pipeline steps.
+
+### Externally using the REST API
+
+To [remove a build annotation](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
   -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/annotations/{annotation.uuid}"
 ```
+
+where:
+
+<%= render_markdown partial: 'apis/descriptions/rest_access_token' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_org_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_pipeline_slug' %>
+
+<%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
+
+- `{annotation.uuid}` can be obtained by [listing build annotations for a build](#list-build-annotations-for-a-build-using-the-rest-api) and extracting the `id` value from the response. This value is not available from the Buildkite interface.
 
 For complete API documentation, see the [Annotations REST API reference](/docs/apis/rest-api/annotations).
 
