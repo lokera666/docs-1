@@ -158,7 +158,7 @@ Annotations do not support GitHub-style syntax highlighting, task lists, user me
 CommonMark supports HTML inside Markdown blocks, but will revert to Markdown parsing on newlines. For more information about how HTML is parsed and which tags CommonMark supports please refer to the [CommonMark spec](https://spec.commonmark.org).
 
 > 🚧 HTML limitations
-> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<h1>`–`<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
+> Annotations are sanitized for security. Only a subset of HTML tags are allowed, including `<span>`, `<div>`, `<p>`, `<a>`, `<img>`, `<pre>`, `<code>`, `<table>`, `<h1>` through `<h6>`, and list elements. Arbitrary tags such as `<script>`, `<style>`, and `<iframe>` are stripped.
 >
 > Attributes are also restricted. The `class` attribute is allowed but only for a specific allowlist of CSS class names (see [Supported CSS classes](#formatting-annotations-supported-css-classes) below). Link `href` values are limited to `http`, `https`, `mailto`, `itms-services`, and relative URL schemes.
 >
