@@ -8,7 +8,6 @@ This page provides Buildkite organization administrators with an overview of the
 
 If you're new to Buildkite Pipelines, run through the [Getting started with Pipelines](/docs/pipelines/getting-started) tutorial, which will initially set you up to run [Buildkite hosted agents](/docs/agent/buildkite-hosted). From there, you can decide whether to continue using Buildkite hosted agents, or set yourself up to run [self-hosted agents](/docs/agent/self-hosted).
 
-Test
 
 ## Self-hosted and Buildkite hosted agents compared
 
