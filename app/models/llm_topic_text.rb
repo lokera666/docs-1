@@ -1,54 +1,62 @@
 # frozen_string_literal: true
 
-class LLMText
-  attr_reader :nav
+class LLMTopicText
+  attr_reader :nav, :topic_slug
 
-  def initialize(nav)
+  def initialize(nav, topic_slug)
     @nav = nav
+    @topic_slug = topic_slug
   end
 
   class << self
-    def generate
-      new(Rails.application.config.default_nav).generate
+    def generate(topic_slug)
+      new(Rails.application.config.default_nav, topic_slug).generate
+    end
+
+    def topics
+      @topics ||= YAML.load_file(Rails.root.join("data", "llm_topics.yml")) || {}
+    end
+
+    def valid_topic?(slug)
+      topics.key?(slug)
     end
   end
 
   def generate
+    topic = self.class.topics[topic_slug]
+    return nil unless topic
+
     content = [
-      "# Buildkite Documentation",
+      "# #{topic['name']}",
       "",
-      "> Buildkite is a platform for running fast, secure, and scalable continuous integration pipelines on your own infrastructure.",
+      "> #{topic['description']}",
       ""
     ]
 
-    # Process each top-level navigation section
     nav.data.each do |section|
-      next unless section["children"] # Skip sections without children
+      next unless section["children"]
 
-      # Check if this section has any valid children after filtering
       temp_content = []
       process_nav_children(section["children"], temp_content, 3)
 
-      # Only add the section if there's actual content
       if temp_content.any? { |line| line.start_with?("- ") || line.start_with?("#") }
         content << "## #{section['name']}"
         content << ""
-
         content.concat(temp_content)
         content << ""
       end
     end
 
-    # Add topic-specific guide index at the end
-    topics = LLMTopicText.topics
-    if topics.any?
-      content << "## Topic guides"
+    # Add related topics footer
+    related = topic["related_topics"] || []
+    valid_related = related.select { |slug| self.class.topics.key?(slug) }
+    if valid_related.any?
+      content << "## See also"
       content << ""
-      content << "Focused subsets of this documentation are available for specific topics:"
-      content << ""
-      topics.each do |slug, topic|
+      valid_related.each do |slug|
+        related_topic = self.class.topics[slug]
         url = "https://buildkite.com/docs/llms-#{slug}.txt"
-        content << "- [#{topic['name']}](#{url}): #{topic['description']}"
+        content << "- [#{related_topic['name']}](#{url}): #{related_topic['description']}"
       end
       content << ""
     end
@@ -59,12 +67,11 @@ class LLMText
   private
 
   def process_nav_children(children, content, heading_level)
-    children.each_with_index do |child, index|
+    children.each do |child|
       next if child["type"] == "divider"
       next if should_skip_item?(child)
 
-      if child["path"]
-        # This is a leaf node with a path - add it as a link
+      if child["path"] && matches_topic?(child["path"])
         url = "https://buildkite.com/docs/#{child['path']}.md"
         description = descriptions[child["path"]]
         if description
@@ -73,23 +80,29 @@ class LLMText
           content << "- [#{child['name']}](#{url})"
         end
       elsif child["children"]
-        # Check if this section has any valid children after filtering
         temp_content = []
         process_nav_children(child["children"], temp_content, heading_level + 1)
 
-        # Only add the heading if there's actual content
         if temp_content.any? { |line| line.start_with?("- ") || line.start_with?("#") }
-          # Add spacing before heading if there's previous content
           content << "" unless content.empty? || content.last == ""
 
-          heading_prefix = "#" * [heading_level, 6].min # Max heading level is H6
+          heading_prefix = "#" * [heading_level, 6].min
           content << "#{heading_prefix} #{child['name']}"
           content << ""
-
           content.concat(temp_content)
         end
       end
     end
+  end
+
+  def matches_topic?(path)
+    topic = self.class.topics[topic_slug]
+    return false unless topic
+
+    prefixes = topic["paths"] || []
+    exact = topic["exact_paths"] || []
+
+    exact.include?(path) || prefixes.any? { |prefix| path.start_with?(prefix) }
   end
 
   def should_skip_item?(item)

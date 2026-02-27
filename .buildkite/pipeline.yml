@@ -52,7 +52,7 @@ steps:
     if_changed: pages/agent/cli/help/*.md
     command: ./scripts/update-agent-help.sh
     agents:
-      queue: hosted-m
+      queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
           image: "golang:1.24"
@@ -63,7 +63,7 @@ steps:
     if_changed: pages/platform/cli/*.md
     command: ./scripts/update-bkcli-help.sh
     agents:
-      queue: hosted-m
+      queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
           image: "golang:1.25"
@@ -74,7 +74,7 @@ steps:
     if_changed: pages/agent/self_hosted/configure/experiments.md
     command: ./scripts/update-agent-experiments.sh
     agents:
-      queue: hosted-m
+      queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
           image: "ruby:3.3"
@@ -85,7 +85,7 @@ steps:
     if_changed: pages/agent/self_hosted/versions_directory.md
     command: ./scripts/update-agent-versions-directory.sh
     agents:
-      queue: hosted-m
+      queue: "${AGENT_QUEUE:-hosted-m}"
     plugins:
       - docker#v5.13.0:
           image: "ruby:3.3"
@@ -264,7 +264,8 @@ steps:
           context: test-summary
 
   - label: ":robot_face: AI Style Review"
-    if: build.branch != "main" && build.pull_request.draft != true
+    if: build.branch != "main" && build.pull_request.draft != true && !(build.pull_request.labels includes "ai-reviewed")
+    if_changed: "pages/**/*.md"
     agents:
       queue: hosted
     timeout_in_minutes: 3
@@ -288,6 +289,7 @@ steps:
             - "BUILDKITE_AGENT_ENDPOINT"
             - "BUILDKITE_PULL_REQUEST"
             - "GITHUB_TOKEN"
+            - "GH_TOKEN=${GITHUB_TOKEN}"
           mount-buildkite-agent: true
     command: |
       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null

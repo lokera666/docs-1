@@ -504,6 +504,15 @@ func runReview(ctx *ReviewContext) error {
 		}
 	}
 
+	// Add "ai-reviewed" label to prevent re-runs on subsequent commits
+	if !ctx.DryRun {
+		if err := addLabel(ctx, "ai-reviewed"); err != nil {
+			fmt.Fprintf(os.Stderr, "Warning: failed to add ai-reviewed label: %v\n", err)
+		} else {
+			fmt.Println(":label: Added 'ai-reviewed' label - remove this label to trigger a new review")
+		}
+	}
+
 	return nil
 }
 
@@ -522,10 +531,11 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 
 ## Instructions
 
-1. Analyze the diff against the style guide rules.
-2. For each confirmed violation:
-   a. Use get_line_number to find the exact line number in the file
-   b. Use submit_suggestion to create a GitHub suggestion for the fix
+1. Analyze the diff against the style guide rules and identify ALL violations first.
+2. IMPORTANT: Batch your tool calls to minimize API requests:
+   - Call get_line_number for MULTIPLE violations in a single response
+   - Then call submit_suggestion for MULTIPLE fixes in a single response
+   - You can include up to 10 tool calls per response
 3. When finished, call finish_review with your verdict and summary.
 
 ## Critical Rules
@@ -537,6 +547,9 @@ Review the PR diff below against the style guide. Focus only on added/changed li
 - Be precise with the replacement text - it will be used as a GitHub suggestion
 - Only suggest changes for lines that were added or modified in the PR (lines starting with + in the diff)
 - Do not suggest changes for unchanged lines or lines being deleted
+- ONLY apply rules that are explicitly stated in the style guide - do not invent exceptions, infer unstated rules, or apply general writing conventions that are not in the guide
+- If the style guide does not mention a specific exception or edge case, assume no exception exists
+- Pay attention to which section of the style guide a rule comes from - rules in the "YAML documentation" section only apply to YAML examples, not to JSON or REST API documentation
 
 ## PR #%s Diff
 
@@ -564,27 +577,50 @@ func callAPI(ctx *ReviewContext, messages []Message) (*Response, error) {
 		url = fmt.Sprintf("%s/ai/anthropic/v1/messages", ctx.APIEndpoint)
 	}
 
-	req, err := http.NewRequest("POST", url, bytes.NewReader(jsonBody))
-	if err != nil {
-		return nil, fmt.Errorf("failed to create request: %w", err)
-	}
-
-	req.Header.Set("Content-Type", "application/json")
-	req.Header.Set("x-api-key", ctx.APIToken)
-	req.Header.Set("anthropic-version", anthropicVer)
-
 	client := &http.Client{
 		Timeout: 5 * time.Minute,
 	}
-	resp, err := client.Do(req)
-	if err != nil {
-		return nil, fmt.Errorf("API request failed: %w", err)
-	}
-	defer resp.Body.Close()
 
-	body, err := io.ReadAll(resp.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read response: %w", err)
+	// Retry logic with exponential backoff for rate limits
+	maxRetries := 5
+	baseDelay := 10 * time.Second
+
+	var resp *http.Response
+	var body []byte
+
+	for attempt := 0; attempt < maxRetries; attempt++ {
+		req, err := http.NewRequest("POST", url, bytes.NewReader(jsonBody))
+		if err != nil {
+			return nil, fmt.Errorf("failed to create request: %w", err)
+		}
+
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("x-api-key", ctx.APIToken)
+		req.Header.Set("anthropic-version", anthropicVer)
+
+		resp, err = client.Do(req)
+		if err != nil {
+			return nil, fmt.Errorf("API request failed: %w", err)
+		}
+
+		body, err = io.ReadAll(resp.Body)
+		resp.Body.Close()
+		if err != nil {
+			return nil, fmt.Errorf("failed to read response: %w", err)
+		}
+
+		// If not a rate limit error, break out of retry loop
+		if resp.StatusCode != http.StatusTooManyRequests {
+			break
+		}
+
+		// Rate limited - wait and retry
+		delay := baseDelay * time.Duration(1<<attempt) // Exponential backoff: 10s, 20s, 40s, 80s, 160s
+		if delay > 3*time.Minute {
+			delay = 3 * time.Minute // Cap at 3 minutes
+		}
+		fmt.Printf("⏳ Rate limited, waiting %v before retry (%d/%d)...\n", delay, attempt+1, maxRetries)
+		time.Sleep(delay)
 	}
 
 	// Check HTTP status code
@@ -785,4 +821,17 @@ func postSummaryComment(ctx *ReviewContext) error {
 
 	cmd := exec.Command("gh", "pr", "comment", ctx.PRNumber, "--repo", ctx.Repo, "--body", sb.String())
 	return cmd.Run()
+}
+
+func addLabel(ctx *ReviewContext, label string) error {
+	// Use gh api for consistency with other GitHub operations
+	// This ensures the same token lookup behavior as postSuggestionComment
+	endpoint := fmt.Sprintf("repos/%s/issues/%s/labels", ctx.Repo, ctx.PRNumber)
+	
+	cmd := exec.Command("gh", "api", endpoint, "-X", "POST", "-f", fmt.Sprintf("labels[]=%s", label))
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("gh api failed: %w\nOutput: %s", err, string(output))
+	}
+	return nil
 }

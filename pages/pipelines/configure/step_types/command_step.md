@@ -256,6 +256,10 @@ Optional attributes:
 
 <%= render_markdown partial: 'pipelines/configure/step_types/agent_applied_attributes' %>
 
+### if_changed
+
+<%= render_markdown partial: 'pipelines/configure/step_types/if_changed_attribute' %>
+
 ## Container image attributes
 
 The `image` attribute can be used with either the [Agent Stack for Kubernetes](/docs/agent/self-hosted/agent-stack-k8s) controller to run your [Buildkite agents](/docs/agent), or [Buildkite hosted agents](/docs/agent/buildkite-hosted).

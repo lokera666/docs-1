@@ -127,6 +127,7 @@ deprovisioning
 deregistration
 deprovision
 dialog's
+dialogs
 discoverability
 distro
 distutils
@@ -200,6 +201,7 @@ httpd
 httplog
 https
 IdP's
+if_changed
 initContainer
 inlining
 IPs
@@ -406,11 +408,13 @@ submenu
 subnet
 subnets
 subnet's
+subpatterns
 substrings
 sudo
 svg
 swiftformat
 swiftlint
+syntaxes
 systemd
 Tailscale
 teardown
