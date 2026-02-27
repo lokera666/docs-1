@@ -4,9 +4,9 @@ Buildkite Pipelines' annotations feature lets you add custom content to a build 
 
 You can also create annotations on individual jobs (known as _job-scoped annotations_) directly from your relevant pipeline steps.
 
-Creating such annotations can be highly useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
+Creating such annotations can be highly useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution. Here's an example of one that checks for broken links:
 
-<%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
+<%= image "overview.png", alt: "Screenshot of annotations from a step that checks for broken links" %>
 
 ## Create a build annotation
 
