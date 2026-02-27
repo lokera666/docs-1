@@ -289,6 +289,7 @@ steps:
             - "BUILDKITE_AGENT_ENDPOINT"
             - "BUILDKITE_PULL_REQUEST"
             - "GITHUB_TOKEN"
+            - "GH_TOKEN=${GITHUB_TOKEN}"
           mount-buildkite-agent: true
     command: |
       curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg 2>/dev/null
