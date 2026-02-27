@@ -825,5 +825,9 @@ func postSummaryComment(ctx *ReviewContext) error {
 
 func addLabel(ctx *ReviewContext, label string) error {
 	cmd := exec.Command("gh", "pr", "edit", ctx.PRNumber, "--repo", ctx.Repo, "--add-label", label)
-	return cmd.Run()
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		return fmt.Errorf("%w: %s", err, string(output))
+	}
+	return nil
 }
