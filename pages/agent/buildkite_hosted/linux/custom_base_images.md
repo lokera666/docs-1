@@ -90,7 +90,7 @@ To embed hooks in your agent image's Dockerfile:
 
 You can use an agent image in the following ways:
 
-- [Set the image as the default for a queue](#use-an-agent-image-set-the-default-image-for-a-queue) using the Buildkite interface.
+- [Set an image as the default for a queue](#use-an-agent-image-set-the-default-image-for-a-queue) using the Buildkite interface.
 - [Specify a custom image for a queue](#use-an-agent-image-specify-a-custom-image-for-a-queue) using the Buildkite interface or API.
 - [Specify the image in your pipeline YAML](#use-an-agent-image-specify-an-image-in-your-pipeline-yaml), which allows different steps to use different images within the same queue.
 
