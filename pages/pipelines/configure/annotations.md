@@ -171,7 +171,7 @@ A number of CSS classes are accepted in annotations. These include a subset of l
 <h4 id="basscss">Basscss</h4>
 
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
-Annotation in Buildkite Pipelines accept the following parts of version 8.0 of Basscss within annotations:
+Annotations in Buildkite Pipelines accept the following parts of version 8.0 of Basscss within annotations:
 
 - [Align](http://basscss.com/#basscss-align)
 - [Border](http://basscss.com/#basscss-border)
