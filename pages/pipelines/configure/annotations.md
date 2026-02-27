@@ -8,15 +8,15 @@ Creating such annotations can be highly useful for a variety of purposes, such a
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
-## Creating a build annotation
+## Create a build annotation
 
-Build annotations can be created from [within a build's job](#creating-a-build-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#creating-a-build-annotation-externally-using-the-rest-api) and [GraphQL API](#creating-a-build-annotation-externally-using-the-graphql-api).
+Build annotations can be created from [within a build's job](#create-a-build-annotation-from-within-a-builds-job), as well as externally using Buildkite's [REST API](#create-a-build-annotation-externally-using-the-rest-api) and [GraphQL API](#create-a-build-annotation-externally-using-the-graphql-api).
 
 There is no limit to the amount of annotations you can create, but the maximum body size of each annotation is 1MiB. The size is measured in bytes, accounting for the underlying data encoding, where the specific encoding used can affect the size calculation. For example, if UTF-8 encoding is implemented, some characters may be encoded using up to 4 bytes each.
 
 ### From within a build's job
 
-To create an annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate) within the step definition for this job.
+To create an annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate#creating-an-annotation) within the step definition for this job.
 
 This is the most common approach and runs as part of your pipeline steps.
 
@@ -100,7 +100,7 @@ where:
 
 - For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
 
-## Creating a job-scoped annotation
+## Create a job-scoped annotation
 
 By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build interface, making it easier to see contextual information directly next to the job that produced it.
 
@@ -395,9 +395,9 @@ query GetBuilds {
 }
 ```
 
-## Removing an annotation
+## Remove a build annotation
 
-Build annotations can be removed from [within a build's job](#removing-an-annotation-from-within-a-builds-job), as well as externally using the [REST API](#removing-an-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
+Build annotations can be removed from [within a build's job](#remove-a-build-annotation-from-within-a-builds-job), as well as externally using the [REST API](#remove-a-build-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
 
 ### From within a build's job
 
@@ -425,8 +425,6 @@ where:
 <%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
 - `{annotation.uuid}` can be obtained by [listing build annotations for a build](#list-build-annotations-for-a-build-using-the-rest-api) and extracting the `id` value from the response. This value is not available from the Buildkite interface.
-
-For complete API documentation, see the [Annotations REST API reference](/docs/apis/rest-api/annotations).
 
 ## Using annotations to report test results
 

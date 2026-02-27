@@ -2,6 +2,8 @@
 
 The Buildkite agent's `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown.
 
+Learn more about how to use this command in [Annotations](/docs/pipelines/configure/annotations).
+
 ## Creating an annotation
 
 The `buildkite-agent annotate` command creates an annotation associated with the current build.
