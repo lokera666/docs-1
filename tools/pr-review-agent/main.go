@@ -824,10 +824,14 @@ func postSummaryComment(ctx *ReviewContext) error {
 }
 
 func addLabel(ctx *ReviewContext, label string) error {
-	cmd := exec.Command("gh", "pr", "edit", ctx.PRNumber, "--repo", ctx.Repo, "--add-label", label)
+	// Use gh api for consistency with other GitHub operations
+	// This ensures the same token lookup behavior as postSuggestionComment
+	endpoint := fmt.Sprintf("repos/%s/issues/%s/labels", ctx.Repo, ctx.PRNumber)
+	
+	cmd := exec.Command("gh", "api", endpoint, "-X", "POST", "-f", fmt.Sprintf("labels[]=%s", label))
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return fmt.Errorf("%w: %s", err, string(output))
+		return fmt.Errorf("gh api failed: %w\nOutput: %s", err, string(output))
 	}
 	return nil
 }
