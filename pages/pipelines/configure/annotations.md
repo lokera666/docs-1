@@ -113,14 +113,14 @@ buildkite-agent annotate --scope job "Job-specific information"
 Job-scoped annotations are particularly useful for:
 
 - Test failures specific to individual jobs in a test matrix
-- Job-specific deployment information or terraform plans
+- Job-specific deployment information or Terraform plans
 - Results from parallel jobs that need to be viewed separately
 - Build matrices where each job produces different output
 
-Job-scoped annotations appear inline with their corresponding job in the build interface, while build-scoped annotations appear in the **Annotations** tab at the build level. For more about navigating the build UI, see the [build page](/docs/pipelines/build-page) documentation.
+Job-scoped annotations appear inline with their corresponding job in the build page interface, while build(-scoped) annotations appear in the **Annotations** tab of this page. See [Build page](/docs/pipelines/build-page) for more information about navigating this interface.
 
 > 📘 Version requirements
-> Job-scoped annotations require Buildkite agent v3.112 or newer
+> Job-scoped annotations require Buildkite agent v3.112 or newer.
 
 ## Formatting annotations
 
