@@ -4,7 +4,7 @@ Buildkite Pipelines' annotations feature lets you add custom content to a build 
 
 You can also create annotations on individual jobs (known as _job-scoped annotations_) directly from your relevant pipeline steps.
 
-Creating such annotations can be useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution. Here's an example of one that checks for broken links:
+Creating such annotations can be useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
 
 <%= image "overview.png", alt: "Screenshot of annotations from a step that checks for broken links" %>
 
@@ -17,6 +17,19 @@ There is no limit to the amount of annotations you can create, but the maximum b
 ### From within a build's job
 
 To create an annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate#creating-an-annotation) within the step definition for this job.
+
+For example:
+
+```yaml
+steps:
+  - label: "\:writing_hand\: Example"
+    command: |
+      cat << 'EOF' | buildkite-agent annotate --style "info" --context "agent-cli-example"
+      ### Example annotation
+
+      This was created using from within a build's job.
+      EOF
+```
 
 This is the most common approach and runs as part of your pipeline steps.
 
@@ -329,13 +342,13 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## List build annotations for a build
+## List annotations for a build
 
-All build annotations for a build can be retrieved using the [REST API](#list-build-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-build-annotations-for-a-build-using-the-graphql-api).
+All build and job-scoped annotations for a build can be retrieved using the [REST API](#list-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-build-using-the-graphql-api).
 
 ### Using the REST API
 
-To [list build annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) using the Buildkite [REST API](/docs/apis/rest-api/annotations).
+To [list build and job-scoped annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) using the Buildkite [REST API](/docs/apis/rest-api/annotations).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -352,7 +365,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ### Using the GraphQL API
 
-To [list build annotations for a build](/docs/apis/graphql/schemas/object/annotation) using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
+To [list build and job-scoped annotations for a build](/docs/apis/graphql/schemas/object/annotation) using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
 
 ```graphql
 query GetBuildAnnotations {
@@ -395,19 +408,27 @@ query GetBuilds {
 }
 ```
 
-## Remove a build annotation
+## Remove an annotation
 
-Build annotations can be removed from [within a build's job](#remove-a-build-annotation-from-within-a-builds-job), as well as externally using the [REST API](#remove-a-build-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
+Build and job-scoped annotations can be removed from [within a build's job](#remove-an-annotation-from-within-a-builds-job), as well as externally using the [REST API](#remove-an-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
 
 ### From within a build's job
 
-To remove an annotation from within a build's job, use the [`buildkite-agent annotation remove` command](/docs/agent/cli/reference/annotation#removing-an-annotation) within the step definition for this job.
+To remove a build or job-scoped annotation from within a build's job, use the [`buildkite-agent annotation remove` command](/docs/agent/cli/reference/annotation#removing-an-annotation) within the step definition for this job.
+
+For example:
+
+```yaml
+steps:
+  - label: "\:exploding-death-star\: Remove annotation"
+    command: buildkite-agent annotation remove --context "agent-cli-example"
+```
 
 This is the most common approach and runs as part of your pipeline steps.
 
 ### Externally using the REST API
 
-To [remove a build annotation](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [remove a build or job-scoped annotation](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -424,7 +445,7 @@ where:
 
 <%= render_markdown partial: 'apis/descriptions/rest_build_number' %>
 
-- `{annotation.uuid}` can be obtained by [listing build annotations for a build](#list-build-annotations-for-a-build-using-the-rest-api) and extracting the `id` value from the response. This value is not available from the Buildkite interface.
+- `{annotation.uuid}` can be obtained by [listing annotations for a build](#list-annotations-for-a-build-using-the-rest-api) and extracting the `id` value from the response. This value is not available from the Buildkite interface.
 
 ## Using annotations to report test results
 
