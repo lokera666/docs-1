@@ -33,7 +33,7 @@ steps:
 
 Generates:
 
-<%= image "annotations-build-job-example.png", alt: "Screenshot of a build job example" %>
+<%= image "annotations-build-job-example.png", width: 1820/2, height: 1344/2, alt: "Screenshot of a build job example" %>
 
 This is the most common approach and runs as part of your pipeline steps.
 
