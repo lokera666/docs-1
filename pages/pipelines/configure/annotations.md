@@ -27,9 +27,13 @@ steps:
       cat << 'EOF' | buildkite-agent annotate --style "info" --context "agent-cli-example"
       ### Example annotation
 
-      This was created using from within a build's job.
+      This was created from within a build's job.
       EOF
 ```
+
+Generates:
+
+<%= image "annotations-build-job-example.png", alt: "Screenshot of a build job example" %>
 
 This is the most common approach and runs as part of your pipeline steps.
 
