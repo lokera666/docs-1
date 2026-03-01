@@ -37,7 +37,7 @@ Will generate this annotation on the build page's main **Annotations** tab:
 
 <%= image "annotations-build-job-example.png", width: 1820/2, height: 1344/2, alt: "Screenshot of a build job example" %>
 
-Creating annotations like this is the most common approach and they run as part of your pipeline steps.
+Creating annotations like this is the most common approach, as these steps run as part of your pipeline's builds.
 
 See [Formatting annotations](#formatting-annotations) for more information on how to use this Buildkite agent command to create annotations.
 
@@ -433,7 +433,7 @@ steps:
     command: buildkite-agent annotation remove --context "agent-cli-example"
 ```
 
-This is the most common approach and runs as part of your pipeline steps.
+Removing annotations like this is the most common approach, as these steps run as part of your pipeline's builds.
 
 ### Externally using the REST API
 
