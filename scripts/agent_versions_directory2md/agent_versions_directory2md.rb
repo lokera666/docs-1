@@ -154,7 +154,7 @@ def generate_markdown(version_groups)
   output << ''
   output << 'To update this file:'
   output << ''
-  output << "1. Run './scripts/update-agent-versions-directory.sh' from the docs repo root"
+  output << "Run './scripts/update-agent-versions-directory.sh' from the docs repo root"
   output << '-->'
   output << ''
   output << '# Agent versions directory'
