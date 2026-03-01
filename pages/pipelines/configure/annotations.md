@@ -33,7 +33,7 @@ steps:
       EOF
 ```
 
-Will generate this annotation on the build page's main **Annotations** tab:
+Generates this annotation on the build page's main **Annotations** tab:
 
 <%= image "annotations-build-job-example.png", width: 1820/2, height: 1344/2, alt: "Screenshot of a build job example" %>
 
