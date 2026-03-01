@@ -2,6 +2,8 @@
 
 Buildkite Pipelines' annotations feature lets you add custom content to a build page (known as _build annotations_), which you can [create](#create-a-build-annotation) from your pipeline steps or using the REST or GraphQL APIs.
 
+Build annotations appear on the build page's main **Annotations** tab. See [Build page](/docs/pipelines/build-page) for more information about navigating this interface.
+
 You can also add annotations to individual jobs (known as _job-scoped annotations_), which you can [create](#create-a-job-scoped-annotation) directly from your relevant pipeline steps.
 
 Adding annotations can be useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
@@ -18,7 +20,7 @@ There is no limit to the amount of annotations you can create, but the maximum b
 
 To create an annotation from within a build's job, use the [`buildkite-agent annotate` command](/docs/agent/cli/reference/annotate#creating-an-annotation) within the step definition for this job.
 
-For example:
+For example, a step like this:
 
 ```yaml
 steps:
@@ -31,11 +33,11 @@ steps:
       EOF
 ```
 
-Generates:
+Will generate this annotation on the build page's main **Annotations** tab:
 
 <%= image "annotations-build-job-example.png", width: 1820/2, height: 1344/2, alt: "Screenshot of a build job example" %>
 
-This is the most common approach and runs as part of your pipeline steps.
+Creating annotations like this is the most common approach and they run as part of your pipeline steps.
 
 See [Formatting annotations](#formatting-annotations) for more information on how to use this Buildkite agent command to create annotations.
 
@@ -137,9 +139,7 @@ Job-scoped annotations are particularly useful for:
 - Results from parallel jobs that need to be viewed separately
 - Build matrices where each job produces different output
 
-Job-scoped annotations appear within the **Annotations** tab of the job's details page, which you can access by selecting that job from the build page interface.
-
-In contrast, build(-scoped) annotations appear in the build page's main **Annotations** tab. See [Build page](/docs/pipelines/build-page) for more information about navigating this interface.
+In contrast to build(-scoped) annotations, which appear in the build page's main **Annotations** tab (see [Create a build annotation > From within a build's job](#create-a-build-annotation-from-within-a-builds-job) for an example), job-scoped annotations appear within the **Annotations** tab of the job's details page, which you can access by selecting that job from the build page interface.
 
 > 📘 Version requirements
 > Job-scoped annotations require Buildkite agent v3.112 or newer.
