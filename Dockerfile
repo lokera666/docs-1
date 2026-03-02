@@ -127,7 +127,7 @@ COPY --from=gobuild /go/bin/staticgen /usr/local/bin/staticgen
 # make sense to us.
 #
 
-FROM raviqqe/muffet:2.11.0 AS muffet-scratch
+FROM raviqqe/muffet:2.11.2 AS muffet-scratch
 FROM ${BASE_IMAGE} AS muffet
 
 RUN apt-get update && \
