@@ -4,7 +4,9 @@ Buildkite Pipelines' annotations feature lets you add custom content to a build 
 
 Build annotations appear on the build page's main **Annotations** tab. See [Build page](/docs/pipelines/build-page) for more information about navigating this interface.
 
+<!--
 You can also add annotations to individual jobs (known as _job-scoped annotations_), which you can [create](#create-a-job-scoped-annotation) directly from your relevant pipeline steps.
+-->
 
 Adding annotations can be useful for a variety of purposes, such as summarizing a build's job results to make them easier to read, for example, presenting key failure components in a failed step's job execution:
 
@@ -119,10 +121,9 @@ where:
 
 - For more information on how to use the `body`, `style`, and `context` fields, see [Formatting annotations](#formatting-annotations) for details on how to use these fields in relation to how they're used by the `buildkite-agent annotate` command.
 
-## Create a job-scoped annotation
+<!--
 
-> 📘 Customer preview feature
-> The job-scoped annotations feature is currently in _customer preview_. To enquire about accessing this feature for your Buildkite organization, please contact support@buildkite.com.
+## Create a job-scoped annotation
 
 By default, annotations are scoped to the entire build. However, you can create job-scoped annotations that appear inline with specific jobs in the build interface, making it easier to see contextual information directly next to the job that produced it.
 
@@ -143,6 +144,8 @@ In contrast to build(-scoped) annotations, which appear in the build page's main
 
 > 📘 Version requirements
 > Job-scoped annotations require Buildkite agent v3.112 or newer.
+
+-->
 
 ## Formatting annotations
 
@@ -353,11 +356,11 @@ steps:
 
 ## List annotations for a build
 
-All build and job-scoped annotations for a build can be retrieved using the [REST API](#list-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-build-using-the-graphql-api).
+All build <!-- and job-scoped --> annotations for a build can be retrieved using the [REST API](#list-annotations-for-a-build-using-the-rest-api) or [GraphQL API](#list-annotations-for-a-build-using-the-graphql-api).
 
 ### Using the REST API
 
-To [list build and job-scoped annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) using the Buildkite [REST API](/docs/apis/rest-api/annotations).
+To [list build <!-- and job-scoped --> annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build) using the Buildkite [REST API](/docs/apis/rest-api/annotations).
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
@@ -374,7 +377,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 ### Using the GraphQL API
 
-To [list build and job-scoped annotations for a build](/docs/apis/graphql/schemas/object/annotation) using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
+To [list build <!-- and job-scoped --> annotations for a build](/docs/apis/graphql/schemas/object/annotation) using the [GraphQL API](/docs/apis/graphql-api), run the following example query:
 
 ```graphql
 query GetBuildAnnotations {
@@ -419,11 +422,11 @@ query GetBuilds {
 
 ## Remove an annotation
 
-Build and job-scoped annotations can be removed from [within a build's job](#remove-an-annotation-from-within-a-builds-job), as well as externally using the [REST API](#remove-an-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
+Build <!-- and job-scoped --> annotations can be removed from [within a build's job](#remove-an-annotation-from-within-a-builds-job), as well as externally using the [REST API](#remove-an-annotation-externally-using-the-rest-api). Removing an annotation using the GraphQL API is not supported.
 
 ### From within a build's job
 
-To remove a build or job-scoped annotation from within a build's job, use the [`buildkite-agent annotation remove` command](/docs/agent/cli/reference/annotation#removing-an-annotation) within the step definition for this job.
+To remove a build <!-- or job-scoped --> annotation from within a build's job, use the [`buildkite-agent annotation remove` command](/docs/agent/cli/reference/annotation#removing-an-annotation) within the step definition for this job.
 
 For example:
 
@@ -437,7 +440,7 @@ Removing annotations like this is the most common approach, as these steps run a
 
 ### Externally using the REST API
 
-To [remove a build or job-scoped annotation](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [remove a build <!-- or job-scoped --> annotation](/docs/apis/rest-api/annotations#delete-an-annotation-on-a-build) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" \
