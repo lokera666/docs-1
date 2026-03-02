@@ -281,7 +281,7 @@ steps:
       - aws-ssm#v1.1.0:
           parameters:
             GITHUB_TOKEN: /pipelines/buildkite/docs-private/github-token
-      - docker#v5.11.0:
+      - docker#v5.13.0:
           image: "golang:1.24-bookworm"
           propagate-environment: true
           environment:
