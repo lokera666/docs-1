@@ -117,7 +117,7 @@ To set a Buildkite hosted queue to use a custom Linux agent image:
 > 📘 Private preview feature
 > The custom image URL feature is currently in _private preview_. To enable this feature for your Buildkite organization, contact support@buildkite.com.
 
-You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
+You can specify the URL of a custom image for a [Buildkite hosted queue](/docs/agent/queues/managing#create-a-buildkite-hosted-queue). When configured, this URL overrides the [agent image selected from the **Agent image** dropdown](#use-an-agent-image-set-the-default-image-for-a-queue). This image must be publicly available or have been pushed to the [internal container registry](/docs/pipelines/hosted-agents/internal-container-registry).
 
 To set a custom image URL through the Buildkite interface:
 
@@ -137,7 +137,7 @@ To set a custom image URL through the Buildkite interface:
 
 You can also set a custom image URL through the Buildkite API or Terraform:
 
-- **REST API:** Use the `agentImageRef` parameter in the `hostedAgents` object when <!-- [creating](/docs/agent/v3/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or --> [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
+- **REST API:** Use the `agentImageRef` parameter in the `hostedAgents` object when <!-- [creating](/docs/agent/queues/managing#create-a-buildkite-hosted-queue-using-the-rest-api) or --> [updating](/docs/apis/rest-api/clusters/queues#update-a-queue) a queue.
 
     **Note:** You must always specify the `instanceShape` parameter when using `agentImageRef`. If you don't wish to change the `instanceShape` value, specify its current value when submitting your call to specify the `agentImageRef` value.
 

@@ -61,6 +61,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
     switch (event.keyCode) {
       case 191:
+        if (["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement.tagName)) break;
         e.preventDefault();
         document.getElementById("search").focus();
         break;
