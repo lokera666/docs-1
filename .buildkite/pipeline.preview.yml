@@ -12,7 +12,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - aws-ssm#v1.0.0:
+      - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
             BUILDKITE_ANALYTICS_TOKEN: /pipelines/buildkite/docs-private/buildkite-analytics-token
@@ -31,7 +31,7 @@ steps:
             - organization_slug
             - organization_id
             - pipeline_slug
-      - aws-ssm#v1.0.0:
+      - aws-ssm#v1.1.0:
           parameters:
             GH_TOKEN: /pipelines/buildkite/docs-private/gh-token
             BUILDKITE_ANALYTICS_TOKEN: /pipelines/buildkite/docs-private/buildkite-analytics-token
