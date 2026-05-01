@@ -115,7 +115,7 @@ Repeat this process for each toolset you want to enable. You'll end up with mult
 
 You can install the remote Buildkite MCP server in [Cursor](https://cursor.com/) with one click using the deep link button below. Selecting it opens Cursor and prompts you to confirm the installation on the **MCP & Integrations** page.
 
-<a class="light-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add buildkite MCP server to Cursor" height="32" /></a><a class="dark-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-light.svg" alt="Add buildkite MCP server to Cursor" height="32" /></a>
+<a class="light-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a><a class="dark-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-light.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a>
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
