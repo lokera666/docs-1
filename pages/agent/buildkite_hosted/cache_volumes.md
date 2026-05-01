@@ -29,7 +29,7 @@ Volume paths can be [defined in your `pipeline.yml`](/docs/pipelines/configure/d
 
 When volume paths are defined, the volume is mounted under `/cache/bkcache` in the agent instance. The agent links sub-directories of the volume into the paths specified in the configuration. For example, defining `cache: "node_modules"` in your `pipeline.yml` file will link `./node_modules` to `/cache/bkcache/node_modules` in your agent instance.
 
-Volumes can be created by specifying a name for the volume, which allows you to use multiple volumes in a single pipeline, or have multiple pipelines share a single volume. Note that it is not possible to share a volume across multiple pipelines.
+Volumes can be created by specifying a name for the volume, which allows different steps within a pipeline to each use a different named volume. Each step can only reference one cache volume, and volumes cannot be shared across multiple pipelines.
 
 When requesting a volume, you can specify a size. The volume provided will have a minimum available storage equal to the specified size. In the case of a volume hit (most of the time), the actual volume size is: last used volume size + the specified size.
 
@@ -59,6 +59,9 @@ steps:
       name: "bundle-volume"
 ```
 {: codeblock-file="pipeline.yml"}
+
+> 📘
+> Each step can only reference one cache volume. The `cache` attribute on a step resolves to a single volume regardless of format: a string path, an array of paths, or a map with `paths`, `name`, and `size` attributes. To use multiple named volumes in a pipeline, assign different `name` values in the `cache` configuration of different steps, as shown in the example above.
 
 ### Required attributes
 
