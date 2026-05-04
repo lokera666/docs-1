@@ -113,32 +113,9 @@ Repeat this process for each toolset you want to enable. You'll end up with mult
 
 ## Cursor
 
-You can configure [Cursor](https://cursor.com/) with the remote Buildkite MCP server by adding the relevant configuration to your [Cursor's `mcp.json` file](https://docs.cursor.com/en/context/mcp#using-mcpjson), which is usually located in your home directory's `.cursor` sub-directory.
+You can install the remote Buildkite MCP server in [Cursor](https://cursor.com/) with one click using the deep link button below. Clicking the button will open Cursor and prompt you to confirm the installation on the **MCP & Integrations** page.
 
-<!--
-
-You can conveniently add this configuration using the following button, and then select **Install** on the **MCP & Integrations** page of the Cursor interface.
-
-<a class="inline-block" href="https://cursor.com/en/install-mcp?name=buildkite&config={base64.encoded.config}" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add to Cursor" class="no-decoration" width="160" height="30"></a><br/>
-
-Otherwise, to access the `mcp.json` file through the Cursor app to implement this configuration:
-
-See https://cursor.com/docs/context/mcp/install-links for details.
--->
-
-1. From your **Cursor Settings**, select **MCP & Integrations**.
-1. Under **MCP Tools**, select **Add Custom MCP** to open the `mcp.json` file.
-1. Implement the following update to this file, where if you have other MCP servers configured in Cursor, just add the `"buildkite": { ... }` object to this JSON file.
-
-```json
-{
-  "mcpServers": {
-    "buildkite": {
-      "url": "https://mcp.buildkite.com/mcp"
-    }
-  }
-}
-```
+<a class="light-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-dark.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a><a class="dark-only no-decoration" href="https://cursor.com/en-US/install-mcp?name=buildkite&config=eyJ1cmwiOiJodHRwczovL21jcC5idWlsZGtpdGUuY29tL21jcCJ9" target="_blank" rel="nofollow"><img src="https://cursor.com/deeplink/mcp-install-light.svg" alt="Add Buildkite MCP server to Cursor" height="32" /></a>
 
 <%= render_markdown partial: 'apis/mcp_server/buildkite_oauth_token' %>
 
