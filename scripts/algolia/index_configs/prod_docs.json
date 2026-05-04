@@ -66,6 +66,7 @@
     ["llm", "large language model"],
     ["sla", "service level agreement"],
     ["mcp", "model context protocol"],
+    ["pull-through", "pullthrough", "pull through"],
     ["otel", "opentelemetry", "open telemetry"]
   ]
 }
