@@ -60,7 +60,6 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-> 📘
 > 📘 Cache volume limitations
 > Each step can only reference one cache volume. The `cache` attribute on a step resolves to a single volume regardless of format: a string path, an array of paths, or a map with `paths`, `name`, and `size` attributes. To use multiple named volumes in a pipeline, assign different `name` values in the `cache` configuration of different steps, as shown in the example above.
 
