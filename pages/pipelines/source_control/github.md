@@ -152,7 +152,7 @@ To use this feature, three things need to be in place:
 
 There is no agent-side setting to enable. Once **Build the test merge commit** is selected, Buildkite automatically sets the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable on the jobs of each new pull request build for the pipeline, which tells the agent to check out the merge refspec. Don't set this environment variable yourself when starting agents, as it changes checkout behavior for pipelines that don't have the feature enabled.
 
-The setting applies to all of the pipeline's new pull request builds, regardless of which queues their jobs target. Agents older than v3.105.0 ignore the environment variable and check out the pull request head commit instead, so upgrade all agents that the pipeline's jobs can run on before selecting the checkbox.
+The setting applies to all of the pipeline's new pull request builds, regardless of which queues their jobs target. Agents older than v3.105.0 ignore the environment variable and check out the pull request head commit instead. Upgrade all agents that the pipeline's jobs can run on before selecting the checkbox.
 
 With all three in place, pull request builds for that pipeline fetch and check out the GitHub-computed merge commit automatically. The build's reported commit in the Buildkite interface stays the pull request head commit, so GitHub commit statuses continue to attach to the right commit. The actual merge commit that was checked out is tracked separately on the build.
 
