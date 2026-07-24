@@ -148,7 +148,7 @@ To use this feature, three things need to be in place:
 
 1. Your organization has the feature enabled by Buildkite support.
 1. In the pipeline's GitHub repository settings, **Build the test merge commit** is selected. This checkbox only appears once Buildkite support has enabled the feature for your organization.
-1. The agents running the pipeline's jobs are Buildkite agent [v3.105.0](https://github.com/buildkite/agent/releases/tag/v3.105.0) or newer.
+1. The Buildkite agents running the pipeline's jobs are [v3.105.0](https://github.com/buildkite/agent/releases/tag/v3.105.0) or newer.
 
 There is no agent-side setting to enable. Once **Build the test merge commit** is selected, Buildkite automatically sets the `BUILDKITE_PULL_REQUEST_USING_MERGE_REFSPEC=true` environment variable on the jobs of each new pull request build for the pipeline, which tells the agent to check out the merge refspec. Don't set this environment variable yourself when starting agents, as it changes checkout behavior for pipelines that don't have the feature enabled.
 
